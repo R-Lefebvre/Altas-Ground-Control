@@ -1,8 +1,11 @@
 /*
-RC Joystick PPM (8 channel)
+Altas Ground Control System
+    By Robert Lefebvre
+    
+Adapted from RC Tx Program: RC Joystick PPM (8 channel)
   By Ian Johnston (www.ianjohnston.com)
 
-Version V7.1 (26/07/12)
+Version V0.1 (7/2/2013
   
 DISCLAIMER:
   With this design, including both the hardware & software I offer no guarantee that it is bug
@@ -15,7 +18,7 @@ INFORMATION:
 
 #include "EEPROM.h"
 
-char* Version[]={"Version", "  7.2   "};
+char* Version[]={"Version", "  0.1   "};
 
 // User adjustable settings
 int pulseMin = 700, pulseMid = 1200, pulseMax = 1700;	        // PPM Pulse widths in uS
