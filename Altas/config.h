@@ -25,10 +25,6 @@
 #define FLIGHT_MODE_5_INPUT     37
 #define FLIGHT_MODE_6_INPUT     38
 
-
-
-
-
 #define ANALOG_INPUT_PINCOUNT   7
 #define DIGITAL_INPUT_PINCOUNT  10
 
@@ -67,16 +63,16 @@
 #define FLIGHT_MODE_5   1685
 #deifne FLIGHT_MODE_6   1850
 
+// These are the PWM values that will be sent out when Ch7 switch is high or low
+#define CH7_PWM_LOW     1100
+#define CH7_PWM_HIGH    1900
 
-
-
-
-
-
+// Triple Rate Multipliers
 #define LOW_RATE_MULTIPLIER        0.5
 #define MID_RATE_MULTIPLIER        0.75
 #define HIGH_RATE_MULTIPLIER       1.0
 
+// PPM Stream Generation
 #define PPM_FREQUENCY           22500           // PPM frame length total in uS
 #define PPM_CHANNEL_SPACING     300             // PPM frame padding LOW phase in uS
 
