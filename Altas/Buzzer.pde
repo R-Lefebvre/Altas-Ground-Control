@@ -28,10 +28,10 @@ void buzzer() {
 	
 	if (buzzloop == 1) {  // buzz loop activated
         if (currentMillis - previousMillis < buzzinterval) {  // if true then keep buzzing
-           digitalWrite(outPinBuzz, HIGH);  // Turn on buzzer
+           digitalWrite(PIEZO_OUTPUT_PIN, HIGH);  // Turn on buzzer
            } else {
 	       buzzloop = 0;
-	       digitalWrite(outPinBuzz, LOW);   // stop buzzing
+	       digitalWrite(PIEZO_OUTPUT_PIN, LOW);   // stop buzzing
         }
 	}
 }

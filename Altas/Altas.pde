@@ -17,32 +17,16 @@ INFORMATION:
 */
 
 #include "EEPROM.h"
+#include "defines.h"
+#include "config.h"
 
 char* Version[]={"Version", "  0.1   "};
-
-// User adjustable settings
-int pulseMin = 700, pulseMid = 1200, pulseMax = 1700;	        // PPM Pulse widths in uS
-float RateMultLO = 0.5, RateMultMI = 0.75, RateMultHI = 1.0;    // Rates LO, MI & HI multipliers
-
-// RAW inputs (range is 0-1023 for 10-bit analogue inputs). If your analogue inputs don't quite start
-// at 0vdc, or don't quite hit the 5vdc max then you can tweak the ranges here for best operation.
-// You can also specify the centre positions for the AEL/ELE/RUD sticks.
-int AEL_Min = 0,  AEL_Center = 512, AEL_Max = 1023;             // Aeleron
-int ELE_Min = 0,  ELE_Center = 512, ELE_Max = 1023;             // Elevator
-int RUD_Min = 0,  RUD_Center = 512, RUD_Max = 1023;             // Rudder
-int THR_Min = 27, THR_Max = 1015;                               // Throttle (customized for IanJ's stick)
-int AUX_Min = 0,  AUX_Max = 1023;                               // Aux pot
-int AUX2_Min = 0, AUX2_Max = 1023;                              // Aux2 pot
 
 // Assign analogue & digital I/O pins
 int AI_Raw[7] = { 0, 1, 2, 3, 4, 5, 6 };                // actual analog input pins
 int AI_Val[7];                                          // analogue input vars
 int DI_Raw[10] = { 2, 3, 4, 5, 6, 7, 8, 9, 13, 11 };    // actual digital input pins
 int DI_Val[10];                                         // digital input vars
-unsigned char AI_pincount = 7;   // analogue pin count
-unsigned char DI_pincount = 10;  // digital pin count
-unsigned char outPinPPM = 10;    // PPM output pin (do not change - pin 10 tied to ISR)
-unsigned char outPinBuzz = 12;   // Buzzer output pin
 
 // Various vars
 float RateMult;
@@ -75,31 +59,29 @@ unsigned char slowflag;
 unsigned char TimerStart = 0;    
 int secflag = 0, minflag = 0;
 int PPM_array[9];
-int PPMFreq_uS = 22500;          // PPM frame length total in uS
-int Fixed_uS = 300;              // PPM frame padding LOW phase in uS
 
 
 // *********************** Setup **************************
 void setup() {
 
   // Setup Digital I/O
-  pinMode(outPinPPM, OUTPUT);   // sets as output
-  pinMode(outPinBuzz, OUTPUT);  // sets as output
-  for(char i=0; i<DI_pincount; i++) { pinMode(DI_Raw[i], INPUT); }      // set digital inputs
-  for(char i=0; i<DI_pincount; i++) { digitalWrite(DI_Raw[i], HIGH); }  // turn on pull-up resistors
+  pinMode(PPM_OUTPUT_PIN, OUTPUT);   // sets as output
+  pinMode(PIEZO_OUTPUT_PIN, OUTPUT);  // sets as output
+  for(byte i=0; i<DIGITAL_INPUT_PINCOUNT; i++) { pinMode(DI_Raw[i], INPUT); }      // set digital inputs
+  for(byte i=0; i<DIGITAL_INPUT_PINCOUNT; i++) { digitalWrite(DI_Raw[i], HIGH); }  // turn on pull-up resistors
 
   // Beep-Beep
-  digitalWrite(outPinBuzz, HIGH);
+  digitalWrite(PIEZO_OUTPUT_PIN, HIGH);
   delay(50);
-  digitalWrite(outPinBuzz, LOW);
+  digitalWrite(PIEZO_OUTPUT_PIN, LOW);
   delay(50);
-  digitalWrite(outPinBuzz, HIGH);
+  digitalWrite(PIEZO_OUTPUT_PIN, HIGH);
   delay(50);
-  digitalWrite(outPinBuzz, LOW);
+  digitalWrite(PIEZO_OUTPUT_PIN, LOW);
   
   // Initialize PPM channel array
   char i=0;
-  for(i=0; i<8; i++) { PPM_array[i] = pulseMin; }
+  for(i=0; i<8; i++) { PPM_array[i] = PWM_MIN; }
   PPM_array[i] = -1;   // Mark end
 
   // Initialise ISR Timer 1 - PPM generation
@@ -108,8 +90,8 @@ void setup() {
   TCCR1C = B00000000;  // All set to 0
   TIMSK1 = B00000010;  // Interrupt on compare B
   TIFR1  = B00000010;  // Interrupt on compare B
-  OCR1A = PPMFreq_uS;  // PPM frequency
-  OCR1B = Fixed_uS;    // PPM off time (lo padding)
+  OCR1A = PPM_FREQUENCY;  // PPM frequency
+  OCR1B = PPM_CHANNEL_SPACING;    // PPM off time (lo padding)
   
   // Initialise ISR Timer 2 - Subroutine timing
   // Interrupt rate =  16MHz / (prescaler * (255 - TCNT2))

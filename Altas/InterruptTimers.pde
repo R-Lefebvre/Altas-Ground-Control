@@ -16,7 +16,7 @@ ISR(TIMER1_COMPA_vect) {
     ACC_PPM_length += PPM_len;              // Add pulse length to accumulator
   } else {
     PPM_pointer = PPM_array;                // Reset table position pointer
-    OCR1A = PPMFreq_uS - ACC_PPM_length;    // Calculate final sync pulse length
+    OCR1A = PPM_FREQUENCY - ACC_PPM_length;    // Calculate final sync pulse length
     ACC_PPM_length = 0;                     // Reset accumulator
   }
 }

@@ -61,7 +61,7 @@ void HiMiLoRates() {
         EEpromread();
         TrRudEEprom = Epromvar; 
 		
-		RateMult = RateMultHI;
+		RateMult = HIGH_RATE_MULTIPLIER;
 	}
 	
     if (Timermode == 0 && RatesHIMIDLOEEprom == 2 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1 && ModeTest == 0) {      // MID rate
@@ -83,7 +83,7 @@ void HiMiLoRates() {
         EEpromread();
         TrRudEEprom = Epromvar; 
 
-		RateMult = RateMultMI;
+		RateMult = MID_RATE_MULTIPLIER;
     }
 	
     if (Timermode == 0 && RatesHIMIDLOEEprom == 1 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1 && ModeTest == 0) {      // LO rate
@@ -105,7 +105,7 @@ void HiMiLoRates() {
         EEpromread();
         TrRudEEprom = Epromvar; 
 
-		RateMult = RateMultLO;
+		RateMult = LOW_RATE_MULTIPLIER;
     }
 }
 
@@ -124,19 +124,19 @@ void HiMiLoRatesSetup() {
 	 EpromPointer = 0;
 	 cursorSet(1,2);
      Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
-	 RateMult = RateMultLO;
+	 RateMult = LOW_RATE_MULTIPLIER;
   }
   if (RatesHIMIDLOEEprom == 2) {  // MID rate
 	 EpromPointer = 3; 
 	 cursorSet(1,2);
      Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);	
-     RateMult = RateMultMI;	 
+     RateMult = MID_RATE_MULTIPLIER;	 
   }
   if (RatesHIMIDLOEEprom == 3) {  // HI rate
 	 EpromPointer = 6; 
 	 cursorSet(1,2);
      Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
-	 RateMult = RateMultHI;
+	 RateMult = HIGH_RATE_MULTIPLIER;
   }
   
   Epromvar = TrAelEEprom;

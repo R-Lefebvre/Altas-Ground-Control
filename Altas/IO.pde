@@ -25,7 +25,7 @@ int Maxmult;
 void readdigital() {
 
    // Read input pins into var array
-   for(char i=0; i<DI_pincount; i++) {  
+   for(byte i=0; i<DIGITAL_INPUT_PINCOUNT; i++) {  
 	  DI_Val[i] = digitalRead(DI_Raw[i]);
    }  
 
@@ -64,16 +64,16 @@ void readdigital() {
 
    // Aux Switch 1	
    if (DI_Val[8] == 1) {
-      Auxsw_uS = pulseMax;
+      Auxsw_uS = PWM_MAX;
    } else {
-	  Auxsw_uS = pulseMin;
+	  Auxsw_uS = PWM_MIN;
    }
 
    // Aux Switch 2
    if (DI_Val[9] == 1) {
-      Auxsw2_uS = pulseMax;
+      Auxsw2_uS = PWM_MAX;
    } else {
-	  Auxsw2_uS = pulseMin;
+	  Auxsw2_uS = PWM_MIN;
    }   
    
 }
@@ -83,7 +83,7 @@ void readdigital() {
 void readanalogue() {
 
    // Read all input pins into AI var array 1
-   for(byte i=0; i<AI_pincount; i++) {  
+   for(byte i=0; i<ANALOG_INPUT_PINCOUNT; i++) {  
 	  AI_Val[i] = analogRead(AI_Raw[i]);
    } 
  
@@ -105,36 +105,36 @@ void readanalogue() {
    }
    
    // Incorporate Rate Multiplier then scale inputs to produce PPM values
-   Minmult = (pulseMid - (RateMult * ((pulseMax - pulseMin) / 2)));  // Generate scaled graph depending on current RateMult
-   Maxmult = (pulseMid + (RateMult * ((pulseMax - pulseMin) / 2)));
+   Minmult = (PWM_MID - (RateMult * ((PWM_MAX - PWM_MIN) / 2)));  // Generate scaled graph depending on current RateMult
+   Maxmult = (PWM_MID + (RateMult * ((PWM_MAX - PWM_MIN) / 2)));
    
    if (ReverseElevator == 0) {
-     if (AI_Val[0] < ELE_Center) { AI_Eleva = map(AI_Val[0], ELE_Min, ELE_Center-1, Minmult, pulseMid) + TrEleEEprom; }          // Elevator / Aeleron 2
-     if (AI_Val[0] >= ELE_Center) { AI_Eleva = map(AI_Val[0], ELE_Center, ELE_Max, pulseMid + 1, Maxmult) + TrEleEEprom; }       // Elevator / Aeleron 2
+     if (AI_Val[0] < PITCH_MID) { AI_Eleva = map(AI_Val[0], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + TrEleEEprom; }          // Elevator / Aeleron 2
+     if (AI_Val[0] >= PITCH_MID) { AI_Eleva = map(AI_Val[0], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + TrEleEEprom; }       // Elevator / Aeleron 2
    } else {
-     if (AI_Val[0] < ELE_Center) { AI_Eleva = map(AI_Val[0], ELE_Max, ELE_Center, Minmult, pulseMid) + TrEleEEprom; }            // Elevator / Aeleron 2 (reversed)
-     if (AI_Val[0] >= ELE_Center) { AI_Eleva = map(AI_Val[0], ELE_Center-1, ELE_Min, pulseMid + 1, Maxmult) + TrEleEEprom; }     // Elevator / Aeleron 2 (reversed)
+     if (AI_Val[0] < PITCH_MID) { AI_Eleva = map(AI_Val[0], PITCH_MAX, PITCH_MID, Minmult, PWM_MID) + TrEleEEprom; }            // Elevator / Aeleron 2 (reversed)
+     if (AI_Val[0] >= PITCH_MID) { AI_Eleva = map(AI_Val[0], PITCH_MID-1, PITCH_MIN, PWM_MID + 1, Maxmult) + TrEleEEprom; }     // Elevator / Aeleron 2 (reversed)
    }
    
    if (ReverseAeleron == 0) {  
-     if (AI_Val[1] < AEL_Center) { AI_Aeler = map(AI_Val[1], AEL_Min, AEL_Center-1, Minmult, pulseMid) + TrAelEEprom; }          // Aeleron 1
-     if (AI_Val[1] >= AEL_Center) { AI_Aeler = map(AI_Val[1], AEL_Center, AEL_Max, pulseMid + 1, Maxmult) + TrAelEEprom; }       // Aeleron 1
+     if (AI_Val[1] < ROLL_MID) { AI_Aeler = map(AI_Val[1], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + TrAelEEprom; }          // Aeleron 1
+     if (AI_Val[1] >= ROLL_MID) { AI_Aeler = map(AI_Val[1], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + TrAelEEprom; }       // Aeleron 1
    } else {   
-     if (AI_Val[1] < AEL_Center) { AI_Aeler = map(AI_Val[1], AEL_Max, AEL_Center, Minmult, pulseMid) + TrAelEEprom; }            // Aeleron 1 (reversed)
-     if (AI_Val[1] >= AEL_Center) { AI_Aeler = map(AI_Val[1], AEL_Center-1, AEL_Min, pulseMid + 1, Maxmult) + TrAelEEprom; }     // Aeleron 1 (reversed)
+     if (AI_Val[1] < ROLL_MID) { AI_Aeler = map(AI_Val[1], ROLL_MAX, ROLL_MID, Minmult, PWM_MID) + TrAelEEprom; }            // Aeleron 1 (reversed)
+     if (AI_Val[1] >= ROLL_MID) { AI_Aeler = map(AI_Val[1], ROLL_MID-1, ROLL_MIN, PWM_MID + 1, Maxmult) + TrAelEEprom; }     // Aeleron 1 (reversed)
    }
 
    if (ReverseRudder == 0) {   
-     if (AI_Val[2] < RUD_Center) { AI_Rudde = map(AI_Val[2], RUD_Min, RUD_Center-1, Minmult, pulseMid) + TrRudEEprom; }          // Rudder  
-     if (AI_Val[2] >= RUD_Center) { AI_Rudde = map(AI_Val[2], RUD_Center, RUD_Max, pulseMid + 1, Maxmult) + TrRudEEprom; }       // Rudder  
+     if (AI_Val[2] < YAW_MID) { AI_Rudde = map(AI_Val[2], YAW_MIN, YAW_MID-1, Minmult, PWM_MID) + TrRudEEprom; }          // Rudder  
+     if (AI_Val[2] >= YAW_MID) { AI_Rudde = map(AI_Val[2], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult) + TrRudEEprom; }       // Rudder  
    } else {
-     if (AI_Val[2] < RUD_Center) { AI_Rudde = map(AI_Val[2], RUD_Max, RUD_Center, Minmult, pulseMid) + TrRudEEprom; }            // Rudder (reversed)
-     if (AI_Val[2] >= RUD_Center) { AI_Rudde = map(AI_Val[2], RUD_Center-1, RUD_Min, pulseMid + 1, Maxmult) + TrRudEEprom; }     // Rudder (reversed)
+     if (AI_Val[2] < YAW_MID) { AI_Rudde = map(AI_Val[2], YAW_MAX, YAW_MID, Minmult, PWM_MID) + TrRudEEprom; }            // Rudder (reversed)
+     if (AI_Val[2] >= YAW_MID) { AI_Rudde = map(AI_Val[2], YAW_MID-1, YAW_MIN, PWM_MID + 1, Maxmult) + TrRudEEprom; }     // Rudder (reversed)
    }
    
-   AI_Throt = map(AI_Val[3], THR_Min, THR_Max, pulseMin, pulseMax) + 0;       // Throttle
-   AI_Auxpot = map(AI_Val[4], AUX_Min, AUX_Max, pulseMax, pulseMin) + 0;      // Aux pot 1
-   AI_Auxpot2 = map(AI_Val[6], AUX2_Min, AUX2_Max, pulseMax, pulseMin) + 0;   // Aux pot 2
+   AI_Throt = map(AI_Val[3], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX) + 0;       // Throttle
+   AI_Auxpot = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MAX, PWM_MIN) + 0;      // Aux pot 1
+   AI_Auxpot2 = map(AI_Val[6], CH8_MIN, CH8_MAX, PWM_MAX, PWM_MIN) + 0;   // Aux pot 2
 }
 
 
@@ -144,32 +144,32 @@ void checklimitsmodessetouputs() {
    // Exponential Aelerons
    if (ReverseAeleron == 0) {
        if (ExpoModeAEL == 1) {
-           if (AI_Val[1] < AEL_Center ){
-	          AI_AelerF = AI_Aeler - pulseMid;  // zero
+           if (AI_Val[1] < ROLL_MID ){
+	          AI_AelerF = AI_Aeler - PWM_MID;  // zero
 	          AI_AelerF = ((((AI_AelerF*-1)/10) * ((AI_AelerF*-1)/10))) * -1;  // low side calc
 		      AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + pulseMid;
+	          AI_Aeler = AI_AelerF + PWM_MID;
            }
-           if (AI_Val[1] >= AEL_Center ){
-              AI_AelerF = AI_Aeler - pulseMid;  // zero
+           if (AI_Val[1] >= ROLL_MID ){
+              AI_AelerF = AI_Aeler - PWM_MID;  // zero
 	          AI_AelerF = (AI_AelerF/10) * (AI_AelerF/10);  // high side calc
 			  AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + pulseMid;
+	          AI_Aeler = AI_AelerF + PWM_MID;
            }
        }
    } else {
         if (ExpoModeAEL == 1) {
-           if (AI_Val[1] < AEL_Center ){
-              AI_AelerF = AI_Aeler - pulseMid;  // zero
+           if (AI_Val[1] < ROLL_MID ){
+              AI_AelerF = AI_Aeler - PWM_MID;  // zero
 	          AI_AelerF = (AI_AelerF/10) * (AI_AelerF/10);  // high side calc
 			  AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + pulseMid;
+	          AI_Aeler = AI_AelerF + PWM_MID;
            }
-           if (AI_Val[1] >= AEL_Center ){
-	          AI_AelerF = AI_Aeler - pulseMid;  // zero
+           if (AI_Val[1] >= ROLL_MID ){
+	          AI_AelerF = AI_Aeler - PWM_MID;  // zero
 	          AI_AelerF = ((((AI_AelerF*-1)/10) * ((AI_AelerF*-1)/10))) * -1;  // low side calc
 		      AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + pulseMid;
+	          AI_Aeler = AI_AelerF + PWM_MID;
            }
        }  
    
@@ -178,32 +178,32 @@ void checklimitsmodessetouputs() {
    // Exponential Elevators
    if (ReverseElevator == 0) {
        if (ExpoModeELE == 1) {
-           if (AI_Val[0] < ELE_Center ){
-	          AI_ElevaF = AI_Eleva - pulseMid;  // zero
+           if (AI_Val[0] < PITCH_MID ){
+	          AI_ElevaF = AI_Eleva - PWM_MID;  // zero
 	          AI_ElevaF = ((((AI_ElevaF*-1)/10) * ((AI_ElevaF*-1)/10))) * -1;  // low side calc
 		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + pulseMid;
+	          AI_Eleva = AI_ElevaF + PWM_MID;
            }
-           if (AI_Val[0] >= ELE_Center ){
-              AI_ElevaF = AI_Eleva - pulseMid;  // zero
+           if (AI_Val[0] >= PITCH_MID ){
+              AI_ElevaF = AI_Eleva - PWM_MID;  // zero
 	          AI_ElevaF = (AI_ElevaF/10) * (AI_ElevaF/10);  // high side calc
 		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + pulseMid;
+	          AI_Eleva = AI_ElevaF + PWM_MID;
            }
        }
    } else {
        if (ExpoModeELE == 1) {
-           if (AI_Val[0] < ELE_Center ){
-              AI_ElevaF = AI_Eleva - pulseMid;  // zero
+           if (AI_Val[0] < PITCH_MID ){
+              AI_ElevaF = AI_Eleva - PWM_MID;  // zero
 	          AI_ElevaF = (AI_ElevaF/10) * (AI_ElevaF/10);  // high side calc
 		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + pulseMid;
+	          AI_Eleva = AI_ElevaF + PWM_MID;
            }
-           if (AI_Val[0] >= ELE_Center ){
-	          AI_ElevaF = AI_Eleva - pulseMid;  // zero
+           if (AI_Val[0] >= PITCH_MID ){
+	          AI_ElevaF = AI_Eleva - PWM_MID;  // zero
 	          AI_ElevaF = ((((AI_ElevaF*-1)/10) * ((AI_ElevaF*-1)/10))) * -1;  // low side calc
 		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + pulseMid;
+	          AI_Eleva = AI_ElevaF + PWM_MID;
            }
        }   
    }
@@ -211,32 +211,32 @@ void checklimitsmodessetouputs() {
    // Exponential Rudder
    if (ReverseRudder == 0) {
        if (ExpoModeRUD == 1) {
-           if (AI_Val[2] < RUD_Center ){
-	          AI_RuddeF = AI_Rudde - pulseMid;  // zero
+           if (AI_Val[2] < YAW_MID ){
+	          AI_RuddeF = AI_Rudde - PWM_MID;  // zero
 	          AI_RuddeF = ((((AI_RuddeF*-1)/10) * ((AI_RuddeF*-1)/10))) * -1;  // low side calc
 		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + pulseMid;
+	          AI_Rudde = AI_RuddeF + PWM_MID;
            }
-           if (AI_Val[2] >= RUD_Center ){
-              AI_RuddeF = AI_Rudde - pulseMid;  // zero
+           if (AI_Val[2] >= YAW_MID ){
+              AI_RuddeF = AI_Rudde - PWM_MID;  // zero
 	          AI_RuddeF = (AI_RuddeF/10) * (AI_RuddeF/10);  // high side calc
 		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + pulseMid;
+	          AI_Rudde = AI_RuddeF + PWM_MID;
            }
 	   }
    } else { 
        if (ExpoModeRUD == 1) {
-           if (AI_Val[2] < RUD_Center ){
-              AI_RuddeF = AI_Rudde - pulseMid;  // zero
+           if (AI_Val[2] < YAW_MID ){
+              AI_RuddeF = AI_Rudde - PWM_MID;  // zero
 	          AI_RuddeF = (AI_RuddeF/10) * (AI_RuddeF/10);  // high side calc
 		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + pulseMid;
+	          AI_Rudde = AI_RuddeF + PWM_MID;
            }
-           if (AI_Val[2] >= RUD_Center ){
-	          AI_RuddeF = AI_Rudde - pulseMid;  // zero
+           if (AI_Val[2] >= YAW_MID ){
+	          AI_RuddeF = AI_Rudde - PWM_MID;  // zero
 	          AI_RuddeF = ((((AI_RuddeF*-1)/10) * ((AI_RuddeF*-1)/10))) * -1;  // low side calc
 		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + pulseMid;
+	          AI_Rudde = AI_RuddeF + PWM_MID;
            }
 	   }
    }   
@@ -244,32 +244,32 @@ void checklimitsmodessetouputs() {
    // Flying Wing - Elevon mode assumes Aeleron servo's mounted mirror image to each other
    if (ElevonMode == 1) {
       AI_Aeler2 = AI_Aeler;              // Generate 2nd Aeleron var
-   	  AI_Elevon = AI_Eleva - pulseMid;   // Copy elevator input off & zero it, this becomes the modifier for the 2 Aelerons
+   	  AI_Elevon = AI_Eleva - PWM_MID;   // Copy elevator input off & zero it, this becomes the modifier for the 2 Aelerons
 	  AI_Aeler = AI_Aeler + AI_Elevon;   // Output - Aeleron 1 goes up
       AI_Eleva = AI_Aeler2 - AI_Elevon;  // Output - Aeleron 2 goes down  (inverted servo) 
    }
 
    // Check limits
-   if (AI_Aeler < pulseMin) AI_Aeler = pulseMin;
-   if (AI_Aeler > pulseMax) AI_Aeler = pulseMax;   
-   if (AI_Eleva < pulseMin) AI_Eleva = pulseMin;
-   if (AI_Eleva > pulseMax) AI_Eleva = pulseMax; 
-   if (AI_Throt < pulseMin) AI_Throt = pulseMin;
-   if (AI_Throt > pulseMax) AI_Throt = pulseMax; 
-   if (AI_Rudde < pulseMin) AI_Rudde = pulseMin;
-   if (AI_Rudde > pulseMax) AI_Rudde = pulseMax;   
-   if (AI_Auxpot < pulseMin) AI_Auxpot = pulseMin;
-   if (AI_Auxpot > pulseMax) AI_Auxpot = pulseMax;  
-   if (AI_Auxpot2 < pulseMin) AI_Auxpot2 = pulseMin;
-   if (AI_Auxpot2 > pulseMax) AI_Auxpot2 = pulseMax;  
+   if (AI_Aeler < PWM_MIN) AI_Aeler = PWM_MIN;
+   if (AI_Aeler > PWM_MAX) AI_Aeler = PWM_MAX;   
+   if (AI_Eleva < PWM_MIN) AI_Eleva = PWM_MIN;
+   if (AI_Eleva > PWM_MAX) AI_Eleva = PWM_MAX; 
+   if (AI_Throt < PWM_MIN) AI_Throt = PWM_MIN;
+   if (AI_Throt > PWM_MAX) AI_Throt = PWM_MAX; 
+   if (AI_Rudde < PWM_MIN) AI_Rudde = PWM_MIN;
+   if (AI_Rudde > PWM_MAX) AI_Rudde = PWM_MAX;   
+   if (AI_Auxpot < PWM_MIN) AI_Auxpot = PWM_MIN;
+   if (AI_Auxpot > PWM_MAX) AI_Auxpot = PWM_MAX;  
+   if (AI_Auxpot2 < PWM_MIN) AI_Auxpot2 = PWM_MIN;
+   if (AI_Auxpot2 > PWM_MAX) AI_Auxpot2 = PWM_MAX;  
    
    // Load PPM channel array with final channel values
-   PPM_array[0] = AI_Aeler + Fixed_uS;
-   PPM_array[1] = AI_Eleva + Fixed_uS;
-   PPM_array[2] = AI_Throt + Fixed_uS;
-   PPM_array[3] = AI_Rudde + Fixed_uS;
-   PPM_array[4] = Auxsw_uS + Fixed_uS;
-   PPM_array[5] = AI_Auxpot + Fixed_uS;
-   PPM_array[6] = AI_Auxpot2 + Fixed_uS;
-   PPM_array[7] = Auxsw2_uS + Fixed_uS;
+   PPM_array[0] = AI_Aeler + PPM_CHANNEL_SPACING;
+   PPM_array[1] = AI_Eleva + PPM_CHANNEL_SPACING;
+   PPM_array[2] = AI_Throt + PPM_CHANNEL_SPACING;
+   PPM_array[3] = AI_Rudde + PPM_CHANNEL_SPACING;
+   PPM_array[4] = Auxsw_uS + PPM_CHANNEL_SPACING;
+   PPM_array[5] = AI_Auxpot + PPM_CHANNEL_SPACING;
+   PPM_array[6] = AI_Auxpot2 + PPM_CHANNEL_SPACING;
+   PPM_array[7] = Auxsw2_uS + PPM_CHANNEL_SPACING;
 }

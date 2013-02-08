@@ -16,12 +16,12 @@ void batterymonitor() {
     AI_Batte = AI_Val[5] / BatteryMult;
 
 	if (AI_Batte > LipoMin) {            // Compare battery with Lipo alarm setting
-        digitalWrite(outPinBuzz, LOW);   // Turn off buzzer
+        digitalWrite(PIEZO_OUTPUT_PIN, LOW);   // Turn off buzzer
     }
     if (AI_Batte < LipoMin && slowflag == 1) {
-	    digitalWrite(outPinBuzz, HIGH);  // Turn on buzzer
+	    digitalWrite(PIEZO_OUTPUT_PIN, HIGH);  // Turn on buzzer
     } else {
-	    digitalWrite(outPinBuzz, LOW);   // Turn off buzzer
+	    digitalWrite(PIEZO_OUTPUT_PIN, LOW);   // Turn off buzzer
 	}
 	
 	AI_Battefloat = AI_Batte * 100;      // map doesn't work with float, so mult x100 gains 2 dp's to get around this
