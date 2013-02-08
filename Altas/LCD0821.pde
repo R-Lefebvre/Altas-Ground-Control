@@ -13,18 +13,6 @@ void clearLCD(){
   Serial.write(byte(88));
 }
 
-// start a new line
-void newLine() { 
-  Serial.write(byte(254));
-  Serial.write(byte(10));
-}
-
-// move the cursor to the home position
-void cursorHome(){
-  Serial.write(byte(254));
-  Serial.write(byte(72));
-}
-
 // move the cursor to a specific place
 // e.g.: cursorSet(3,2) sets the cursor to x = 3 and y = 2
 void cursorSet(int xpos, int ypos){  
@@ -38,90 +26,6 @@ void cursorSet(int xpos, int ypos){
 void backSpace() { 
   Serial.write(byte(254));
   Serial.write(byte(8));
-}
-
-// move cursor left
-void cursorLeft(){    
-  Serial.write(byte(254));
-  Serial.write(byte(76));  
-}
-
-// move cursor right
-void cursorRight(){
-  Serial.write(byte(254));
-  Serial.write(byte(77));  
-}
-
-// set LCD remember, 0 (no) or 1 (yes)
-void setRemember(int remember){
-  Serial.write(byte(254));
-  Serial.write(byte(147)); 
-  Serial.write(remember);  
-}
-
-// set LCD data lock, 0 = unlock
-void setDatalock(int datalock){
-  Serial.write(byte(254));
-  Serial.write(byte(202));
-  Serial.write(byte(245));
-  Serial.write(byte(160));
-  Serial.write(datalock);  
-}
-
-// set LCD data lock set n save
-void setDatalocksetnsave(int datalocksetnsave){
-  Serial.write(byte(254));
-  Serial.write(byte(203));
-  Serial.write(byte(245));
-  Serial.write(byte(160));
-  Serial.write(datalocksetnsave);
-}
-
-// set LCD startup screen
-void setStartupLCD(){
-  Serial.write(byte(254));
-  Serial.write(byte(64));
-  Serial.write("HELLO...");  
-}
-
-// set LCD Init medium chars
-void setInitMediumLCD(){
-  Serial.write(byte(254));
-  Serial.write(byte(109));  
-}
-
-// set LCD read version number
-void setReadVersionNoLCD(){
-  Serial.write(byte(254));
-  Serial.write(byte(54));  
-}
-
-// set LCD read lcd type
-void setReadModuleTypeLCD(){
-  Serial.write(byte(254));
-  Serial.write(byte(55));
-}
-
-// set LCD Init horizontal bars
-void setHorizontalBarsLCD(){
-  Serial.write(byte(254));
-  Serial.write(byte(104));  
-}
-
-// set LCD Place medium chars
-void setPlaceMediumLCD(){
-  Serial.write(byte(254));
-  Serial.write(byte(111));
-  Serial.write(byte(1));
-  Serial.write(byte(1));
-  Serial.write("A"); // testing
-}
-
-// set LCD contrast 0-255
-void setContrast(int contrast){
-  Serial.write(byte(254));
-  Serial.write(byte(80));
-  Serial.write(contrast);
 }
 
 // set LCD brightness 0-255
@@ -155,12 +59,6 @@ void autoscrolloff(){
 void autolinewrapoff(){
   Serial.write(byte(254));
   Serial.write(byte(68));
-}
-
-// turn on auto line wrap
-void autolinewrapon(){
-  Serial.write(byte(254));
-  Serial.write(byte(66));
 }
 
 // turn off block cursor
