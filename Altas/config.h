@@ -6,7 +6,7 @@
 // Hardware Definitions
 // Outputs:
 #define PPM_OUTPUT_PIN          10
-#define PIEZO_OUTPUT_PIN        49
+
 // Ch5 Flight Mode LEDs
 #define FLIGHT_MODE_1_LED       39
 #define FLIGHT_MODE_2_LED       40
@@ -15,8 +15,25 @@
 #define FLIGHT_MODE_5_LED       43
 #define FLIGHT_MODE_6_LED       44
 
+#define CH7_SWITCH_LED          47
+#define CH8_SWITCH_LED          48
+#define PIEZO_OUTPUT_PIN        49
+
+
 
 // Inputs:
+#define HAT_SWITCH_UP_PIN       22
+#define HAT_SWITCH_DOWN_PIN     23
+#define HAT_SWITCH_LEFT_PIN     24
+#define HAT_SWITCH_RIGHT_PIN    25
+#define MFD_BUTTON_ENTER_PIN    26
+#define MFD_BUTTON_BACK_PIN     27
+#define MFD_BUTTON_MODE_PIN     28
+#define CH7_SWITCH_PIN          29
+#define CH8_SWITCH_PIN          30
+#define AUX1_SWITCH_PIN         31
+#define AUX2_SWITCH_PIN         32
+
 // Ch5 Flight Mode Button Inputs
 #define FLIGHT_MODE_1_INPUT     33
 #define FLIGHT_MODE_2_INPUT     34
@@ -61,7 +78,7 @@
 #define FLIGHT_MODE_3   1425
 #define FLIGHT_MODE_4   1555
 #define FLIGHT_MODE_5   1685
-#deifne FLIGHT_MODE_6   1850
+#define FLIGHT_MODE_6   1850
 
 // These are the PWM values that will be sent out when Ch7 switch is high or low
 #define CH7_PWM_LOW     1100
