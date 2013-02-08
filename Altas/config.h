@@ -4,8 +4,29 @@
 #include "defines.h"
 
 // Hardware Definitions
+// Outputs:
 #define PPM_OUTPUT_PIN          10
-#define PIEZO_OUTPUT_PIN        12
+#define PIEZO_OUTPUT_PIN        49
+// Ch5 Flight Mode LEDs
+#define FLIGHT_MODE_1_LED       39
+#define FLIGHT_MODE_2_LED       40
+#define FLIGHT_MODE_3_LED       41
+#define FLIGHT_MODE_4_LED       42
+#define FLIGHT_MODE_5_LED       43
+#define FLIGHT_MODE_6_LED       44
+
+
+// Inputs:
+// Ch5 Flight Mode Button Inputs
+#define FLIGHT_MODE_1_INPUT     33
+#define FLIGHT_MODE_2_INPUT     34
+#define FLIGHT_MODE_3_INPUT     35
+#define FLIGHT_MODE_4_INPUT     36
+#define FLIGHT_MODE_5_INPUT     37
+#define FLIGHT_MODE_6_INPUT     38
+
+
+
 
 
 #define ANALOG_INPUT_PINCOUNT   7
@@ -35,6 +56,22 @@
 #define CH6_MAX         1023
 #define CH8_MIN         0
 #define CH8_MAX         1023
+
+// Ch5 Flight Mode Selections
+// These are the PWM values that will be sent out on Ch5 when the operator requests a given flight mode
+
+#define FLIGHT_MODE_1   1150
+#define FLIGHT_MODE_2   1295
+#define FLIGHT_MODE_3   1425
+#define FLIGHT_MODE_4   1555
+#define FLIGHT_MODE_5   1685
+#deifne FLIGHT_MODE_6   1850
+
+
+
+
+
+
 
 #define LOW_RATE_MULTIPLIER        0.5
 #define MID_RATE_MULTIPLIER        0.75
