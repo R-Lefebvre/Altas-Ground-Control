@@ -65,6 +65,7 @@ int PPM_array[9];
 void setup() {
 
   init_input_output();             // Function to initialize the Input/Output
+  bulb_check(1);
   init_beep();                     // Function to beep twice on boot-up
   init_PPM_array();                // Function to initialize the PPM Channel Array
   init_PPM_gen();                  // Function to initialize the PPM Generator
@@ -76,6 +77,7 @@ void setup() {
   InvertChannelsSetup();           // Pull AEL Invert Mode from EEprom   
   currentMillis = millis();        // Prepare keypress buzzer timing
   previousMillis = millis();
+  bulb_check(0);
 }
 
 

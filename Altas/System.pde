@@ -14,12 +14,18 @@ void init_beep(){
 
 
 // Function to initialize the Input/Output
-
 void init_input_output(){
-    pinMode(PPM_OUTPUT_PIN, OUTPUT);                                                  // sets as output
-    pinMode(PIEZO_OUTPUT_PIN, OUTPUT);                                                // sets as output
-    for(byte i=0; i<DIGITAL_INPUT_PINCOUNT; i++) { pinMode(DI_Raw[i], INPUT); }       // set digital inputs
-    for(byte i=0; i<DIGITAL_INPUT_PINCOUNT; i++) { digitalWrite(DI_Raw[i], HIGH); }   // turn on pull-up resistors
+    pinMode(PPM_OUTPUT_PIN, OUTPUT);                                                  
+    pinMode(FLIGHT_MODE_1_LED_PIN, OUTPUT);
+    pinMode(FLIGHT_MODE_2_LED_PIN, OUTPUT);
+    pinMode(FLIGHT_MODE_3_LED_PIN, OUTPUT);
+    pinMode(FLIGHT_MODE_4_LED_PIN, OUTPUT);
+    pinMode(FLIGHT_MODE_5_LED_PIN, OUTPUT);
+    pinMode(FLIGHT_MODE_6_LED_PIN, OUTPUT);
+    pinMode(CH7_SWITCH_LED_PIN, OUTPUT);
+    pinMode(CH8_SWITCH_LED_PIN, OUTPUT);
+    pinMode(PIEZO_OUTPUT_PIN, OUTPUT);                                                
+    
 }
 
 
@@ -56,4 +62,17 @@ void init_PPM_gen(){
     TCCR2A = B00000000;   // Timer2 Control Reg A: Wave Gen Mode normal
     TCCR2B = B00000111;   // Timer2 Control Reg B: Timer Prescaler set to 1024
 }
+
+// Function to turn on/off all the LED outputs
+void bulb_check(bool state){
+    digitalWrite(FLIGHT_MODE_1_LED_PIN, state);
+    digitalWrite(FLIGHT_MODE_2_LED_PIN, state);
+    digitalWrite(FLIGHT_MODE_3_LED_PIN, state);
+    digitalWrite(FLIGHT_MODE_4_LED_PIN, state);
+    digitalWrite(FLIGHT_MODE_5_LED_PIN, state);
+    digitalWrite(FLIGHT_MODE_6_LED_PIN, state);
+    digitalWrite(CH7_SWITCH_LED_PIN, state);
+    digitalWrite(CH8_SWITCH_LED_PIN, state);
+}
+
 
