@@ -56,3 +56,4 @@ void init_PPM_gen(){
     TCCR2A = B00000000;   // Timer2 Control Reg A: Wave Gen Mode normal
     TCCR2B = B00000111;   // Timer2 Control Reg B: Timer Prescaler set to 1024
 }
+
