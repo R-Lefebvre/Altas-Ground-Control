@@ -75,4 +75,18 @@ void bulb_check(bool state){
     digitalWrite(CH8_SWITCH_LED_PIN, state);
 }
 
+void serial_debug(void){
+
+    Serial.println("Raw Input Values");
+    for(byte i=0; i<6; i++) {
+      Serial.print(i+1);
+      Serial.print("  Int:");
+	  Serial.print(AI_Val[i]);
+      Serial.print("  PWM:");
+      Serial.println(PPM_array[i]);
+   }
+    
+    
+}
+
 

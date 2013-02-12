@@ -69,6 +69,7 @@ void setup() {
   init_beep();                     // Function to beep twice on boot-up
   init_PPM_array();                // Function to initialize the PPM Channel Array
   init_PPM_gen();                  // Function to initialize the PPM Generator
+  Serial.begin(19200);             // For serial debugging
   ParallaxLCDSetup();
   HiMiLoRatesSetup();              // Pull Rates & Trim settings from EEprom
   ElevonModeSetup();               // Pull Elevon Mode from EEprom
@@ -116,6 +117,7 @@ void loop() { // Main loop
       if (tick2 >= 160) {  // 1000mS
 	      secflag++;
 	      tick2 = 0;
+          serial_debug();
       } 
       if (secflag >= 60) {
 	      secflag = 0;
