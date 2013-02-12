@@ -9,7 +9,7 @@ char* MenuRatesHIMIDLO[]={"        ", "Rates=LO", "Rates=MI", "Rates=HI"};
 // Switch Rates
 void HiMiLoRates() {
 
-    if (DI_Onup_d == 1 && ModeDispSet == 0 && ModeTest == 0 && Timermode == 0) {      // LO/MI/HI selection & save
+    if (DI_Onup_d == 1 && ModeDispSet == 0 && Timermode == 0) {      // LO/MI/HI selection & save
 	    DI_Onup_d = 0;  // reset onup
 		buzzeractivate = 1;         // activate buzzer
 		RatesHIMIDLOEEprom = RatesHIMIDLOEEprom + 1;
@@ -22,7 +22,7 @@ void HiMiLoRates() {
 		sei();
     }
 
-	if (Timermode == 0 && ModeDispSet == 0 && ChangeMode == 1 && ModeTest == 0) {     // LO/MI/HI Rates var set
+	if (Timermode == 0 && ModeDispSet == 0 && ChangeMode == 1) {     // LO/MI/HI Rates var set
 		ChangeMode == 0;
         if (RatesHIMIDLOEEprom == 1) {  // LO rate
 	     EpromPointer = 0;
@@ -41,7 +41,7 @@ void HiMiLoRates() {
         }	
 	}	
 	
-    if (Timermode == 0 && RatesHIMIDLOEEprom == 3 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1 && ModeTest == 0) {      // HI rate
+    if (Timermode == 0 && RatesHIMIDLOEEprom == 3 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1) {      // HI rate
 	    ChangeModeHIMIDLO = 0;
 		//cursorSet(1,2);
         //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
@@ -63,7 +63,7 @@ void HiMiLoRates() {
 		RateMult = HIGH_RATE_MULTIPLIER;
 	}
 	
-    if (Timermode == 0 && RatesHIMIDLOEEprom == 2 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1 && ModeTest == 0) {      // MID rate
+    if (Timermode == 0 && RatesHIMIDLOEEprom == 2 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1) {      // MID rate
 	    ChangeModeHIMIDLO = 0;
 		//cursorSet(1,2);
         //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
@@ -85,7 +85,7 @@ void HiMiLoRates() {
 		RateMult = MID_RATE_MULTIPLIER;
     }
 	
-    if (Timermode == 0 && RatesHIMIDLOEEprom == 1 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1 && ModeTest == 0) {      // LO rate
+    if (Timermode == 0 && RatesHIMIDLOEEprom == 1 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1) {      // LO rate
 	    ChangeModeHIMIDLO = 0;
 		//cursorSet(1,2);
 		//Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 

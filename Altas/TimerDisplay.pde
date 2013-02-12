@@ -13,7 +13,7 @@ void TimerDisplay() {
 	    DI_Onup_c = 0;
 	}
 
-    if (DI_Onup_b == 1 && ModeDispSet == 0 && ChangeModeHIMIDLO == 0 && ModeTest == 0 && Timermode == 0) {      // Timer mode
+    if (DI_Onup_b == 1 && ModeDispSet == 0 && ChangeModeHIMIDLO == 0 && Timermode == 0) {      // Timer mode
 	    DI_Onup_b = 0;
 		Timermode = 1;
 		//clearLCD();
@@ -26,7 +26,7 @@ void TimerDisplay() {
 		buzzeractivate = 1;         // activate buzzer
 	}
 
-    if (ChangeModeHIMIDLO == 0 && ModeDispSet == 0 && Timermode == 1 && ModeTest == 0) {
+    if (ChangeModeHIMIDLO == 0 && ModeDispSet == 0 && Timermode == 1) {
 		//cursorSet(1,1);
         //Serial.println(MenuTimerMode[1]); 
 		if (minflag < 10) {

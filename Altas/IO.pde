@@ -51,7 +51,7 @@ void readdigital() {
    }   
 
    // Function button processing
-   if (DI_Onup_a == 1 && ModeTest == 0 && Timermode == 0) {
+   if (DI_Onup_a == 1 && Timermode == 0) {
 	   DI_Onup_a = 0;
 	   buzzeractivate = 1;          // activate buzzer
 	   //cursorSet(1,1); Serial.println("   ");

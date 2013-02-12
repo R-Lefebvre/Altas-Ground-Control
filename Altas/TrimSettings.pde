@@ -10,7 +10,7 @@ int TrEprom;
 // Trim Settings
 void TrimSettings() {
 
-    if (Timermode == 0 && ModeDispSet == 1 || ModeDispSet == 2 || ModeDispSet == 3 && ModeTest == 0) {    // AEL,ELE,RUD Trim setting
+    if (Timermode == 0 && ModeDispSet == 1 || ModeDispSet == 2 || ModeDispSet == 3) {    // AEL,ELE,RUD Trim setting
 	    if (ModeDispSet == 1) {
 		    TrEprom = TrAelEEprom;
 		    Offset = 0;
