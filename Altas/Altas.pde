@@ -37,7 +37,7 @@ int DI_Onup_a = 0, DI_Onup_b = 0, DI_Onup_c = 0, DI_Onup_d = 0;
 int ChangeModeHIMIDLO = 0, ChangeMode = 0;
 int trimMax = 75, trimMin = (~trimMax)+1;         // Trim limits +/- (Important: max = 127)
 int Offset;
-int ModeTest = 0, ElevonMode = 0, ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
+int ModeTest = 0, ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
 int ReverseAeleron = 0, ReverseElevator = 0, ReverseRudder = 0;
 char* MenuDisplay[]={"        ", "AEL Trim", "ELE Trim", "RUD Trim", "ELEVON  ", "EXPO-AEL", "INVERT  ", "TESTMODE", "RAW&PPM ", "EXPO-ELE", "EXPO-RUD", "EXPO-OFF"};
 
@@ -72,7 +72,6 @@ void setup() {
   Serial.begin(19200);             // For serial debugging
   ParallaxLCDSetup();
   HiMiLoRatesSetup();              // Pull Rates & Trim settings from EEprom
-  ElevonModeSetup();               // Pull Elevon Mode from EEprom
   ExpoModeSetup();                 // Pull AEL, ELE & RUD Expo Mode from EEprom
   InvertChannelsSetup();           // Pull AEL Invert Mode from EEprom   
   currentMillis = millis();        // Prepare keypress buzzer timing
@@ -93,7 +92,7 @@ void loop() { // Main loop
 	  readdigital();             // Read digital I/O
       HiMiLoRates();             // Rates
 	  TrimSettings();            // Trims
-	  ElevonExpoMode();          // Elevon & Exponential Modes
+	  ExpoMode();                // Exponential Modes
 	  InvertChannels();          // Invert Channels
 	  batterymonitor();          // Battery check
 	  ModeTesting();             // Mode Test

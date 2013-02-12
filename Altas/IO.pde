@@ -17,7 +17,6 @@ int AI_Aeler2 = 700;
 float AI_AelerF = 700;
 float AI_ElevaF = 700;
 float AI_RuddeF = 700;
-int AI_Elevon = 700;
 int Minmult;
 int Maxmult;
 
@@ -241,15 +240,7 @@ void checklimitsmodessetouputs() {
 	   }
    }   
    
-   // Flying Wing - Elevon mode assumes Aeleron servo's mounted mirror image to each other
-   if (ElevonMode == 1) {
-      AI_Aeler2 = AI_Aeler;              // Generate 2nd Aeleron var
-   	  AI_Elevon = AI_Eleva - PWM_MID;   // Copy elevator input off & zero it, this becomes the modifier for the 2 Aelerons
-	  AI_Aeler = AI_Aeler + AI_Elevon;   // Output - Aeleron 1 goes up
-      AI_Eleva = AI_Aeler2 - AI_Elevon;  // Output - Aeleron 2 goes down  (inverted servo) 
-   }
-
-   // Check limits
+      // Check limits
    if (AI_Aeler < PWM_MIN) AI_Aeler = PWM_MIN;
    if (AI_Aeler > PWM_MAX) AI_Aeler = PWM_MAX;   
    if (AI_Eleva < PWM_MIN) AI_Eleva = PWM_MIN;

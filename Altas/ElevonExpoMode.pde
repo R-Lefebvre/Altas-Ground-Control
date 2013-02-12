@@ -1,52 +1,18 @@
 /*
 
-Elevon & Exponential Modes
+Exponential Modes
 
 */
 
 char* MenuWingMode[]={"        ", "OFF", " ON", "MODE "};
 char* MenuExponentialMode[]={"        ", "OFF", " ON", "MODE ", "AE,EL,RU"};
-int ElevonModeEEprom = 1, ExpoModeAELEEprom = 1, ExpoModeELEEEprom = 1, ExpoModeRUDEEprom = 1, InvModeAELEEprom = 1, InvModeELEEEprom = 1, InvModeRUDEEprom = 1;
+int ExpoModeAELEEprom = 1, ExpoModeELEEEprom = 1, ExpoModeRUDEEprom = 1, InvModeAELEEprom = 1, InvModeELEEEprom = 1, InvModeRUDEEprom = 1;
 
-// Elevon & Exponential Modes
-void ElevonExpoMode() {
+// Exponential Modes
+void ExpoMode() {
 
-    // Elevon Mode setting, 1=OFF, 2=ON
-	if (Timermode == 0 && ModeDispSet == 4 && ModeTest == 0) {
-	     //cursorSet(1,2);
-         //Serial.println(MenuWingMode[3]);
-		 //cursorSet(6,2);
-         //Serial.println(MenuWingMode[ElevonModeEEprom]);
-		 //cursorSet(1,1);
-         //Serial.println(MenuDisplay[4]);
-		 
-		 if (DI_Onup_c == 1) {    // Elevon Mode Set ON
-		    DI_Onup_c = 0;
-			ElevonMode = 1;
-			buzzeractivate = 1;                  // activate buzzer
-			MenuDisplay[1] = "AE1 Trim";
-	        MenuDisplay[2] = "AE2 Trim";
-			ElevonModeEEprom = 2;
-			Epromvar = ElevonModeEEprom;
-			Address = 20;
-            EEpromwriteDirect();
-		 }
-		
-		 if (DI_Onup_b == 1) {    // Elevon Mode Set OFF
-		    DI_Onup_b = 0;
-			ElevonMode = 0;
-			buzzeractivate = 1;                  // activate buzzer
-			MenuDisplay[1] = "AEL Trim";
-	        MenuDisplay[2] = "ELE Trim";
-			ElevonModeEEprom = 1;
-			Epromvar = ElevonModeEEprom;
-			Address = 20;
-            EEpromwriteDirect();
-		 }
-	}
-
-	// AEL Exponential Mode setting, 1=OFF, 2=ON (not allowed in Elevon mode)
-    if (Timermode == 0 && ModeDispSet == 5 && ModeTest == 0 && ElevonMode == 0) {
+	// AEL Exponential Mode setting, 1=OFF, 2=ON
+    if (Timermode == 0 && ModeDispSet == 5 && ModeTest == 0) {
 	     //cursorSet(1,2);
          //Serial.println(MenuExponentialMode[3]);
 		 //cursorSet(6,2);
@@ -75,8 +41,8 @@ void ElevonExpoMode() {
 		 }
 	}	
 
-	// ELE Exponential Mode setting, 1=OFF, 2=ON (not allowed in Elevon mode)
-    if (Timermode == 0 && ModeDispSet == 6 && ModeTest == 0 && ElevonMode == 0) {
+	// ELE Exponential Mode setting, 1=OFF, 2=ON
+    if (Timermode == 0 && ModeDispSet == 6 && ModeTest == 0) {
 	     //cursorSet(1,2);
          //Serial.println(MenuExponentialMode[3]);
 		 //cursorSet(6,2);
@@ -105,8 +71,8 @@ void ElevonExpoMode() {
 		 }
 	}	
 	
-	// RUD Exponential Mode setting, 1=OFF, 2=ON (not allowed in Elevon mode)
-    if (Timermode == 0 && ModeDispSet == 7 && ModeTest == 0 && ElevonMode == 0) {
+	// RUD Exponential Mode setting, 1=OFF, 2=ON
+    if (Timermode == 0 && ModeDispSet == 7 && ModeTest == 0) {
 	     //cursorSet(1,2);
          //Serial.println(MenuExponentialMode[3]);
 		 //cursorSet(6,2);
@@ -134,34 +100,6 @@ void ElevonExpoMode() {
             EEpromwriteDirect();
 		 }
 	}		
-	
-	// No Exponential Modes allowed in Elevon mode
-	if (Timermode == 0 && (ModeDispSet == 5 || ModeDispSet == 6 || ModeDispSet == 7) && ModeTest == 0 && ElevonMode == 1) {
-	     ExpoModeAEL = 0;
-		 ExpoModeELE = 0;
-		 ExpoModeRUD = 0;
-		 //cursorSet(1,1);
-         //Serial.println(MenuDisplay[11]);     // "EXPO-OFF"
-		 //cursorSet(1,2);
-         //Serial.println(MenuExponentialMode[4]);  // "AE,EL,RU"
-	}	
-
-}
-
-// *********************** Setup **************************
-void ElevonModeSetup () {
- ElevonModeEEprom = EEPROM.read(20);             // Read from EEprom
- if (ElevonModeEEprom != 1 && ElevonModeEEprom != 2) {  // Set to default if out of range
-	 ElevonModeEEprom = 1;
-	 Epromvar = ElevonModeEEprom;
-	 Address = 20;
-     EEpromwriteDirect();
-  }
-  if (ElevonModeEEprom == 2) {  // Setup Elevon mode
-     MenuDisplay[1] = "AE1 Trim";
-	 MenuDisplay[2] = "AE2 Trim";
-	 ElevonMode = 1;
-  }
 }
 
 // *********************** Setup **************************
