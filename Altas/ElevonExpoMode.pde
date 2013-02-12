@@ -13,12 +13,12 @@ void ElevonExpoMode() {
 
     // Elevon Mode setting, 1=OFF, 2=ON
 	if (Timermode == 0 && ModeDispSet == 4 && ModeTest == 0) {
-	     cursorSet(1,2);
-         Serial.println(MenuWingMode[3]);
-		 cursorSet(6,2);
-         Serial.println(MenuWingMode[ElevonModeEEprom]);
-		 cursorSet(1,1);
-         Serial.println(MenuDisplay[4]);
+	     //cursorSet(1,2);
+         //Serial.println(MenuWingMode[3]);
+		 //cursorSet(6,2);
+         //Serial.println(MenuWingMode[ElevonModeEEprom]);
+		 //cursorSet(1,1);
+         //Serial.println(MenuDisplay[4]);
 		 
 		 if (DI_Onup_c == 1) {    // Elevon Mode Set ON
 		    DI_Onup_c = 0;
@@ -47,12 +47,12 @@ void ElevonExpoMode() {
 
 	// AEL Exponential Mode setting, 1=OFF, 2=ON (not allowed in Elevon mode)
     if (Timermode == 0 && ModeDispSet == 5 && ModeTest == 0 && ElevonMode == 0) {
-	     cursorSet(1,2);
-         Serial.println(MenuExponentialMode[3]);
-		 cursorSet(6,2);
-         Serial.println(MenuExponentialMode[ExpoModeAELEEprom]);
-		 cursorSet(1,1);
-         Serial.println(MenuDisplay[5]);
+	     //cursorSet(1,2);
+         //Serial.println(MenuExponentialMode[3]);
+		 //cursorSet(6,2);
+         //Serial.println(MenuExponentialMode[ExpoModeAELEEprom]);
+		 //cursorSet(1,1);
+         //Serial.println(MenuDisplay[5]);
 		 
 		 if (DI_Onup_c == 1) {    // AEL Expo Mode Set ON
 		    DI_Onup_c = 0;
@@ -77,12 +77,12 @@ void ElevonExpoMode() {
 
 	// ELE Exponential Mode setting, 1=OFF, 2=ON (not allowed in Elevon mode)
     if (Timermode == 0 && ModeDispSet == 6 && ModeTest == 0 && ElevonMode == 0) {
-	     cursorSet(1,2);
-         Serial.println(MenuExponentialMode[3]);
-		 cursorSet(6,2);
-         Serial.println(MenuExponentialMode[ExpoModeELEEEprom]);
-		 cursorSet(1,1);
-         Serial.println(MenuDisplay[9]);
+	     //cursorSet(1,2);
+         //Serial.println(MenuExponentialMode[3]);
+		 //cursorSet(6,2);
+         //Serial.println(MenuExponentialMode[ExpoModeELEEEprom]);
+		 //cursorSet(1,1);
+         //Serial.println(MenuDisplay[9]);
 		 
 		 if (DI_Onup_c == 1) {    // ELE Expo Mode Set ON
 		    DI_Onup_c = 0;
@@ -107,12 +107,12 @@ void ElevonExpoMode() {
 	
 	// RUD Exponential Mode setting, 1=OFF, 2=ON (not allowed in Elevon mode)
     if (Timermode == 0 && ModeDispSet == 7 && ModeTest == 0 && ElevonMode == 0) {
-	     cursorSet(1,2);
-         Serial.println(MenuExponentialMode[3]);
-		 cursorSet(6,2);
-         Serial.println(MenuExponentialMode[ExpoModeRUDEEprom]);
-		 cursorSet(1,1);
-         Serial.println(MenuDisplay[10]);
+	     //cursorSet(1,2);
+         //Serial.println(MenuExponentialMode[3]);
+		 //cursorSet(6,2);
+         //Serial.println(MenuExponentialMode[ExpoModeRUDEEprom]);
+		 //cursorSet(1,1);
+         //Serial.println(MenuDisplay[10]);
 		 
 		 if (DI_Onup_c == 1) {    // RUD Expo Mode Set ON
 		    DI_Onup_c = 0;
@@ -140,10 +140,10 @@ void ElevonExpoMode() {
 	     ExpoModeAEL = 0;
 		 ExpoModeELE = 0;
 		 ExpoModeRUD = 0;
-		 cursorSet(1,1);
-         Serial.println(MenuDisplay[11]);     // "EXPO-OFF"
-		 cursorSet(1,2);
-         Serial.println(MenuExponentialMode[4]);  // "AE,EL,RU"
+		 //cursorSet(1,1);
+         //Serial.println(MenuDisplay[11]);     // "EXPO-OFF"
+		 //cursorSet(1,2);
+         //Serial.println(MenuExponentialMode[4]);  // "AE,EL,RU"
 	}	
 
 }

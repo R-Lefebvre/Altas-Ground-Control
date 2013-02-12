@@ -25,10 +25,10 @@ void TrimSettings() {
 		}
 	
 	    // Write AEL, ELE or RUD to LCD
-	    cursorSet(1,1);
-        Serial.println(MenuHIMIDLO[RatesHIMIDLOEEprom]);  // LO, MI or HI
-		cursorSet(1,2);
-        Serial.println(MenuDisplay[ModeDispSet]);  // AEL, ELE or RUD TRIM
+	    //cursorSet(1,1);
+        //Serial.println(MenuHIMIDLO[RatesHIMIDLOEEprom]);  // LO, MI or HI
+		//cursorSet(1,2);
+        //Serial.println(MenuDisplay[ModeDispSet]);  // AEL, ELE or RUD TRIM
 		
 		// Stick Trim
 		if (TrEprom > trimMax) {   // If more than trimMax (i.e. brand new install or corrupt) then reset to zero
@@ -63,29 +63,29 @@ void TrimSettings() {
 
 		// Right justify pos numbers
 		if (TrEprom >= 0 && TrEprom <= 9 ) {
-		cursorSet(4,1); Serial.println("    ");
-		cursorSet(8,1); Serial.println(TrEprom);
+		//cursorSet(4,1); Serial.println("    ");
+		//cursorSet(8,1); Serial.println(TrEprom);
 		}
 		if (TrEprom >= 10 && TrEprom <= 99 ) {
-		cursorSet(4,1); Serial.println("   ");
-		cursorSet(7,1); Serial.println(TrEprom);
+		//cursorSet(4,1); Serial.println("   ");
+		//cursorSet(7,1); Serial.println(TrEprom);
 		}
 		if (TrEprom >= 100 && TrEprom <= 999 ) {
-		cursorSet(4,1); Serial.println("  ");
-		cursorSet(6,1); Serial.println(TrEprom);
+		//cursorSet(4,1); Serial.println("  ");
+		//cursorSet(6,1); Serial.println(TrEprom);
 		}			
 		// Right justify neg numbers
 		if (TrEprom >= -9 && TrEprom <= -1 ) {
-		cursorSet(4,1); Serial.println("   ");
-		cursorSet(7,1); Serial.println(TrEprom);
+		//cursorSet(4,1); Serial.println("   ");
+		//cursorSet(7,1); Serial.println(TrEprom);
 		}
 		if (TrEprom >= -99 && TrEprom <= -10 ) {
-		cursorSet(4,1); Serial.println("  ");
-		cursorSet(6,1); Serial.println(TrEprom);
+		//cursorSet(4,1); Serial.println("  ");
+		//cursorSet(6,1); Serial.println(TrEprom);
 		}
 		if (TrEprom >= -999 && TrEprom <= -100 ) {
-		cursorSet(4,1); Serial.println(" ");
-		cursorSet(5,1); Serial.println(TrEprom);
+		//cursorSet(4,1); Serial.println(" ");
+		//cursorSet(5,1); Serial.println(TrEprom);
 		}		
 		
 		// Reload vars

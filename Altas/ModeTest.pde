@@ -17,10 +17,10 @@ void ModeTesting() {
     
 	// Mode Test RAW & PPM
 	if (Timermode == 0 && ModeDispSet == 11 && ModeTest == 0) {
-         cursorSet(1,1);
-         Serial.println(MenuDisplay[7]);
-		 cursorSet(1,2);
-         Serial.println(MenuDisplay[8]);
+         //cursorSet(1,1);
+         //Serial.println(MenuDisplay[7]);
+		 //cursorSet(1,2);
+         //Serial.println(MenuDisplay[8]);
 		 
 		 if (DI_Onup_c == 1) {    // Enter Test Mode
 		    DI_Onup_c = 0;
@@ -59,7 +59,7 @@ void ModeTesting() {
 		
 		// Raw input display mode (all the analogue inputs & 2 aux digital inputs)
 		if (RawOut == 0) {
-		   clearLCD();
+		   //clearLCD();
 		
 		   if (DI_Val[1] == 0) {
 		   DI_Onup_b = 0;
@@ -70,30 +70,30 @@ void ModeTesting() {
 		   }
 		
 		   if (pointraw <= 6) {
-		      cursorSet(1,1);
-              Serial.println("RAW A   ");
-		      cursorSet(6,1);
-              Serial.println(pointraw);
-		      cursorSet(1,2);
-              Serial.println(AI_Val[pointraw]);
+		      //cursorSet(1,1);
+              //Serial.println("RAW A   ");
+		      //cursorSet(6,1);
+              //Serial.println(pointraw);
+		      //cursorSet(1,2);
+              //Serial.println(AI_Val[pointraw]);
            }
 		   if (pointraw == 7) {
-		      cursorSet(1,1);
-              Serial.println("RAW D13 ");
-		      cursorSet(1,2);
-              Serial.println(DI_Val[8]);
+		      //cursorSet(1,1);
+              //Serial.println("RAW D13 ");
+		      //cursorSet(1,2);
+              //Serial.println(DI_Val[8]);
            }
 		   if (pointraw == 8) {
-		      cursorSet(1,1);
-              Serial.println("RAW D11 ");
-		      cursorSet(1,2);
-              Serial.println(DI_Val[9]);
+		      //cursorSet(1,1);
+              //Serial.println("RAW D11 ");
+		      //cursorSet(1,2);
+              //Serial.println(DI_Val[9]);
            }
 		}
 
 		// PPM input display mode (for the 8 channels)
 		if (RawOut == 1) {
-		   clearLCD();
+		   //clearLCD();
 		
 		   if (DI_Val[2] == 0) {
 		   DI_Onup_c = 0;
@@ -103,20 +103,20 @@ void ModeTesting() {
            if (pointppm == 8) { pointppm = 0; }  
 		   }
 		
-		   cursorSet(1,1);
-           Serial.println("PPM     ");
-		   cursorSet(5,1);
-           Serial.println(pointppm + 1);
-		   cursorSet(1,2);
+		   //cursorSet(1,1);
+           //Serial.println("PPM     ");
+		   //cursorSet(5,1);
+           //Serial.println(pointppm + 1);
+		   //cursorSet(1,2);
 		   
-           if (pointppm == 0) { Serial.println(AI_Aeler); }
-           if (pointppm == 1) { Serial.println(AI_Eleva); }
-           if (pointppm == 2) { Serial.println(AI_Throt); }
-           if (pointppm == 3) { Serial.println(AI_Rudde); }
-           if (pointppm == 4) { Serial.println(Auxsw_uS); }
-           if (pointppm == 5) { Serial.println(AI_Auxpot); }
-           if (pointppm == 6) { Serial.println(AI_Auxpot2); }
-           if (pointppm == 7) { Serial.println(Auxsw2_uS); }		   
+           //if (pointppm == 0) { Serial.println(AI_Aeler); }
+           //if (pointppm == 1) { Serial.println(AI_Eleva); }
+           //if (pointppm == 2) { Serial.println(AI_Throt); }
+           //if (pointppm == 3) { Serial.println(AI_Rudde); }
+           //if (pointppm == 4) { Serial.println(Auxsw_uS); }
+           //if (pointppm == 5) { Serial.println(AI_Auxpot); }
+           //if (pointppm == 6) { Serial.println(AI_Auxpot2); }
+           //if (pointppm == 7) { Serial.println(Auxsw2_uS); }		   
 		}		
     }
 }

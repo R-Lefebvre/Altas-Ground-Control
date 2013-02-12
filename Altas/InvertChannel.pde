@@ -12,12 +12,12 @@ char* InvertRUDMode[]={"        ", " NO", "YES", "RUD  "};
 void InvertChannels() {
 
 	if (Timermode == 0 && ModeDispSet == 8 && ModeTest == 0) {    // Invert AEL setting, 1=NO, 2=YES
-		 cursorSet(1,2);  // bottom line
-         Serial.println(InvertAELMode[3]);
-		 cursorSet(6,2);  // bottom line
-         Serial.println(InvertAELMode[InvModeAELEEprom]);
-		 cursorSet(1,1);  // top line
-         Serial.println(MenuDisplay[6]);
+		 //cursorSet(1,2);  // bottom line
+         //Serial.println(InvertAELMode[3]);
+		 //cursorSet(6,2);  // bottom line
+         //Serial.println(InvertAELMode[InvModeAELEEprom]);
+		 //cursorSet(1,1);  // top line
+         //Serial.println(MenuDisplay[6]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
 		    DI_Onup_c = 0;
@@ -41,12 +41,12 @@ void InvertChannels() {
 	}
 
 	if (Timermode == 0 && ModeDispSet == 9 && ModeTest == 0) {    // Invert ELE setting, 1=NO, 2=YES
-		 cursorSet(1,2);  // bottom line
-         Serial.println(InvertELEMode[3]);
-		 cursorSet(6,2);  // bottom line
-         Serial.println(InvertELEMode[InvModeELEEEprom]);
-		 cursorSet(1,1);  // top line
-         Serial.println(MenuDisplay[6]);
+		 //cursorSet(1,2);  // bottom line
+         //Serial.println(InvertELEMode[3]);
+		 //cursorSet(6,2);  // bottom line
+         //Serial.println(InvertELEMode[InvModeELEEEprom]);
+		 //cursorSet(1,1);  // top line
+         //Serial.println(MenuDisplay[6]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
 		    DI_Onup_c = 0;
@@ -70,12 +70,12 @@ void InvertChannels() {
 	}
 	
 	if (Timermode == 0 && ModeDispSet == 10 && ModeTest == 0) {    // Invert RUD setting, 1=NO, 2=YES
-		 cursorSet(1,2);  // bottom line
-         Serial.println(InvertRUDMode[3]);
-		 cursorSet(6,2);  // bottom line
-         Serial.println(InvertRUDMode[InvModeRUDEEprom]);
-		 cursorSet(1,1);  // top line
-         Serial.println(MenuDisplay[6]);
+		 //cursorSet(1,2);  // bottom line
+         //Serial.println(InvertRUDMode[3]);
+		 //cursorSet(6,2);  // bottom line
+         //Serial.println(InvertRUDMode[InvModeRUDEEprom]);
+		 //cursorSet(1,1);  // top line
+         //Serial.println(MenuDisplay[6]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
 		    DI_Onup_c = 0;

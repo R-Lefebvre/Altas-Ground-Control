@@ -69,7 +69,6 @@ void setup() {
   init_beep();                     // Function to beep twice on boot-up
   init_PPM_array();                // Function to initialize the PPM Channel Array
   init_PPM_gen();                  // Function to initialize the PPM Generator
-  LCDSetup();                      // Initialize Serial LCD - Baud, initial settings and write opening message
   ParallaxLCDSetup();
   HiMiLoRatesSetup();              // Pull Rates & Trim settings from EEprom
   ElevonModeSetup();               // Pull Elevon Mode from EEprom

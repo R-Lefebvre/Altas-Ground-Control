@@ -8,13 +8,13 @@ HARDWARE
   LCD - LCD0821 Matrix Orbital serial TTL. IMPORTANT: To avoid bricking the LCD, when uploading to the Arduino then disconnect Tx to LCD.
 
 Analogue Inputs pins:
-  Pin 0 = Elevator potentiometer    --> PPM Ch.2 - Elevon mix Aeleron 2 (averaged) (Invert mode) (Exponential mode)
-  Pin 1 = Aeleron potentiometer     --> PPM Ch.1 - Elevon mix Aeleron 1 (averaged) (Invert mode) (Exponential mode)
-  Pin 2 = Rudder potentiometer      --> PPM Ch.4                        (averaged) (Invert mode) (Exponential mode)
-  Pin 3 = Throttle potentiometer    --> PPM Ch.3                        (averaged)
+  Pin 0 = Roll potentiometer        --> PPM Ch.1   (averaged) (Invert mode) (Exponential mode)
+  Pin 1 = Pitch potentiometer       --> PPM Ch.2   (averaged) (Invert mode) (Exponential mode)
+  Pin 2 = Throttle potentiometer    --> PPM Ch.3   (averaged) 
+  Pin 3 = Yaw potentiometer         --> PPM Ch.4   (averaged) (Invert mode) (Exponential mode)
   Pin 4 = Aux potentiometer 1       --> PPM Ch.6
-  Pin 5 = Battery Voltage (2.2v at input to display 12.6v)
-  Pin 6 = Aux potentiometer 2       --> PPM Ch.7
+  Pin 5 = Aux potentiometer 2       --> PPM Ch.8
+  Pin 6 = Battery Voltage (2.2v at input to display 12.6v)
 
 Digital Input pins:
   Pin 2 = Function panel button
@@ -31,7 +31,7 @@ Digital Input pins:
 Digital Output pins:
   Pin 12 = Buzzer output
   Pin 10 = PPM output
-  Pin 1  = RS232 Tx Serial LCD (ttl)
+
 
   
 SOURCE CODE NOTES

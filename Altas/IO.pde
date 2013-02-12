@@ -55,11 +55,11 @@ void readdigital() {
    if (DI_Onup_a == 1 && ModeTest == 0 && Timermode == 0) {
 	   DI_Onup_a = 0;
 	   buzzeractivate = 1;          // activate buzzer
-	   cursorSet(1,1); Serial.println("   ");
+	   //cursorSet(1,1); Serial.println("   ");
 	   ModeDispSet = ModeDispSet + 1;
 	   ChangeMode = 1;                           // do we need this var?
 	   if (ModeDispSet == 12) { ModeDispSet = 0; }
-	   cursorSet(1,1);
+	   //cursorSet(1,1);
    }
 
    // Aux Switch 1	
