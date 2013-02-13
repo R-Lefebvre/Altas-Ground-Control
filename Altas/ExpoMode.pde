@@ -13,12 +13,12 @@ void ExpoMode() {
 
 	// AEL Exponential Mode setting, 1=OFF, 2=ON
     if (Timermode == 0 && ModeDispSet == 5) {
-	     //cursorSet(1,2);
-         //Serial.println(MenuExponentialMode[3]);
-		 //cursorSet(6,2);
-         //Serial.println(MenuExponentialMode[ExpoModeAELEEprom]);
-		 //cursorSet(1,1);
-         //Serial.println(MenuDisplay[5]);
+	     cursorSet(1,1);
+         Serial3.println(MenuExponentialMode[3]);
+		 cursorSet(6,1);
+         Serial3.println(MenuExponentialMode[ExpoModeAELEEprom]);
+		 cursorSet(1,0);
+         Serial3.println(MenuDisplay[5]);
 		 
 		 if (DI_Onup_c == 1) {    // AEL Expo Mode Set ON
 		    DI_Onup_c = 0;
@@ -43,12 +43,12 @@ void ExpoMode() {
 
 	// ELE Exponential Mode setting, 1=OFF, 2=ON
     if (Timermode == 0 && ModeDispSet == 6) {
-	     //cursorSet(1,2);
-         //Serial.println(MenuExponentialMode[3]);
-		 //cursorSet(6,2);
-         //Serial.println(MenuExponentialMode[ExpoModeELEEEprom]);
-		 //cursorSet(1,1);
-         //Serial.println(MenuDisplay[9]);
+	     cursorSet(1,1);
+         Serial3.println(MenuExponentialMode[3]);
+		 cursorSet(6,1);
+         Serial3.println(MenuExponentialMode[ExpoModeELEEEprom]);
+		 cursorSet(1,0);
+         Serial3.println(MenuDisplay[9]);
 		 
 		 if (DI_Onup_c == 1) {    // ELE Expo Mode Set ON
 		    DI_Onup_c = 0;
@@ -73,12 +73,12 @@ void ExpoMode() {
 	
 	// RUD Exponential Mode setting, 1=OFF, 2=ON
     if (Timermode == 0 && ModeDispSet == 7) {
-	     //cursorSet(1,2);
-         //Serial.println(MenuExponentialMode[3]);
-		 //cursorSet(6,2);
-         //Serial.println(MenuExponentialMode[ExpoModeRUDEEprom]);
-		 //cursorSet(1,1);
-         //Serial.println(MenuDisplay[10]);
+	     cursorSet(1,1);
+         Serial3.println(MenuExponentialMode[3]);
+		 cursorSet(6,1);
+         Serial3.println(MenuExponentialMode[ExpoModeRUDEEprom]);
+		 cursorSet(1,0);
+         Serial.println(MenuDisplay[10]);
 		 
 		 if (DI_Onup_c == 1) {    // RUD Expo Mode Set ON
 		    DI_Onup_c = 0;

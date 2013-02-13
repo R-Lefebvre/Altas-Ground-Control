@@ -44,3 +44,10 @@ void backlightOffPLCD(){
   Serial3.write(18);
 }
 
+// move the cursor to a specific place
+// e.g.: cursorSet(3,2) sets the cursor to x = 3 and y = 2
+void cursorSet(int xpos, int ypos){  
+  int temp = 128;
+  temp = temp + (xpos + 20 * ypos);  
+  Serial3.write(temp); //Row position 
+}

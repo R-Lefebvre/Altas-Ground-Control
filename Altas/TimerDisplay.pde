@@ -27,29 +27,29 @@ void TimerDisplay() {
 	}
 
     if (ChangeModeHIMIDLO == 0 && ModeDispSet == 0 && Timermode == 1) {
-		//cursorSet(1,1);
-        //Serial.println(MenuTimerMode[1]); 
+		cursorSet(1,0);
+        Serial3.println(MenuTimerMode[1]); 
 		if (minflag < 10) {
-		    //cursorSet(1,2);
-		    //Serial.println("0");
-		    //cursorSet(2,2);
-            //Serial.println(minflag);
+		    cursorSet(1,1);
+		    Serial3.println("0");
+		    cursorSet(2,1);
+            Serial3.println(minflag);
 		}
 		if (minflag >= 10) {
-		    //cursorSet(1,2);
-            //Serial.println(minflag);
+		    cursorSet(1,1);
+            Serial3.println(minflag);
 		}		
-		//cursorSet(3,2);
-        //Serial.println(":");
+		cursorSet(3,2);
+        Serial3.println(":");
 		if (secflag < 10) {
-		    //cursorSet(4,2);
-		    //Serial.println("0");
-		    //cursorSet(5,2);
-            //Serial.println(secflag);
+		    cursorSet(4,1);
+		    Serial3.println("0");
+		    cursorSet(5,1);
+            Serial3.println(secflag);
 		}
 		if (secflag >= 10) {
-		    //cursorSet(4,2);
-            //Serial.println(secflag);
+		    cursorSet(4,1);
+            Serial3.println(secflag);
 		}	
 
         if (DI_Onup_c == 1) {           // start/stop timer

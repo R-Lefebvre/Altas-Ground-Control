@@ -26,25 +26,25 @@ void HiMiLoRates() {
 		ChangeMode == 0;
         if (RatesHIMIDLOEEprom == 1) {  // LO rate
 	     EpromPointer = 0;
-	     //cursorSet(1,2);
-         //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
+	     cursorSet(1,1);
+         Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
         }
         if (RatesHIMIDLOEEprom == 2) {  // MID rate
 	    EpromPointer = 3; 
-	    //cursorSet(1,2);
-        //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
+	    cursorSet(1,1);
+        Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
         }
         if (RatesHIMIDLOEEprom == 3) {  // HI rate
 	    EpromPointer = 6; 
-	    //cursorSet(1,2);
-        //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
+	    cursorSet(1,1);
+        Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
         }	
 	}	
 	
     if (Timermode == 0 && RatesHIMIDLOEEprom == 3 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1) {      // HI rate
 	    ChangeModeHIMIDLO = 0;
-		//cursorSet(1,2);
-        //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
+		cursorSet(1,1);
+        Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
 	    EpromPointer = 6;  // Set pointer for EEprom trim settings storage
 		
 		Epromvar = TrAelEEprom;
@@ -65,8 +65,8 @@ void HiMiLoRates() {
 	
     if (Timermode == 0 && RatesHIMIDLOEEprom == 2 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1) {      // MID rate
 	    ChangeModeHIMIDLO = 0;
-		//cursorSet(1,2);
-        //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
+		cursorSet(1,1);
+        Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
 	    EpromPointer = 3;  // Set pointer for EEprom trim settings storage
 		
 	    Epromvar = TrAelEEprom;
@@ -87,8 +87,8 @@ void HiMiLoRates() {
 	
     if (Timermode == 0 && RatesHIMIDLOEEprom == 1 && ModeDispSet == 0 && ChangeModeHIMIDLO == 1) {      // LO rate
 	    ChangeModeHIMIDLO = 0;
-		//cursorSet(1,2);
-		//Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
+		cursorSet(1,1);
+		Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
 	    EpromPointer = 0;  // Set pointer for EEprom trim settings storage
 		
 		Epromvar = TrAelEEprom;
@@ -121,20 +121,20 @@ void HiMiLoRatesSetup() {
    
   if (RatesHIMIDLOEEprom == 1) {  // LO rate
 	 EpromPointer = 0;
-	 //cursorSet(1,2);
-     //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
+	 cursorSet(1,1);
+     Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);
 	 RateMult = LOW_RATE_MULTIPLIER;
   }
   if (RatesHIMIDLOEEprom == 2) {  // MID rate
 	 EpromPointer = 3; 
-	 //cursorSet(1,2);
-     //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);	
+	 cursorSet(1,1);
+     Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]);	
      RateMult = MID_RATE_MULTIPLIER;	 
   }
   if (RatesHIMIDLOEEprom == 3) {  // HI rate
 	 EpromPointer = 6; 
-	 //cursorSet(1,2);
-     //Serial.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
+	 cursorSet(1,1);
+     Serial3.println(MenuRatesHIMIDLO[RatesHIMIDLOEEprom]); 
 	 RateMult = HIGH_RATE_MULTIPLIER;
   }
   
