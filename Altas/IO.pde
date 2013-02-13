@@ -116,11 +116,11 @@ void readanalogue() {
    }
 
    if (ReverseElevator == 0) {
-     if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + TrEleEEprom; }          // Elevator / Aeleron 2
-     if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + TrEleEEprom; }       // Elevator / Aeleron 2
+     if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + TrEleEEprom; }          // Elevator 
+     if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + TrEleEEprom; }       // Elevator 
    } else {
-     if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MAX, PITCH_MID, Minmult, PWM_MID) + TrEleEEprom; }            // Elevator / Aeleron 2 (reversed)
-     if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID-1, PITCH_MIN, PWM_MID + 1, Maxmult) + TrEleEEprom; }     // Elevator / Aeleron 2 (reversed)
+     if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MAX, PITCH_MID, Minmult, PWM_MID) + TrEleEEprom; }            // Elevator (reversed)
+     if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID-1, PITCH_MIN, PWM_MID + 1, Maxmult) + TrEleEEprom; }     // Elevator (reversed)
    }
    
    if (ReverseRudder == 0) {   

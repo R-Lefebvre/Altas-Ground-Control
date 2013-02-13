@@ -5,7 +5,7 @@ Altas Ground Control System
 Adapted from RC Tx Program: RC Joystick PPM (8 channel)
   By Ian Johnston (www.ianjohnston.com)
 
-Version V0.1 (7/2/2013
+Version V0.1 (7/2/2013)
   
 DISCLAIMER:
   With this design, including both the hardware & software I offer no guarantee that it is bug
@@ -69,7 +69,6 @@ void setup() {
   init_beep();                     // Function to beep twice on boot-up
   init_PPM_array();                // Function to initialize the PPM Channel Array
   init_PPM_gen();                  // Function to initialize the PPM Generator
-  Serial.begin(19200);             // For serial debugging
   ParallaxLCDSetup();
   HiMiLoRatesSetup();              // Pull Rates & Trim settings from EEprom
   ExpoModeSetup();                 // Pull AEL, ELE & RUD Expo Mode from EEprom
