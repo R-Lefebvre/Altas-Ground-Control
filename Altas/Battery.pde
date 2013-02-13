@@ -34,23 +34,26 @@ void batterymonitor() {
 	}
 	
     if (AI_Batte_percent < 10 && ModeDispSet == 0 && Timermode == 0) {
-	cursorSet(1,0); Serial3.println(AI_Batte_percent);
-	cursorSet(2,0); Serial3.println("%");
-    cursorSet(3,0); Serial3.println("  ");
-	cursorSet(5,0); Serial3.println(AI_Batte);
+    cursorSet(0,0); Serial3.print("  ");
+	cursorSet(2,0); Serial3.print(AI_Batte_percent);
+    cursorSet(3,0); Serial3.print("% ");
+	cursorSet(5,0); Serial3.print(AI_Batte);
+    cursorSet(10,0); Serial3.print("V");
     }
 	
 	if (AI_Batte_percent >= 10 && AI_Batte_percent < 100 && ModeDispSet == 0 && Timermode == 0) {
-	cursorSet(1,0); Serial3.println(AI_Batte_percent);
-	cursorSet(3,0); Serial3.println("%");
-    cursorSet(4,0); Serial3.println(" ");
-	cursorSet(5,0); Serial3.println(AI_Batte);
+    cursorSet(0,0); Serial3.print(" ");
+	cursorSet(1,0); Serial3.print(AI_Batte_percent);
+    cursorSet(3,0); Serial3.print("% ");
+	cursorSet(5,0); Serial3.print(AI_Batte);
+    cursorSet(10,0); Serial3.print("V");
     }
 	
     if (AI_Batte_percent >= 100 && ModeDispSet == 0 && Timermode == 0) {
-	cursorSet(1,0); Serial3.println(AI_Batte_percent);
-	cursorSet(4,0); Serial3.println("%");
-	cursorSet(5,0); Serial3.println(AI_Batte);
+	cursorSet(0,0); Serial3.print(AI_Batte_percent);
+	cursorSet(3,0); Serial3.print("% ");
+	cursorSet(5,0); Serial3.print(AI_Batte);
+    cursorSet(10,0); Serial3.print("V");
     }
 }
 
