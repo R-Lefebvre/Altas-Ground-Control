@@ -29,21 +29,29 @@ void readdigital() {
    }  
 
    // Process the panel pushbuttons for onup functionality
+   
+   // Function Button
    if (DI_Val[0] == 0) { DItemp_a = 1; }   // Button 2 down
    if (DI_Val[0] == 1 && DItemp_a == 1) {  // Button 2 now up
        DI_Onup_a = 1;
 	   DItemp_a= 0;
    }
+   
+   // Trim Adjust Panel Button
    if (DI_Val[1] == 0) { DItemp_b = 1; }   // Button 3 down
    if (DI_Val[1] == 1 && DItemp_b == 1) {  // Button 3 now up
        DI_Onup_b = 1;
 	   DItemp_b = 0;
    }
+   
+   // Trim Adjust Panel Button
    if (DI_Val[2] == 0) { DItemp_c = 1; }   // Button 4 down
    if (DI_Val[2] == 1 && DItemp_c == 1) {  // Button 4 now up
        DI_Onup_c = 1;
 	   DItemp_c = 0;
    }
+   
+   // HI/LOW Rates Panel Button
    if (DI_Val[3] == 0) { DItemp_d = 1; }   // Button 5 down
    if (DI_Val[3] == 1 && DItemp_d == 1) {  // Button 5 now up
        DI_Onup_d = 1;
