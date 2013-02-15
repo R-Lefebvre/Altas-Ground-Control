@@ -22,13 +22,13 @@
 
 
 // Inputs:
-#define HAT_SWITCH_UP_PIN       22
-#define HAT_SWITCH_DOWN_PIN     24
-#define HAT_SWITCH_LEFT_PIN     43
-#define HAT_SWITCH_RIGHT_PIN    44
-#define MFD_BUTTON_ENTER_PIN    45
-#define MFD_BUTTON_BACK_PIN     48
-#define MFD_BUTTON_MODE_PIN     49
+#define HAT_SWITCH_UP_PIN       45
+#define HAT_SWITCH_DOWN_PIN     47
+#define HAT_SWITCH_LEFT_PIN     48
+#define HAT_SWITCH_RIGHT_PIN    49
+#define MFD_BUTTON_MODE_PIN     42
+#define MFD_BUTTON_ENTER_PIN    44
+#define MFD_BUTTON_BACK_PIN     46
 #define CH7_SWITCH_PIN          39
 #define CH8_SWITCH_PIN          41
 #define AUX1_SWITCH_PIN         23

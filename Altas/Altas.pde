@@ -25,7 +25,7 @@ char* Version[]={"Version", "  0.1   "};
 // Assign analogue & digital I/O pins
 int AI_Raw[7] = { 0, 1, 2, 3, 4, 5, 6 };                // actual analog input pins
 int AI_Val[7];                                          // analogue input vars
-int DI_Raw[10] = { 2, 3, 4, 5, 6, 7, 8, 9, 13, 11 };    // actual digital input pins
+int DI_Raw[10] = { MFD_BUTTON_MODE_PIN, 3, 4, 5, 6, 7, 8, 9, 13, 11 };    // actual digital input pins
 int DI_Val[10];                                         // digital input vars
 
 // Various vars

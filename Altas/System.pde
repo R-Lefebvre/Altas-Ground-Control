@@ -24,7 +24,10 @@ void init_input_output(){
     pinMode(FLIGHT_MODE_6_LED_PIN, OUTPUT);
     pinMode(CH7_SWITCH_LED_PIN, OUTPUT);
     pinMode(CH8_SWITCH_LED_PIN, OUTPUT);
-    pinMode(PIEZO_OUTPUT_PIN, OUTPUT);                                                
+    pinMode(PIEZO_OUTPUT_PIN, OUTPUT); 
+
+    pinMode(MFD_BUTTON_MODE_PIN, INPUT);
+    digitalWrite(MFD_BUTTON_MODE_PIN, HIGH);
     
 }
 
