@@ -29,6 +29,15 @@ void init_input_output(){
     pinMode(MFD_BUTTON_MODE_PIN, INPUT);
     digitalWrite(MFD_BUTTON_MODE_PIN, HIGH);
     
+    pinMode(HAT_SWITCH_UP_PIN, INPUT);
+    digitalWrite(HAT_SWITCH_UP_PIN, HIGH);
+    
+    pinMode(HAT_SWITCH_DOWN_PIN, INPUT);
+    digitalWrite(HAT_SWITCH_DOWN_PIN, HIGH);
+    
+    pinMode(MFD_BUTTON_BACK_PIN, INPUT);
+    digitalWrite(MFD_BUTTON_BACK_PIN, HIGH);
+    
 }
 
 
