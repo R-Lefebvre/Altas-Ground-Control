@@ -78,7 +78,7 @@ void ExpoMode() {
 		 cursorSet(6,1);
          Serial3.println(MenuExponentialMode[ExpoModeRUDEEprom]);
 		 cursorSet(1,0);
-         Serial.println(MenuDisplay[10]);
+         Serial3.println(MenuDisplay[10]);
 		 
 		 if (DI_Onup_c == 1) {    // RUD Expo Mode Set ON
 		    DI_Onup_c = 0;
