@@ -43,7 +43,7 @@
 #define FLIGHT_MODE_6_INPUT     38
 
 #define ANALOG_INPUT_PINCOUNT   7
-#define DIGITAL_INPUT_PINCOUNT  10
+#define DIGITAL_INPUT_PINCOUNT  11
 
 // User adjustable settings
 #define PWM_MIN     700

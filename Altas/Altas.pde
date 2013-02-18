@@ -25,18 +25,19 @@ char* Version[]={"Version", "  0.1   "};
 // Assign analogue & digital I/O pins
 int AI_Raw[7] = { 0, 1, 2, 3, 4, 5, 6 };                // actual analog input pins
 int AI_Val[7];                                          // analogue input vars
-int DI_Raw[10] = { 
+int DI_Raw[DIGITAL_INPUT_PINCOUNT] = { 
     MFD_BUTTON_MODE_PIN,
     HAT_SWITCH_UP_PIN,
     HAT_SWITCH_DOWN_PIN,
     MFD_BUTTON_BACK_PIN,
-    6,
-    7,
-    8,
-    9,
+    HAT_SWITCH_LEFT_PIN ,
+    HAT_SWITCH_RIGHT_PIN,
+    MFD_BUTTON_BACK_PIN,
+    AUX1_SWITCH_PIN,
+    AUX2_SWITCH_PIN,
     CH7_SWITCH_PIN,
     CH8_SWITCH_PIN };    // actual digital input pins
-int DI_Val[10];                                         // digital input vars
+int DI_Val[DIGITAL_INPUT_PINCOUNT];                                         // digital input vars
 
 // Various vars
 float RateMult;
