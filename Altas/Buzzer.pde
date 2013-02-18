@@ -12,7 +12,7 @@ long buzzinterval;
 void buzzer() {
     if (buzzeractivate == 1) {  // panel button has been pressed
         Serial3.write(218);
-        Serial3.write(212);  
+        Serial3.write(210);  
         Serial3.write(222);
         buzzeractivate = 0;
     
@@ -20,7 +20,7 @@ void buzzer() {
 
     if (buzzeractivate == 2) {  // thumb stick has been used
         Serial3.write(218);
-        Serial3.write(213);
+        Serial3.write(209);
         Serial3.write(231);  
         buzzeractivate = 0;
 	}
