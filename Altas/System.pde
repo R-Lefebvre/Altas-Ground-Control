@@ -27,8 +27,7 @@ void init_input_output(){
     pinMode(PIEZO_OUTPUT_PIN, OUTPUT); 
 
     for(int i=0; i<DIGITAL_INPUT_PINCOUNT; i++) {
-        pinMode(DI_Raw[i], INPUT);
-        digitalWrite(DI_Raw[i], HIGH);
+        pinMode(DI_Raw[i], INPUT_PULLUP);
     }
     
 }
@@ -89,8 +88,11 @@ void serial_debug(void){
 	  Serial.print(AI_Val[i]);
       Serial.print("  PWM:");
       Serial.println(PPM_array[i]);
-   }
-    
+    }
+    for(int i=0; i<DIGITAL_INPUT_PINCOUNT; i++) {
+        Serial.print(DI_Val[i]);
+    }
+    Serial.println(" ");
     
 }
 
