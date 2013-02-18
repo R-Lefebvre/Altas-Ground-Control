@@ -58,7 +58,6 @@ int Epromvar, Address;
 
 // Buzzer vars
 long previousMillis = 0;         
-unsigned long currentMillis;
 unsigned char buzzeractivate = 0;
 
 // Sub timing vars
@@ -84,7 +83,6 @@ void setup() {
   HiMiLoRatesSetup();              // Pull Rates & Trim settings from EEprom
   ExpoModeSetup();                 // Pull AEL, ELE & RUD Expo Mode from EEprom
   InvertChannelsSetup();           // Pull AEL Invert Mode from EEprom   
-  currentMillis = millis();        // Prepare keypress buzzer timing
   previousMillis = millis();
   bulb_check(0);
 }
