@@ -105,6 +105,7 @@ void loop() { // Main loop
 	  InvertChannels();          // Invert Channels
 	  batterymonitor();          // Battery check
 	  TimerDisplay();            // Timer
+      fast_serial_debug();
   }
   
   // Generate slow changing flag
@@ -124,7 +125,7 @@ void loop() { // Main loop
       if (tick2 >= 160) {  // 1000mS
 	      secflag++;
 	      tick2 = 0;
-          serial_debug();
+          //slow_serial_debug();
       } 
       if (secflag >= 60) {
 	      secflag = 0;

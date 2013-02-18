@@ -79,7 +79,7 @@ void bulb_check(bool state){
     digitalWrite(CH8_SWITCH_LED_PIN, state);
 }
 
-void serial_debug(void){
+void slow_serial_debug(void){
 
     Serial.println("Raw Input Values");
     for(byte i=0; i<6; i++) {
@@ -93,6 +93,12 @@ void serial_debug(void){
         Serial.print(DI_Val[i]);
     }
     Serial.println(" ");
+    
+}
+
+void fast_serial_debug(void){
+
+        Serial.println(DI_Val[3]);
     
 }
 
