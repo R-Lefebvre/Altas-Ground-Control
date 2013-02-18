@@ -61,6 +61,8 @@ void TrimSettings() {
             EEpromwrite();
 		}
 
+/*
+blah;
 		// Right justify pos numbers
 		if (TrEprom >= 0 && TrEprom <= 9 ) {
 		cursorSet(4,0); Serial3.println("    ");
@@ -92,6 +94,7 @@ void TrimSettings() {
         if (ModeDispSet == 1) {TrAelEEprom = TrEprom; }
 		if (ModeDispSet == 2) {TrEleEEprom = TrEprom; }
 		if (ModeDispSet == 3) {TrRudEEprom = TrEprom; }
+*/
     }
 	
     // Thumb stick trim

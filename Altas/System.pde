@@ -26,17 +26,10 @@ void init_input_output(){
     pinMode(CH8_SWITCH_LED_PIN, OUTPUT);
     pinMode(PIEZO_OUTPUT_PIN, OUTPUT); 
 
-    pinMode(MFD_BUTTON_MODE_PIN, INPUT);
-    digitalWrite(MFD_BUTTON_MODE_PIN, HIGH);
-    
-    pinMode(HAT_SWITCH_UP_PIN, INPUT);
-    digitalWrite(HAT_SWITCH_UP_PIN, HIGH);
-    
-    pinMode(HAT_SWITCH_DOWN_PIN, INPUT);
-    digitalWrite(HAT_SWITCH_DOWN_PIN, HIGH);
-    
-    pinMode(MFD_BUTTON_BACK_PIN, INPUT);
-    digitalWrite(MFD_BUTTON_BACK_PIN, HIGH);
+    for(int i=0; i<DIGITAL_INPUT_PINCOUNT; i++) {
+        pinMode(DI_Raw[i], INPUT);
+        digitalWrite(DI_Raw[i], HIGH);
+    }
     
 }
 

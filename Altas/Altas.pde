@@ -30,7 +30,12 @@ int DI_Raw[10] = {
     HAT_SWITCH_UP_PIN,
     HAT_SWITCH_DOWN_PIN,
     MFD_BUTTON_BACK_PIN,
-    6, 7, 8, 9, 13, 11 };    // actual digital input pins
+    6,
+    7,
+    8,
+    9,
+    CH7_SWITCH_PIN,
+    CH8_SWITCH_PIN };    // actual digital input pins
 int DI_Val[10];                                         // digital input vars
 
 // Various vars
