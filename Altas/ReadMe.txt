@@ -89,5 +89,53 @@ NOTES
 (2)    Frame separation sync gap depends on number of transmitter
        channels and will vary accordingly.
 
+       
+Debounce Code From http://blog.moamindustries.com/2012/10/09/debouncing-inputs-and-rising-edge-detection-in-arduino/
+=====================================================================================================================
+Micro Controlers are amazing devices however their resources must be used sparingly. Whilst it is ideal
+to debounce many inputs at the hardware level with a combination of capacitors and schmitt triggers sometimes
+it is not practical so debouncing is performed by the Microcontroller and it’s internal timers. To debounce
+an input you need to register 3 things:
 
-  
+The input has changed
+The input has remained changed for a set ammount of time
+Update the status of the input
+This is typically done with a section of code similar to that below, this is for an “Up” navigation button.
+
+int historicUP = 0;
+int stateUP = 0;
+long upTime;
+
+int debounce(){
+
+    int up_reading = digitalRead(1);                //read the digital input
+
+    if(historicUp != up_reading){                   //state has changed since last input scan
+        upTime = millis();                          // reset time count
+        historicUp = up_reading;                    // Record the current state
+    }else if( millis() – upTime > 30){              // The state has not changed within the time frame defined
+        stateUp = up_reading;                       //  Store the debounced state
+    }
+}       
+       
+However sometimes it can be benefitial to detect just the rising edge of a button. With this it becomes easier
+to navigate menus and events which increment/decrement with each button push. This can be achieved with the addition
+of a few extra lines of code and is much less resource hungry than multiple delay timers and calls to the millis()
+function. So the code is similar to before but notice the few additons
+ 
+if(historicUp != up_reading){                       //State has changed since last input scan
+    upTime = millis();                              // Reset time count
+    historicUp = up_reading;                        // Record the current state
+} else if( millis() – upTime > debounceTime ){      // The state has not changed within the time frame defined
+    if(menuUp != up_reading){                       // If the previous debounced state is not the same as the previous time it was called
+        if(up_reading){                             // If the input is high, could just as easily work for falling edge detection
+            upRising = 1;                           // Toggle the rising edge bit high
+        }
+    }else{                                          // Elsewise the bit has not changed therefore no longer a rising edge since previous function call
+        upRising = 0;                               // Toggle the rising edge bit low
+    }
+    menuUp = up_reading;                            //Store the new debounced state ready for refernce elsewhere and for the next call of this routine.
+}
+
+
+ 
