@@ -98,8 +98,8 @@ void slow_serial_debug(void){
 
 void fast_serial_debug(void){
 
-        Serial.println(DI_Val[3]);
-    
+        Serial.print(DI_Val[3]);
+        Serial.println(DI_Onup_d);
 }
 
 
