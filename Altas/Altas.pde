@@ -99,7 +99,7 @@ void loop() { // Main loop
   if (tick0 >= 25) {             // Run these subs every 124.8mS
 	  tick0 = 0;
 	  readdigital();             // Read digital I/O
-      fast_serial_debug();
+      //fast_serial_debug();
       HiMiLoRates();             // Rates
 	  TrimSettings();            // Trims
 	  ExpoMode();                // Exponential Modes

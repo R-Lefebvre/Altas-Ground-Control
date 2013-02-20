@@ -31,13 +31,14 @@ void readdigital() {
    // Process the panel pushbuttons for onup functionality
    
    // Function Button
-   /*
+   
    if (DI_Val[0] == 0) { DItemp_a = 1; }   // Button 2 down
    if (DI_Val[0] == 1 && DItemp_a == 1) {  // Button 2 now up
        DI_Onup_a = 1;
 	   DItemp_a= 0;
    }
-   */
+
+   
    
    // Trim Adjust Panel Button
    if (DI_Val[1] == 0) { DItemp_b = 1; }   // Button 3 down
@@ -61,7 +62,7 @@ void readdigital() {
    }   
 
    // Function button processing
-   /*
+   
    if (DI_Onup_a == 1 && Timermode == 0) {
 	   DI_Onup_a = 0;
 	   buzzeractivate = 1;          // activate buzzer
@@ -71,7 +72,7 @@ void readdigital() {
 	   if (ModeDispSet == 12) { ModeDispSet = 0; }
 	   cursorSet(1,0);
    }
-   */
+   
 
    // Aux Switch 1	
    if (DI_Val[8] == 1) {
