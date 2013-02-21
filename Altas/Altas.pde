@@ -51,18 +51,17 @@ int Offset;
 int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
 int ReverseAeleron = 0, ReverseElevator = 0, ReverseRudder = 0;
 char* MenuDisplay[]={
-"        ",
-"ROLL TRIM           ",
-"PITCH TRIM          ",
-"YAW TRIM            ",
-"ELEVON              ",
-"EXPO-ROLL           ",
-"INVERT              ",
-"TESTMODE            ",
-"RAW&PPM             ",
-"EXPO-PITCH          ",
-"EXPO-YAW            ",
-"EXPO-OFF            "};
+"        ",                 //0
+"ROLL TRIM           ",     //1
+"PITCH TRIM          ",     //2
+"YAW TRIM            ",     //3
+"EXPO-ROLL           ",     //4
+"EXPO-PITCH          ",     //5
+"EXPO-YAW            ",     //6
+"INVERT              ",     //7
+"TESTMODE            ",     //8
+"RAW&PPM             ",     //9
+"EXPO-OFF            "};    //10
 
 // EEprom vars
 int RatesHIMIDLOEEprom = 1;

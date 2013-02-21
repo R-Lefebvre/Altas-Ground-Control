@@ -38,17 +38,15 @@ SOURCE CODE NOTES
 =================
 
 ModeDispSet pointer:
-  1  trim setting AEL
-  2  trim setting ELE
-  3  trim setting RUD
-  4  elevon mode
-  5  exponential AEL mode
-  6  exponential ELE mode
-  7  exponential RUD mode
-  8  mode test
-  9  invert AEL mode
-  10 invert ELE mode
-  11 invert RUD mode
+  1  trim setting AEL'
+  2  trim setting ELE'
+  3  trim setting RUD'
+  5  exponential AEL mode'
+  6  exponential ELE mode'
+  7  exponential RUD modeX
+  8  invert AEL mode
+  9  invert ELE mode
+  10 invert RUD mode
 
 
 PPM TIMING INFO

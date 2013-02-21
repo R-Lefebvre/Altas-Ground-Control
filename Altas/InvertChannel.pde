@@ -11,13 +11,13 @@ char* InvertRUDMode[]={"        ", " NO", "YES", "RUD  "};
 // Invert Channels
 void InvertChannels() {
 
-	if (Timermode == 0 && ModeDispSet == 8) {    // Invert AEL setting, 1=NO, 2=YES
+	if (Timermode == 0 && ModeDispSet == 7) {    // Invert AEL setting, 1=NO, 2=YES
 		 cursorSet(1,1);  // bottom line
          Serial3.println(InvertAELMode[3]);
 		 cursorSet(6,1);  // bottom line
          Serial3.println(InvertAELMode[InvModeAELEEprom]);
 		 cursorSet(0,0);  // top line
-         Serial3.println(MenuDisplay[6]);
+         Serial3.println(MenuDisplay[7]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
 		    DI_Onup_c = 0;
@@ -40,13 +40,13 @@ void InvertChannels() {
 		 }		 
 	}
 
-	if (Timermode == 0 && ModeDispSet == 9) {    // Invert ELE setting, 1=NO, 2=YES
+	if (Timermode == 0 && ModeDispSet == 8) {    // Invert ELE setting, 1=NO, 2=YES
 		 cursorSet(1,1);  // bottom line
          Serial3.println(InvertELEMode[3]);
 		 cursorSet(6,1);  // bottom line
          Serial3.println(InvertELEMode[InvModeELEEEprom]);
 		 cursorSet(0,0);  // top line
-         Serial3.println(MenuDisplay[6]);
+         Serial3.println(MenuDisplay[7]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
 		    DI_Onup_c = 0;
@@ -69,13 +69,13 @@ void InvertChannels() {
 		 }		 
 	}
 	
-	if (Timermode == 0 && ModeDispSet == 10) {    // Invert RUD setting, 1=NO, 2=YES
+	if (Timermode == 0 && ModeDispSet == 9) {    // Invert RUD setting, 1=NO, 2=YES
 		 cursorSet(1,1);  // bottom line
          Serial3.println(InvertRUDMode[3]);
 		 cursorSet(6,1);  // bottom line
          Serial3.println(InvertRUDMode[InvModeRUDEEprom]);
 		 cursorSet(0,0);  // top line
-         Serial3.println(MenuDisplay[6]);
+         Serial3.println(MenuDisplay[7]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
 		    DI_Onup_c = 0;

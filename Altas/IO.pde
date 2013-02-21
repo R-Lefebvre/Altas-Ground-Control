@@ -69,7 +69,7 @@ void readdigital() {
 	   cursorSet(1,0); Serial3.println("   ");
 	   ModeDispSet = ModeDispSet + 1;
 	   ChangeMode = 1;                           // do we need this var?
-	   if (ModeDispSet == 12) { ModeDispSet = 0; }
+	   if (ModeDispSet == 10) { ModeDispSet = 0; }
 	   cursorSet(1,0);
    }
    
