@@ -16,7 +16,7 @@ void InvertChannels() {
          Serial3.println(InvertAELMode[3]);
 		 cursorSet(6,1);  // bottom line
          Serial3.println(InvertAELMode[InvModeAELEEprom]);
-		 cursorSet(1,0);  // top line
+		 cursorSet(0,0);  // top line
          Serial3.println(MenuDisplay[6]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
@@ -45,7 +45,7 @@ void InvertChannels() {
          Serial3.println(InvertELEMode[3]);
 		 cursorSet(6,1);  // bottom line
          Serial3.println(InvertELEMode[InvModeELEEEprom]);
-		 cursorSet(1,0);  // top line
+		 cursorSet(0,0);  // top line
          Serial3.println(MenuDisplay[6]);
 		 
 		 if (DI_Onup_c == 1) {    // YES
@@ -74,7 +74,7 @@ void InvertChannels() {
          Serial3.println(InvertRUDMode[3]);
 		 cursorSet(6,1);  // bottom line
          Serial3.println(InvertRUDMode[InvModeRUDEEprom]);
-		 cursorSet(1,0);  // top line
+		 cursorSet(0,0);  // top line
          Serial3.println(MenuDisplay[6]);
 		 
 		 if (DI_Onup_c == 1) {    // YES

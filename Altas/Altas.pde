@@ -50,7 +50,19 @@ int trimMax = 75, trimMin = (~trimMax)+1;         // Trim limits +/- (Important:
 int Offset;
 int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
 int ReverseAeleron = 0, ReverseElevator = 0, ReverseRudder = 0;
-char* MenuDisplay[]={"        ", "AEL Trim", "ELE Trim", "RUD Trim", "ELEVON  ", "EXPO-AEL", "INVERT  ", "TESTMODE", "RAW&PPM ", "EXPO-ELE", "EXPO-RUD", "EXPO-OFF"};
+char* MenuDisplay[]={
+"        ",
+"ROLL TRIM           ",
+"PITCH TRIM          ",
+"YAW TRIM            ",
+"ELEVON              ",
+"EXPO-ROLL           ",
+"INVERT              ",
+"TESTMODE            ",
+"RAW&PPM             ",
+"EXPO-PITCH          ",
+"EXPO-YAW            ",
+"EXPO-OFF            "};
 
 // EEprom vars
 int RatesHIMIDLOEEprom = 1;

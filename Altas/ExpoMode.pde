@@ -17,7 +17,7 @@ void ExpoMode() {
          Serial3.println(MenuExponentialMode[3]);
 		 cursorSet(6,1);
          Serial3.println(MenuExponentialMode[ExpoModeAELEEprom]);
-		 cursorSet(1,0);
+		 cursorSet(0,0);
          Serial3.println(MenuDisplay[5]);
 		 
 		 if (DI_Onup_c == 1) {    // AEL Expo Mode Set ON
@@ -47,7 +47,7 @@ void ExpoMode() {
          Serial3.println(MenuExponentialMode[3]);
 		 cursorSet(6,1);
          Serial3.println(MenuExponentialMode[ExpoModeELEEEprom]);
-		 cursorSet(1,0);
+		 cursorSet(0,0);
          Serial3.println(MenuDisplay[9]);
 		 
 		 if (DI_Onup_c == 1) {    // ELE Expo Mode Set ON
@@ -77,7 +77,7 @@ void ExpoMode() {
          Serial3.println(MenuExponentialMode[3]);
 		 cursorSet(6,1);
          Serial3.println(MenuExponentialMode[ExpoModeRUDEEprom]);
-		 cursorSet(1,0);
+		 cursorSet(0,0);
          Serial3.println(MenuDisplay[10]);
 		 
 		 if (DI_Onup_c == 1) {    // RUD Expo Mode Set ON
