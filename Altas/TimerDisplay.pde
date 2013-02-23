@@ -4,7 +4,7 @@ Timer Display
 
 */
 
-char* MenuTimerMode[]={"        ", "Timer   "};
+char* MenuTimerMode[]={"        ", " Timer              "};
 
 // Timer Mode
 void TimerDisplay() {
@@ -27,30 +27,33 @@ void TimerDisplay() {
 	}
 
     if (ChangeModeHIMIDLO == 0 && ModeDispSet == 0 && Timermode == 1) {
-		cursorSet(1,0);
-        Serial3.println(MenuTimerMode[1]); 
+		cursorSet(0,0);
+        Serial3.print(MenuTimerMode[1]); 
 		if (minflag < 10) {
 		    cursorSet(1,1);
-		    Serial3.println("0");
+		    Serial3.print("0");
 		    cursorSet(2,1);
-            Serial3.println(minflag);
+            Serial3.print(minflag);
 		}
 		if (minflag >= 10) {
 		    cursorSet(1,1);
-            Serial3.println(minflag);
+            Serial3.print(minflag);
 		}		
-		cursorSet(3,2);
-        Serial3.println(":");
+		cursorSet(3,1);
+        Serial3.print(":");
 		if (secflag < 10) {
 		    cursorSet(4,1);
-		    Serial3.println("0");
+		    Serial3.print("0");
 		    cursorSet(5,1);
-            Serial3.println(secflag);
+            Serial3.print(secflag);
 		}
 		if (secflag >= 10) {
 		    cursorSet(4,1);
-            Serial3.println(secflag);
-		}	
+            Serial3.print(secflag);
+		}
+
+        cursorSet(6,1);
+        Serial3.print("   ");
 
         if (DI_Onup_c == 1) {           // start/stop timer
 		    DI_Onup_c = 0;
