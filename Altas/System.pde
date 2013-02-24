@@ -85,7 +85,7 @@ void bulb_check(bool state){
 
 void slow_serial_debug(void){
 
-    /*
+    
     Serial.println("Raw Input Values");
     for(byte i=0; i<8; i++) {
       Serial.print(i+1);
@@ -93,13 +93,15 @@ void slow_serial_debug(void){
       Serial.println(PPM_array[i]);
     }
     Serial.println(" ");
-    */
     
+    
+    /*
     for(int i=1; i<=6; i++){
         Serial.print(i);
         Serial.print(FMB_State[i]);
         Serial.println(FMB_State_Old[i]);        
-    }    
+    }
+    */    
 }
 
 void fast_serial_debug(void){
