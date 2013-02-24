@@ -22,6 +22,15 @@
 
 
 // Inputs:
+
+#define ROLL_GIMBAL_PIN         0
+#define PITCH_GIMBAL_PIN        1
+#define THROTTLE_GIMBAL_PIN     2
+#define YAW_GIMBAL_PIN          3
+#define CH6_POT_PIN             4
+#define CH8_POT_PIN             5
+#define V_BATT_PIN              6
+
 #define HAT_SWITCH_UP_PIN       45
 #define HAT_SWITCH_DOWN_PIN     47
 #define HAT_SWITCH_LEFT_PIN     48
@@ -35,12 +44,12 @@
 #define AUX2_SWITCH_PIN         25
 
 // Ch5 Flight Mode Button Inputs
-#define FLIGHT_MODE_1_INPUT     33
-#define FLIGHT_MODE_2_INPUT     34
-#define FLIGHT_MODE_3_INPUT     35
-#define FLIGHT_MODE_4_INPUT     36
-#define FLIGHT_MODE_5_INPUT     37
-#define FLIGHT_MODE_6_INPUT     38
+#define FLIGHT_MODE_1_INPUT     27
+#define FLIGHT_MODE_2_INPUT     29
+#define FLIGHT_MODE_3_INPUT     31
+#define FLIGHT_MODE_4_INPUT     33
+#define FLIGHT_MODE_5_INPUT     35
+#define FLIGHT_MODE_6_INPUT     37
 
 #define ANALOG_INPUT_PINCOUNT   7
 #define DIGITAL_INPUT_PINCOUNT  11
@@ -73,16 +82,22 @@
 // Ch5 Flight Mode Selections
 // These are the PWM values that will be sent out on Ch5 when the operator requests a given flight mode
 
-#define FLIGHT_MODE_1   1150
-#define FLIGHT_MODE_2   1295
-#define FLIGHT_MODE_3   1425
-#define FLIGHT_MODE_4   1555
-#define FLIGHT_MODE_5   1685
-#define FLIGHT_MODE_6   1850
+#define FLIGHT_MODE_1               850
+#define FLIGHT_MODE_2               995
+#define FLIGHT_MODE_3               1125
+#define FLIGHT_MODE_4               1255
+#define FLIGHT_MODE_5               1385
+#define FLIGHT_MODE_6               1550
+#define DEFAULT_ACTIVE_FLIGHT_MODE  2
 
 // These are the PWM values that will be sent out when Ch7 switch is high or low
-#define CH7_PWM_LOW     1100
-#define CH7_PWM_HIGH    1900
+#define CH7_PWM_LOW     800
+#define CH7_PWM_HIGH    1600
+
+// These are the PWM values that will be sent out when Ch8 switch is high or low
+#define CH8_PWM_LOW     800
+#define CH8_PWM_HIGH    1600
+
 
 // Triple Rate Multipliers
 #define LOW_RATE_MULTIPLIER        0.5

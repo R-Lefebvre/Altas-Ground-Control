@@ -30,6 +30,10 @@ void init_input_output(){
         pinMode(DI_Raw[i], INPUT_PULLUP);
     }
     
+    for(int i=1; i<=6; i++){
+        pinMode(Flight_Mode_Inputs[i], INPUT_PULLUP);
+    }
+    
 }
 
 
@@ -81,19 +85,21 @@ void bulb_check(bool state){
 
 void slow_serial_debug(void){
 
+    /*
     Serial.println("Raw Input Values");
-    for(byte i=0; i<6; i++) {
+    for(byte i=0; i<8; i++) {
       Serial.print(i+1);
-      Serial.print("  Int:");
-	  Serial.print(AI_Val[i]);
       Serial.print("  PWM:");
       Serial.println(PPM_array[i]);
     }
-    for(int i=0; i<DIGITAL_INPUT_PINCOUNT; i++) {
-        Serial.print(DI_Val[i]);
-    }
     Serial.println(" ");
+    */
     
+    for(int i=1; i<=6; i++){
+        Serial.print(i);
+        Serial.print(FMB_State[i]);
+        Serial.println(FMB_State_Old[i]);        
+    }    
 }
 
 void fast_serial_debug(void){
