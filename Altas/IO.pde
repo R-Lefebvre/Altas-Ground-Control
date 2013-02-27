@@ -32,31 +32,29 @@ void readdigital() {
    
    // Function Button
    
-   if (DI_Val[0] == 0) { DItemp_a = 1; }   // Button 2 down
-   if (DI_Val[0] == 1 && DItemp_a == 1) {  // Button 2 now up
+   if (DI_Val[MFD_BUTTON_MODE_NUM] == 0) { DItemp_a = 1; }   // Button 2 down
+   if (DI_Val[MFD_BUTTON_MODE_NUM] == 1 && DItemp_a == 1) {  // Button 2 now up
        DI_Onup_a = 1;
 	   DItemp_a= 0;
    }
-
-   
    
    // Trim Adjust Panel Button
-   if (DI_Val[1] == 0) { DItemp_b = 1; }   // Button 3 down
-   if (DI_Val[1] == 1 && DItemp_b == 1) {  // Button 3 now up
+   if (DI_Val[HAT_SWITCH_UP_NUM] == 0) { DItemp_b = 1; }   // Button 3 down
+   if (DI_Val[HAT_SWITCH_UP_NUM] == 1 && DItemp_b == 1) {  // Button 3 now up
        DI_Onup_b = 1;
 	   DItemp_b = 0;
    }
    
    // Trim Adjust Panel Button
-   if (DI_Val[2] == 0) { DItemp_c = 1; }   // Button 4 down
-   if (DI_Val[2] == 1 && DItemp_c == 1) {  // Button 4 now up
+   if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0) { DItemp_c = 1; }   // Button 4 down
+   if (DI_Val[HAT_SWITCH_DOWN_NUM] == 1 && DItemp_c == 1) {  // Button 4 now up
        DI_Onup_c = 1;
 	   DItemp_c = 0;
    }
    
    // HI/LOW Rates Panel Button
-   if (DI_Val[3] == 0) { DItemp_d = 1; }   // Button 5 down
-   if (DI_Val[3] == 1 && DItemp_d == 1) {  // Button 5 now up
+   if (DI_Val[MFD_BUTTON_BACK_NUM] == 0) { DItemp_d = 1; }   // Button 5 down
+   if (DI_Val[MFD_BUTTON_BACK_NUM] == 1 && DItemp_d == 1) {  // Button 5 now up
        DI_Onup_d = 1;
 	   DItemp_d = 0;
    }   
@@ -68,22 +66,30 @@ void readdigital() {
 	   buzzeractivate = 1;          // activate buzzer
 	   cursorSet(1,0); Serial3.println("   ");
 	   ModeDispSet = ModeDispSet + 1;
-	   ChangeMode = 1;                           // do we need this var?
 	   if (ModeDispSet == 10) { ModeDispSet = 0; }
 	   cursorSet(1,0);
    }
    
 
+   // Lo/Hi Rates Switch
+   
+    if (DI_Val[AUX1_SWITCH_NUM] == 0) {                                                         // AUX1 switch is up
+        RateMult = HIGH_RATE_MULTIPLIER;
+    } else {
+        RateMult = LOW_RATE_MULTIPLIER;
+    }
+   
     // Ch7 Switch	
-    if (DI_Val[9] == 1) {                                                           // Ch7 switch is down
+    if (DI_Val[CH7_SWITCH_NUM] == 1) {                                                           // Ch7 switch is down
         Auxsw_uS = CH7_PWM_LOW;
         digitalWrite (CH7_SWITCH_LED_PIN, LOW);
     } else {
         Auxsw_uS = CH7_PWM_HIGH;
         digitalWrite (CH7_SWITCH_LED_PIN, HIGH);
     }
-   
-    if ( DI_Val[10] == 1 ){                                                         // Ch8 switch is down
+    
+    // Ch8 Switch
+    if ( DI_Val[CH8_SWITCH_NUM] == 1 ){                                                         // Ch8 switch is down
         AI_Auxpot2 = CH8_PWM_LOW;
         digitalWrite (CH8_SWITCH_LED_PIN, LOW);
     } else {
@@ -167,11 +173,11 @@ void readanalogue() {
     }
    
     if (ReverseRudder == 0) {   
-        if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID) + TrRudEEprom; }          // Rudder  
-        if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult) + TrRudEEprom; }       // Rudder  
+        if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID); }          // Rudder  
+        if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult); }       // Rudder  
     } else {
-        if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MAX, YAW_MID, Minmult, PWM_MID) + TrRudEEprom; }            // Rudder (reversed)
-        if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID-1, YAW_MIN, PWM_MID + 1, Maxmult) + TrRudEEprom; }     // Rudder (reversed)
+        if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MAX, YAW_MID, Minmult, PWM_MID); }            // Rudder (reversed)
+        if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID-1, YAW_MIN, PWM_MID + 1, Maxmult); }     // Rudder (reversed)
     }
    
     AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX);    // Throttle

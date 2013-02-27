@@ -96,7 +96,7 @@ void TrimSettings() {
 	
     // Thumb stick trim
 	
-    if (DI_Val[5] == 0 && TrAelEEprom < trimMax) {     // Ael trim up via thumb stick
+    if (DI_Val[HAT_SWITCH_RIGHT_NUM] == 0 && TrAelEEprom < trimMax) {     // Ael trim up via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
 			TrAelEEprom++;
 			if (TrAelEEprom > trimMax) { TrAelEEprom = trimMax; }
@@ -104,7 +104,7 @@ void TrimSettings() {
             Offset = 0;
             EEpromwrite();
 	}
-    if (DI_Val[4] == 0 && TrAelEEprom > trimMin) {     // Ael trim down via thumb stick
+    if (DI_Val[HAT_SWITCH_LEFT_NUM] == 0 && TrAelEEprom > trimMin) {     // Ael trim down via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
 			TrAelEEprom--;
 			if (TrAelEEprom < trimMin) { TrAelEEprom = trimMin; }
@@ -112,7 +112,7 @@ void TrimSettings() {
             Offset = 0;
             EEpromwrite();
 	}	
-    if (DI_Val[6] == 0 && TrEleEEprom < trimMax) {     // Ele trim up via thumb stick
+    if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0 && TrEleEEprom < trimMax) {     // Ele trim up via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
 			TrEleEEprom++;
 			if (TrEleEEprom > trimMax) { TrEleEEprom = trimMax; }
@@ -120,7 +120,7 @@ void TrimSettings() {
             Offset = 3;
             EEpromwrite();
 	}
-    if (DI_Val[7] == 0 && TrEleEEprom > trimMin) {     // Ele trim down via thumb stick
+    if (DI_Val[HAT_SWITCH_UP_NUM] == 0 && TrEleEEprom > trimMin) {     // Ele trim down via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
 			TrEleEEprom--;
 			if (TrEleEEprom < trimMin) { TrEleEEprom = trimMin; }

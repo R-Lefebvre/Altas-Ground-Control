@@ -43,6 +43,19 @@
 #define AUX1_SWITCH_PIN         23
 #define AUX2_SWITCH_PIN         25
 
+// Digital Pin Enumeration
+#define MFD_BUTTON_MODE_NUM     0
+#define HAT_SWITCH_UP_NUM       1
+#define HAT_SWITCH_DOWN_NUM     2
+#define MFD_BUTTON_BACK_NUM     3
+#define HAT_SWITCH_LEFT_NUM     4
+#define HAT_SWITCH_RIGHT_NUM    5
+#define MFD_BUTTON_ENTER_NUM    6
+#define AUX1_SWITCH_NUM         7
+#define AUX2_SWITCH_NUM         8
+#define CH7_SWITCH_NUM          9
+#define CH8_SWITCH_NUM          10
+
 // Ch5 Flight Mode Button Inputs
 #define FLIGHT_MODE_1_INPUT     27
 #define FLIGHT_MODE_2_INPUT     29
@@ -101,7 +114,6 @@
 
 // Triple Rate Multipliers
 #define LOW_RATE_MULTIPLIER        0.5
-#define MID_RATE_MULTIPLIER        0.75
 #define HIGH_RATE_MULTIPLIER       1.0
 
 // PPM Stream Generation

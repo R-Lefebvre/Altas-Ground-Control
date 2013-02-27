@@ -36,18 +36,20 @@ int AI_Pin[7] = {                       // actual analog input pins
 int AI_Val[7];                          // analogue input vars
 
 int DI_Raw[DIGITAL_INPUT_PINCOUNT] = { 
-    MFD_BUTTON_MODE_PIN,
-    HAT_SWITCH_UP_PIN,
-    HAT_SWITCH_DOWN_PIN,
-    MFD_BUTTON_BACK_PIN,
-    HAT_SWITCH_LEFT_PIN ,
-    HAT_SWITCH_RIGHT_PIN,
-    MFD_BUTTON_BACK_PIN,
-    AUX1_SWITCH_PIN,
-    AUX2_SWITCH_PIN,
-    CH7_SWITCH_PIN,
-    CH8_SWITCH_PIN
+    MFD_BUTTON_MODE_PIN,                    //0
+    HAT_SWITCH_UP_PIN,                      //1
+    HAT_SWITCH_DOWN_PIN,                    //2
+    MFD_BUTTON_BACK_PIN,                    //3
+    HAT_SWITCH_LEFT_PIN ,                   //4
+    HAT_SWITCH_RIGHT_PIN,                   //5
+    MFD_BUTTON_ENTER_PIN,                   //6
+    AUX1_SWITCH_PIN,                        //7
+    AUX2_SWITCH_PIN,                        //8
+    CH7_SWITCH_PIN,                         //9
+    CH8_SWITCH_PIN                          //10
 };    // actual digital input pins
+
+
 
 int DI_Val[DIGITAL_INPUT_PINCOUNT];                                         // digital input vars
 
@@ -94,7 +96,6 @@ int Flight_Mode_LED[] = {
 };
 
 // Mode vars
-int ChangeModeHIMIDLO = 0, ChangeMode = 0;
 int trimMax = 75, trimMin = (~trimMax)+1;         // Trim limits +/- (Important: max = 127)
 int Offset;
 int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
@@ -141,7 +142,6 @@ void setup() {
     init_PPM_gen();                                                 // Function to initialize the PPM Generator
     Serial.begin(19200);                                            // For Serial Debugging
     ParallaxLCDSetup();
-    HiMiLoRatesSetup();                                             // Pull Rates & Trim settings from EEprom
     ExpoModeSetup();                                                // Pull AEL, ELE & RUD Expo Mode from EEprom
     InvertChannelsSetup();                                          // Pull AEL Invert Mode from EEprom   
     previousMillis = millis();
@@ -162,7 +162,6 @@ void loop() { // Main loop
 	  tick0 = 0;
 	  readdigital();             // Read digital I/O
       //fast_serial_debug();
-      HiMiLoRates();             // Rates
 	  TrimSettings();            // Trims
 	  ExpoMode();                // Exponential Modes
 	  InvertChannels();          // Invert Channels
