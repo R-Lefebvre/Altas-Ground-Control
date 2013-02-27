@@ -5,7 +5,7 @@
 
 // Hardware Definitions
 // Outputs:
-#define PPM_OUTPUT_PIN          10
+#define PPM_OUTPUT_PIN          12
 
 // Ch5 Flight Mode LEDs
 #define FLIGHT_MODE_1_LED_PIN   26
