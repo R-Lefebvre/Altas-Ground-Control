@@ -55,9 +55,9 @@
 #define DIGITAL_INPUT_PINCOUNT  11
 
 // User adjustable settings
-#define PWM_MIN     700
+#define PWM_MIN     800
 #define PWM_MID     1200
-#define PWM_MAX     1700
+#define PWM_MAX     1600
 
 // RAW inputs (range is 0-1023 for 10-bit analogue inputs). If your analogue inputs don't quite start
 // at 0vdc, or don't quite hit the 5vdc max then you can tweak the ranges here for best operation.
