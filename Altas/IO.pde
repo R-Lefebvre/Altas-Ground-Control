@@ -66,7 +66,7 @@ void readdigital() {
 	   buzzeractivate = 1;          // activate buzzer
 	   cursorSet(1,0); Serial3.println("   ");
 	   ModeDispSet = ModeDispSet + 1;
-	   if (ModeDispSet == 10) { ModeDispSet = 0; }
+	   if (ModeDispSet == 7) { ModeDispSet = 0; }
 	   cursorSet(1,0);
    }
    
@@ -156,29 +156,14 @@ void readanalogue() {
     Minmult = (PWM_MID - (RateMult * ((PWM_MAX - PWM_MIN) / 2)));  // Generate scaled graph depending on current RateMult
     Maxmult = (PWM_MID + (RateMult * ((PWM_MAX - PWM_MIN) / 2)));
    
-    if (ReverseAeleron == 0) {  
-        if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + TrAelEEprom; }          // Aeleron 1
-        if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + TrAelEEprom; }       // Aeleron 1
-    } else {   
-        if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MAX, ROLL_MID, Minmult, PWM_MID) + TrAelEEprom; }            // Aeleron 1 (reversed)
-        if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID-1, ROLL_MIN, PWM_MID + 1, Maxmult) + TrAelEEprom; }     // Aeleron 1 (reversed)
-    }
-
-    if (ReverseElevator == 0) {
-        if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + TrEleEEprom; }          // Elevator 
-        if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + TrEleEEprom; }       // Elevator 
-    } else {
-        if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MAX, PITCH_MID, Minmult, PWM_MID) + TrEleEEprom; }            // Elevator (reversed)
-        if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID-1, PITCH_MIN, PWM_MID + 1, Maxmult) + TrEleEEprom; }     // Elevator (reversed)
-    }
-   
-    if (ReverseRudder == 0) {   
-        if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID); }          // Rudder  
-        if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult); }       // Rudder  
-    } else {
-        if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MAX, YAW_MID, Minmult, PWM_MID); }            // Rudder (reversed)
-        if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID-1, YAW_MIN, PWM_MID + 1, Maxmult); }     // Rudder (reversed)
-    }
+    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + TrAelEEprom; }          // Aeleron
+    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + TrAelEEprom; }       // Aeleron
+    
+    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + TrEleEEprom; }          // Elevator 
+    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + TrEleEEprom; }       // Elevator 
+  
+    if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID); }          // Rudder  
+    if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult); }       // Rudder  
    
     AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX);    // Throttle
     AI_Auxpot1 = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MIN, PWM_MAX);             // Aux pot 1    
@@ -188,105 +173,54 @@ void readanalogue() {
 // Check limits & set outputs
 void checklimitsmodessetouputs() {
  
-   // Exponential Aelerons
-   if (ReverseAeleron == 0) {
-       if (ExpoModeAEL == 1) {
-           if (AI_Val[0] < ROLL_MID ){
-	          AI_AelerF = AI_Aeler - PWM_MID;  // zero
-	          AI_AelerF = ((((AI_AelerF*-1)/10) * ((AI_AelerF*-1)/10))) * -1;  // low side calc
-		      AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + PWM_MID;
-           }
-           if (AI_Val[0] >= ROLL_MID ){
-              AI_AelerF = AI_Aeler - PWM_MID;  // zero
-	          AI_AelerF = (AI_AelerF/10) * (AI_AelerF/10);  // high side calc
-			  AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + PWM_MID;
-           }
-       }
-   } else {
-        if (ExpoModeAEL == 1) {
-           if (AI_Val[0] < ROLL_MID ){
-              AI_AelerF = AI_Aeler - PWM_MID;  // zero
-	          AI_AelerF = (AI_AelerF/10) * (AI_AelerF/10);  // high side calc
-			  AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + PWM_MID;
-           }
-           if (AI_Val[0] >= ROLL_MID ){
-	          AI_AelerF = AI_Aeler - PWM_MID;  // zero
-	          AI_AelerF = ((((AI_AelerF*-1)/10) * ((AI_AelerF*-1)/10))) * -1;  // low side calc
-		      AI_AelerF = AI_AelerF * .3;  // reduce gain
-	          AI_Aeler = AI_AelerF + PWM_MID;
-           }
-       }  
-   
-   }
+    // Exponential Aelerons
+    if (ExpoModeAEL == 1) {
+        if (AI_Val[0] < ROLL_MID ){
+            AI_AelerF = AI_Aeler - PWM_MID;  // zero
+            AI_AelerF = ((((AI_AelerF*-1)/10) * ((AI_AelerF*-1)/10))) * -1;  // low side calc
+            AI_AelerF = AI_AelerF * .3;  // reduce gain
+            AI_Aeler = AI_AelerF + PWM_MID;
+        }
+    if (AI_Val[0] >= ROLL_MID ){
+            AI_AelerF = AI_Aeler - PWM_MID;  // zero
+            AI_AelerF = (AI_AelerF/10) * (AI_AelerF/10);  // high side calc
+            AI_AelerF = AI_AelerF * .3;  // reduce gain
+            AI_Aeler = AI_AelerF + PWM_MID;
+        }
+    }   
 
-   // Exponential Elevators
-   if (ReverseElevator == 0) {
-       if (ExpoModeELE == 1) {
-           if (AI_Val[1] < PITCH_MID ){
-	          AI_ElevaF = AI_Eleva - PWM_MID;  // zero
-	          AI_ElevaF = ((((AI_ElevaF*-1)/10) * ((AI_ElevaF*-1)/10))) * -1;  // low side calc
-		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + PWM_MID;
-           }
-           if (AI_Val[1] >= PITCH_MID ){
-              AI_ElevaF = AI_Eleva - PWM_MID;  // zero
-	          AI_ElevaF = (AI_ElevaF/10) * (AI_ElevaF/10);  // high side calc
-		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + PWM_MID;
-           }
-       }
-   } else {
-       if (ExpoModeELE == 1) {
-           if (AI_Val[1] < PITCH_MID ){
-              AI_ElevaF = AI_Eleva - PWM_MID;  // zero
-	          AI_ElevaF = (AI_ElevaF/10) * (AI_ElevaF/10);  // high side calc
-		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + PWM_MID;
-           }
-           if (AI_Val[1] >= PITCH_MID ){
-	          AI_ElevaF = AI_Eleva - PWM_MID;  // zero
-	          AI_ElevaF = ((((AI_ElevaF*-1)/10) * ((AI_ElevaF*-1)/10))) * -1;  // low side calc
-		      AI_ElevaF = AI_ElevaF * .3;  // reduce gain
-	          AI_Eleva = AI_ElevaF + PWM_MID;
-           }
-       }   
-   }
+    // Exponential Elevators
+    if (ExpoModeELE == 1) {
+        if (AI_Val[1] < PITCH_MID ){
+            AI_ElevaF = AI_Eleva - PWM_MID;  // zero
+            AI_ElevaF = ((((AI_ElevaF*-1)/10) * ((AI_ElevaF*-1)/10))) * -1;  // low side calc
+            AI_ElevaF = AI_ElevaF * .3;  // reduce gain
+            AI_Eleva = AI_ElevaF + PWM_MID;
+        }
+        if (AI_Val[1] >= PITCH_MID ){
+            AI_ElevaF = AI_Eleva - PWM_MID;  // zero
+            AI_ElevaF = (AI_ElevaF/10) * (AI_ElevaF/10);  // high side calc
+            AI_ElevaF = AI_ElevaF * .3;  // reduce gain
+            AI_Eleva = AI_ElevaF + PWM_MID;
+        }
+    }
 
-   // Exponential Rudder
-   if (ReverseRudder == 0) {
-       if (ExpoModeRUD == 1) {
-           if (AI_Val[3] < YAW_MID ){
-	          AI_RuddeF = AI_Rudde - PWM_MID;  // zero
-	          AI_RuddeF = ((((AI_RuddeF*-1)/10) * ((AI_RuddeF*-1)/10))) * -1;  // low side calc
-		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + PWM_MID;
-           }
-           if (AI_Val[3] >= YAW_MID ){
-              AI_RuddeF = AI_Rudde - PWM_MID;  // zero
-	          AI_RuddeF = (AI_RuddeF/10) * (AI_RuddeF/10);  // high side calc
-		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + PWM_MID;
-           }
-	   }
-   } else { 
-       if (ExpoModeRUD == 1) {
-           if (AI_Val[3] < YAW_MID ){
-              AI_RuddeF = AI_Rudde - PWM_MID;  // zero
-	          AI_RuddeF = (AI_RuddeF/10) * (AI_RuddeF/10);  // high side calc
-		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + PWM_MID;
-           }
-           if (AI_Val[3] >= YAW_MID ){
-	          AI_RuddeF = AI_Rudde - PWM_MID;  // zero
-	          AI_RuddeF = ((((AI_RuddeF*-1)/10) * ((AI_RuddeF*-1)/10))) * -1;  // low side calc
-		      AI_RuddeF = AI_RuddeF * .3;  // reduce gain
-	          AI_Rudde = AI_RuddeF + PWM_MID;
-           }
-	   }
-   }   
+
+    // Exponential Rudder
+    if (ExpoModeRUD == 1) {
+        if (AI_Val[3] < YAW_MID ){
+            AI_RuddeF = AI_Rudde - PWM_MID;  // zero
+            AI_RuddeF = ((((AI_RuddeF*-1)/10) * ((AI_RuddeF*-1)/10))) * -1;  // low side calc
+            AI_RuddeF = AI_RuddeF * .3;  // reduce gain
+            AI_Rudde = AI_RuddeF + PWM_MID;
+        }
+        if (AI_Val[3] >= YAW_MID ){
+            AI_RuddeF = AI_Rudde - PWM_MID;  // zero
+            AI_RuddeF = (AI_RuddeF/10) * (AI_RuddeF/10);  // high side calc
+            AI_RuddeF = AI_RuddeF * .3;  // reduce gain
+            AI_Rudde = AI_RuddeF + PWM_MID;
+        }
+    }
    
       // Check limits
    if (AI_Aeler < PWM_MIN) AI_Aeler = PWM_MIN;

@@ -99,7 +99,6 @@ int Flight_Mode_LED[] = {
 int trimMax = 75, trimMin = (~trimMax)+1;         // Trim limits +/- (Important: max = 127)
 int Offset;
 int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
-int ReverseAeleron = 0, ReverseElevator = 0, ReverseRudder = 0;
 char* MenuDisplay[]={
 "        ",                 //0
 "ROLL TRIM           ",     //1
@@ -107,11 +106,8 @@ char* MenuDisplay[]={
 "YAW TRIM            ",     //3
 "EXPO-ROLL           ",     //4
 "EXPO-PITCH          ",     //5
-"EXPO-YAW            ",     //6
-"INVERT              ",     //7
-"TESTMODE            ",     //8
-"RAW&PPM             ",     //9
-"EXPO-OFF            "};    //10
+"EXPO-YAW            "};     //6
+
 
 // EEprom vars
 int RatesHIMIDLOEEprom = 1;
@@ -143,7 +139,6 @@ void setup() {
     Serial.begin(19200);                                            // For Serial Debugging
     ParallaxLCDSetup();
     ExpoModeSetup();                                                // Pull AEL, ELE & RUD Expo Mode from EEprom
-    InvertChannelsSetup();                                          // Pull AEL Invert Mode from EEprom   
     previousMillis = millis();
     bulb_check(0);
     digitalWrite (Flight_Mode_LED[Active_Flight_Mode], HIGH);
@@ -163,8 +158,7 @@ void loop() { // Main loop
 	  readdigital();             // Read digital I/O
       //fast_serial_debug();
 	  TrimSettings();            // Trims
-	  ExpoMode();                // Exponential Modes
-	  InvertChannels();          // Invert Channels
+	  ExpoMode();                // Exponential ModeS
 	  batterymonitor();          // Battery check
 	  TimerDisplay();            // Timer
       
