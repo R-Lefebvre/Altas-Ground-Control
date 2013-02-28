@@ -64,9 +64,9 @@ void readdigital() {
    if (DI_Onup_a == 1 && Timermode == 0) {
 	   DI_Onup_a = 0;
 	   buzzeractivate = 1;          // activate buzzer
-	   cursorSet(1,0); Serial3.println("   ");
+	   clearPLCD();
 	   ModeDispSet = ModeDispSet + 1;
-	   if (ModeDispSet == 7) { ModeDispSet = 0; }
+	   if (ModeDispSet == 5) { ModeDispSet = 0; }
 	   cursorSet(1,0);
    }
    
@@ -156,11 +156,11 @@ void readanalogue() {
     Minmult = (PWM_MID - (RateMult * ((PWM_MAX - PWM_MIN) / 2)));  // Generate scaled graph depending on current RateMult
     Maxmult = (PWM_MID + (RateMult * ((PWM_MAX - PWM_MIN) / 2)));
    
-    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + TrAelEEprom; }          // Aeleron
-    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + TrAelEEprom; }       // Aeleron
+    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + Trim_Roll; }          // Aeleron
+    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + Trim_Roll; }       // Aeleron
     
-    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + TrEleEEprom; }          // Elevator 
-    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + TrEleEEprom; }       // Elevator 
+    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + Trim_Pitch; }          // Elevator 
+    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + Trim_Pitch; }       // Elevator 
   
     if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID); }          // Rudder  
     if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult); }       // Rudder  

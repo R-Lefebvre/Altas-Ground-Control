@@ -24,7 +24,6 @@ void initTuneLCD(){
 // clear the LCD
 void clearPLCD(){
   Serial3.write(12);
-  delay(5);                     //ToDo: This is really bad, but apparently necessary.
 }
 
 // backspace and erase previous character
@@ -51,3 +50,8 @@ void cursorSet(int xpos, int ypos){
   temp = temp + (xpos + 20 * ypos);  
   Serial3.write(temp); //Row position 
 }
+
+void deletePLCD(int xpos, int ypos){
+    cursorSet (xpos, ypos);
+    Serial3.print(" ");
+}   

@@ -96,22 +96,21 @@ int Flight_Mode_LED[] = {
 };
 
 // Mode vars
-int trimMax = 75, trimMin = (~trimMax)+1;         // Trim limits +/- (Important: max = 127)
+int Trim_Pitch = 0;
+int Trim_Roll = 0;
 int Offset;
 int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
 char* MenuDisplay[]={
 "        ",                 //0
-"ROLL TRIM           ",     //1
-"PITCH TRIM          ",     //2
-"YAW TRIM            ",     //3
-"EXPO-ROLL           ",     //4
-"EXPO-PITCH          ",     //5
-"EXPO-YAW            "};     //6
+"TRIM SETTINGS       ",     //1
+"EXPO-ROLL           ",     //2
+"EXPO-PITCH          ",     //3
+"EXPO-YAW            "};    //4
 
 
 // EEprom vars
 int RatesHIMIDLOEEprom = 1;
-int TrAelEEprom = 0, TrEleEEprom = 0, TrRudEEprom = 0, EpromPointer = 0;
+int EpromPointer = 0;
 int Epromvar, Address;
 
 // Buzzer vars

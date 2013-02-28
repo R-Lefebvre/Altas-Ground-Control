@@ -1,130 +1,97 @@
 /*
 
-AEL/ELE/RUD Trim
+AEL/ELE Trim
 
 */
 
-char* MenuHIMIDLO[]={"        ", "LO", "MI", "HI"};
-int TrEprom;
 
 // Trim Settings
 void TrimSettings() {
 
-    if (Timermode == 0 && ModeDispSet == 1 || ModeDispSet == 2 || ModeDispSet == 3) {    // AEL,ELE,RUD Trim setting
-	    if (ModeDispSet == 1) {
-		    TrEprom = TrAelEEprom;
-		    Offset = 0;
-		}
-		if (ModeDispSet == 2) {
-		    TrEprom = TrEleEEprom;
-            Offset = 3;
-		}
-		if (ModeDispSet == 3) {
-		    TrEprom = TrRudEEprom;
-            Offset = 6;
-		}
-	
+    if (Timermode == 0 && ModeDispSet == 1 ) {    // Pitch or Roll Trim setting
+	    
 	    // Write AEL, ELE or RUD to LCD
-	    cursorSet(1,0);
-        Serial3.println(MenuHIMIDLO[RatesHIMIDLOEEprom]);  // LO, MI or HI
-		cursorSet(1,1);
-        Serial3.println(MenuDisplay[ModeDispSet]);  // AEL, ELE or RUD TRIM
-		
-		// Stick Trim
-		if (TrEprom > trimMax) {   // If more than trimMax (i.e. brand new install or corrupt) then reset to zero
-		    TrEprom = 0;
-			Epromvar = TrEprom;
-            EEpromwrite();
-		}
-		
-		if (TrEprom < trimMin) {   // If lower than trimMin (i.e. brand new install or corrupt) then reset to zero
-		    TrEprom = 0;
-			Epromvar = TrEprom;
-            EEpromwrite();
-		}
-		
-		if (DI_Onup_c == 1 && TrEprom < trimMax) {    // trim adj up
-		    DI_Onup_c = 0;
-		    buzzeractivate = 1;                  // activate buzzer
-			TrEprom++;
-			if (TrEprom > trimMax) { TrEprom = trimMax; }
-			Epromvar = TrEprom;
-            EEpromwrite();
-		}
-		
-		if (DI_Onup_b == 1 && TrEprom > trimMin) {    // trim adj down
-		    DI_Onup_b = 0;
-		    buzzeractivate = 1;                  // activate buzzer
-			TrEprom--;
-			if (TrEprom < trimMin) { TrEprom = trimMin; }
-			Epromvar = TrEprom;
-            EEpromwrite();
-		}
+		cursorSet(1,0);
+        Serial3.println(MenuDisplay[ModeDispSet]);
+        cursorSet(1,1); Serial3.print("Pitch");
+        cursorSet(1,2); Serial3.print("Roll");
 
 		// Right justify pos numbers
-		if (TrEprom >= 0 && TrEprom <= 9 ) {
-		cursorSet(4,0); Serial3.println("    ");
-		cursorSet(8,0); Serial3.println(TrEprom);
+		if (Trim_Pitch >= 0 && Trim_Pitch <= 9 ) {
+        deletePLCD(7,1);
+		cursorSet(8,1); Serial3.println(Trim_Pitch);
 		}
-		if (TrEprom >= 10 && TrEprom <= 99 ) {
-		cursorSet(4,0); Serial3.println("   ");
-		cursorSet(7,0); Serial3.println(TrEprom);
+		if (Trim_Pitch >= 10 && Trim_Pitch <= 99 ) {
+		cursorSet(7,1); Serial3.println(Trim_Pitch);
 		}
-		if (TrEprom >= 100 && TrEprom <= 999 ) {
-		cursorSet(4,0); Serial3.println("  ");
-		cursorSet(6,0); Serial3.println(TrEprom);
+		if (Trim_Pitch >= 100 && Trim_Pitch <= 999 ) {
+		cursorSet(6,1); Serial3.println(Trim_Pitch);
 		}			
 		// Right justify neg numbers
-		if (TrEprom >= -9 && TrEprom <= -1 ) {
-		cursorSet(4,0); Serial3.println("   ");
-		cursorSet(7,0); Serial3.println(TrEprom);
+		if (Trim_Pitch >= -9 && Trim_Pitch <= -1 ) {
+		cursorSet(7,1); Serial3.println(Trim_Pitch);
 		}
-		if (TrEprom >= -99 && TrEprom <= -10 ) {
-		cursorSet(4,0); Serial3.println("  ");
-		cursorSet(6,0); Serial3.println(TrEprom);
+		if (Trim_Pitch >= -99 && Trim_Pitch <= -10 ) {
+		cursorSet(6,1); Serial3.println(Trim_Pitch);
 		}
-		if (TrEprom >= -999 && TrEprom <= -100 ) {
-		cursorSet(4,0); Serial3.println(" ");
-		cursorSet(5,0); Serial3.println(TrEprom);
+		if (Trim_Pitch >= -999 && Trim_Pitch <= -100 ) {
+		cursorSet(5,1); Serial3.println(Trim_Pitch);
+		}
+
+        // Right justify pos numbers
+		if (Trim_Roll >= 0 && Trim_Roll <= 9 ) {
+        deletePLCD(7,2);
+		cursorSet(8,2); Serial3.println(Trim_Roll);
+		}
+		if (Trim_Roll >= 10 && Trim_Roll <= 99 ) {
+		cursorSet(7,2); Serial3.println(Trim_Roll);
+		}
+		if (Trim_Roll >= 100 && Trim_Roll <= 999 ) {
+		cursorSet(6,2); Serial3.println(Trim_Roll);
+		}			
+		// Right justify neg numbers
+		if (Trim_Roll >= -9 && Trim_Roll <= -1 ) {
+		cursorSet(7,2); Serial3.println(Trim_Roll);
+		}
+		if (Trim_Roll >= -99 && Trim_Roll <= -10 ) {
+		cursorSet(6,2); Serial3.println(Trim_Roll);
+		}
+		if (Trim_Roll >= -999 && Trim_Roll <= -100 ) {
+		cursorSet(5,2); Serial3.println(Trim_Roll);
 		}		
-		
-		// Reload vars
-        if (ModeDispSet == 1) {TrAelEEprom = TrEprom; }
-		if (ModeDispSet == 2) {TrEleEEprom = TrEprom; }
-		if (ModeDispSet == 3) {TrRudEEprom = TrEprom; }
     }
 	
     // Thumb stick trim
 	
-    if (DI_Val[HAT_SWITCH_RIGHT_NUM] == 0 && TrAelEEprom < trimMax) {     // Ael trim up via thumb stick
+    if (DI_Val[HAT_SWITCH_RIGHT_NUM] == 0 && Trim_Roll < MAX_TRIM) {     // Ael trim up via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
-			TrAelEEprom++;
-			if (TrAelEEprom > trimMax) { TrAelEEprom = trimMax; }
-			Epromvar = TrAelEEprom;
+			Trim_Roll++;
+			if (Trim_Roll > MAX_TRIM) { Trim_Roll = MAX_TRIM; }
+			Epromvar = Trim_Roll;
             Offset = 0;
             EEpromwrite();
 	}
-    if (DI_Val[HAT_SWITCH_LEFT_NUM] == 0 && TrAelEEprom > trimMin) {     // Ael trim down via thumb stick
+    if (DI_Val[HAT_SWITCH_LEFT_NUM] == 0 && Trim_Roll > MIN_TRIM) {     // Ael trim down via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
-			TrAelEEprom--;
-			if (TrAelEEprom < trimMin) { TrAelEEprom = trimMin; }
-			Epromvar = TrAelEEprom;
+			Trim_Roll--;
+			if (Trim_Roll < MIN_TRIM) { Trim_Roll = MIN_TRIM; }
+			Epromvar = Trim_Roll;
             Offset = 0;
             EEpromwrite();
 	}	
-    if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0 && TrEleEEprom < trimMax) {     // Ele trim up via thumb stick
+    if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0 && Trim_Pitch < MAX_TRIM) {     // Ele trim up via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
-			TrEleEEprom++;
-			if (TrEleEEprom > trimMax) { TrEleEEprom = trimMax; }
-			Epromvar = TrEleEEprom;
+			Trim_Pitch++;
+			if (Trim_Pitch > MAX_TRIM) { Trim_Pitch = MAX_TRIM; }
+			Epromvar = Trim_Pitch;
             Offset = 3;
             EEpromwrite();
 	}
-    if (DI_Val[HAT_SWITCH_UP_NUM] == 0 && TrEleEEprom > trimMin) {     // Ele trim down via thumb stick
+    if (DI_Val[HAT_SWITCH_UP_NUM] == 0 && Trim_Pitch > MIN_TRIM) {     // Ele trim down via thumb stick
 		    buzzeractivate = 2;         // activate buzzer
-			TrEleEEprom--;
-			if (TrEleEEprom < trimMin) { TrEleEEprom = trimMin; }
-			Epromvar = TrEleEEprom;
+			Trim_Pitch--;
+			if (Trim_Pitch < MIN_TRIM) { Trim_Pitch = MIN_TRIM; }
+			Epromvar = Trim_Pitch;
             Offset = 3;
             EEpromwrite();
 	}	

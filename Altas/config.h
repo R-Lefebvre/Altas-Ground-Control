@@ -111,6 +111,10 @@
 #define CH8_PWM_LOW     800
 #define CH8_PWM_HIGH    1600
 
+// Min and Max allowable trim values.  In PWM.
+#define MAX_TRIM    75
+#define MIN_TRIM    -75
+
 
 // Triple Rate Multipliers
 #define LOW_RATE_MULTIPLIER        0.5
