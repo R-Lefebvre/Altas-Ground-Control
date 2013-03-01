@@ -103,10 +103,7 @@ int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSe
 char* MenuDisplay[]={
 "        ",                 //0
 "TRIM SETTINGS       ",     //1
-"EXPO-ROLL           ",     //2
-"EXPO-PITCH          ",     //3
-"EXPO-YAW            "};    //4
-
+"EXPONENTIAL MODE    "};     //2
 
 // EEprom vars
 int RatesHIMIDLOEEprom = 1;

@@ -66,7 +66,7 @@ void readdigital() {
 	   buzzeractivate = 1;          // activate buzzer
 	   clearPLCD();
 	   ModeDispSet = ModeDispSet + 1;
-	   if (ModeDispSet == 5) { ModeDispSet = 0; }
+	   if (ModeDispSet == 3) { ModeDispSet = 0; }
 	   cursorSet(1,0);
    }
    

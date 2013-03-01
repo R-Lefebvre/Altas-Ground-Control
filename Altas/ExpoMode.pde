@@ -13,93 +13,21 @@ void ExpoMode() {
 
 	// AEL Exponential Mode setting, 1=OFF, 2=ON
     if (Timermode == 0 && ModeDispSet == 2) {
-	     cursorSet(1,1);
-         Serial3.println(MenuExponentialMode[3]);
-		 cursorSet(6,1);
-         Serial3.println(MenuExponentialMode[ExpoModeAELEEprom]);
-		 cursorSet(0,0);
-         Serial3.println(MenuDisplay[2]);
-		 
-		 if (DI_Onup_c == 1) {    // AEL Expo Mode Set ON
-		    DI_Onup_c = 0;
-			ExpoModeAEL = 1;
-			buzzeractivate = 1;                  // activate buzzer
-			ExpoModeAELEEprom = 2;
-			Epromvar = ExpoModeAELEEprom;
-			Address = 22;
-            EEpromwriteDirect();
-		 }
-		
-		 if (DI_Onup_b == 1) {    // AEL Expo Mode Set OFF
-		    DI_Onup_b = 0;
-			ExpoModeAEL = 0;
-			buzzeractivate = 1;                  // activate buzzer
-			ExpoModeAELEEprom = 1;
-			Epromvar = ExpoModeAELEEprom;
-			Address = 22;
-            EEpromwriteDirect();
-		 }
+        cursorSet(1,0);
+        Serial3.print("Exponential Mode");
+	    cursorSet(2,1);
+        Serial3.print("Roll:");
+		cursorSet(7,1);
+        Serial3.println(MenuExponentialMode[ExpoModeAELEEprom]);
+		cursorSet(1,2);
+        Serial3.print("Pitch:");
+		cursorSet(7,2);
+        Serial3.println(MenuExponentialMode[ExpoModeELEEEprom]);
+        cursorSet(3,3);
+        Serial3.print("Yaw:");
+		cursorSet(7,3);
+        Serial3.println(MenuExponentialMode[ExpoModeRUDEEprom]);
 	}	
-
-	// ELE Exponential Mode setting, 1=OFF, 2=ON
-    if (Timermode == 0 && ModeDispSet == 3) {
-	     cursorSet(1,1);
-         Serial3.println(MenuExponentialMode[3]);
-		 cursorSet(6,1);
-         Serial3.println(MenuExponentialMode[ExpoModeELEEEprom]);
-		 cursorSet(0,0);
-         Serial3.println(MenuDisplay[3]);
-		 
-		 if (DI_Onup_c == 1) {    // ELE Expo Mode Set ON
-		    DI_Onup_c = 0;
-			ExpoModeELE = 1;
-			buzzeractivate = 1;                  // activate buzzer
-			ExpoModeELEEEprom = 2;
-			Epromvar = ExpoModeELEEEprom;
-			Address = 23;
-            EEpromwriteDirect();
-		 }
-		
-		 if (DI_Onup_b == 1) {    // ELE Expo Mode Set OFF
-		    DI_Onup_b = 0;
-			ExpoModeELE = 0;
-			buzzeractivate = 1;                  // activate buzzer
-			ExpoModeELEEEprom = 1;
-			Epromvar = ExpoModeELEEEprom;
-			Address = 23;
-            EEpromwriteDirect();
-		 }
-	}	
-	
-	// RUD Exponential Mode setting, 1=OFF, 2=ON
-    if (Timermode == 0 && ModeDispSet == 4) {
-	     cursorSet(1,1);
-         Serial3.println(MenuExponentialMode[3]);
-		 cursorSet(6,1);
-         Serial3.println(MenuExponentialMode[ExpoModeRUDEEprom]);
-		 cursorSet(0,0);
-         Serial3.println(MenuDisplay[4]);
-		 
-		 if (DI_Onup_c == 1) {    // RUD Expo Mode Set ON
-		    DI_Onup_c = 0;
-			ExpoModeRUD = 1;
-			buzzeractivate = 1;                  // activate buzzer
-			ExpoModeRUDEEprom = 2;
-			Epromvar = ExpoModeRUDEEprom;
-			Address = 24;
-            EEpromwriteDirect();
-		 }
-		
-		 if (DI_Onup_b == 1) {    // RUD Expo Mode Set OFF
-		    DI_Onup_b = 0;
-			ExpoModeRUD = 0;
-			buzzeractivate = 1;                  // activate buzzer 
-			ExpoModeRUDEEprom = 1;
-			Epromvar = ExpoModeRUDEEprom;
-			Address = 24;
-            EEpromwriteDirect();
-		 }
-	}		
 }
 
 // *********************** Setup **************************
