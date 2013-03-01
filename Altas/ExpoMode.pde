@@ -4,8 +4,7 @@ Exponential Modes
 
 */
 
-char* MenuWingMode[]={"        ", "OFF", " ON", "MODE "};
-char* MenuExponentialMode[]={"        ", "OFF", " ON", "MODE ", "AE,EL,RU"};
+char* MenuExponentialMode[]={"        ", "OFF", " ON"};
 int ExpoModeAELEEprom = 1, ExpoModeELEEEprom = 1, ExpoModeRUDEEprom = 1, InvModeAELEEprom = 1, InvModeELEEEprom = 1, InvModeRUDEEprom = 1;
 
 // Exponential Modes

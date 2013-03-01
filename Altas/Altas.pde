@@ -119,8 +119,11 @@ int tick0 = 0, tick1 = 0, tick2 = 0, tick3 = 0;
 unsigned char slowflag;
 
 // Manual Timer, Interrupt Timer vars
-unsigned char TimerStart = 0;    
-int secflag = 0, minflag = 0;
+bool timer1_running = true;
+bool timer2_running = false;   
+int timer1_seconds = 0, timer1_minutes = 0;
+int timer2_seconds = 0, timer2_minutes = 8;
+
 int PPM_array[9];
 
 
@@ -172,20 +175,30 @@ void loop() { // Main loop
 	  tick1 = 0;
   } 
   
-  // generate 1sec tick
-  if (TimerStart == 0) {
-      if (tick2 >= 160) {  // 1000mS
-	      secflag++;
-	      tick2 = 0;
-          slow_serial_debug();
-      } 
-      if (secflag >= 60) {
-	      secflag = 0;
-	      minflag++;
-      }  
-      if (minflag >= 100) {
-	      minflag = 0;
-      }
-  }  
-
-}
+// generate 1sec tick
+  
+    if (tick2 >= 160) {  // 1000mS
+        if (timer1_running) {
+            timer1_seconds++;
+        }
+        if (timer2_running){
+            timer2_seconds--;
+        }
+	    tick2 = 0;
+    } 
+    if (timer1_seconds >= 60) {
+	    timer1_seconds = 0;
+	    timer1_minutes++;
+    }  
+    if (timer1_minutes >= 100) {
+	    timer1_minutes = 0;
+        
+    }
+    if (timer2_seconds < 0) {
+	    timer2_seconds = 59;
+	    timer2_minutes--;
+    }  
+    if (timer2_minutes < 0) {
+	    timer2_minutes = 8;
+    }
+}  

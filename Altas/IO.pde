@@ -92,9 +92,11 @@ void readdigital() {
     if ( DI_Val[CH8_SWITCH_NUM] == 1 ){                                                         // Ch8 switch is down
         AI_Auxpot2 = CH8_PWM_LOW;
         digitalWrite (CH8_SWITCH_LED_PIN, LOW);
-    } else {
+        timer2_running = false;
+    } else {                                                                                    // Ch8 switch is up
         AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, CH8_PWM_LOW, CH8_PWM_HIGH);   // Aux pot 2
         digitalWrite (CH8_SWITCH_LED_PIN, HIGH);
+        timer2_running = true;
     }
    
 }
