@@ -1,12 +1,9 @@
 /*
-
-Timer Display
-
+Display
 */
 
-// Timer Mode
-void TimerDisplay() {
 
+void Display(){
     if ( ModeDispSet == 0 ) {
         cursorSet(1,1);
         Serial3.print("Timer1:"); 
@@ -63,5 +60,29 @@ void TimerDisplay() {
             cursorSet(13,2);
             Serial3.print(timer2_seconds);
         }
+        
+        if (AI_Batte_percent < 10) {
+            cursorSet(1,3); Serial3.print("  ");
+            cursorSet(3,3); Serial3.print(AI_Batte_percent);
+            cursorSet(4,3); Serial3.print("% ");
+            cursorSet(6,3); Serial3.print(AI_Batte);
+            cursorSet(11,3); Serial3.print("V");
+        }
+        
+        if (AI_Batte_percent >= 10 && AI_Batte_percent < 100) {
+            cursorSet(1,3); Serial3.print(" ");
+            cursorSet(2,3); Serial3.print(AI_Batte_percent);
+            cursorSet(4,3); Serial3.print("% ");
+            cursorSet(6,3); Serial3.print(AI_Batte);
+            cursorSet(11,3); Serial3.print("V");
+        }
+        
+        if (AI_Batte_percent >= 100) {
+            cursorSet(1,3); Serial3.print(AI_Batte_percent);
+            cursorSet(4,3); Serial3.print("% ");
+            cursorSet(6,3); Serial3.print(AI_Batte);
+            cursorSet(11,3); Serial3.print("V");
+        }        
     }
 }
+

@@ -175,7 +175,7 @@ void loop() { // Main loop
 	  TrimSettings();            // Trims
 	  ExpoMode();                // Exponential ModeS
 	  batterymonitor();          // Battery check
-	  TimerDisplay();            // Timer
+	  Display();            // Timer
       
   }
   
