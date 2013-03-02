@@ -36,7 +36,6 @@ void ExpoModeSetup () {
 	 ExpoModeAELEEprom = 1;
 	 Epromvar = ExpoModeAELEEprom;
 	 Address = 22;
-     EEpromwriteDirect();
   }
   if (ExpoModeAELEEprom == 2) { // Setup AEL Expo mode 
 	 ExpoModeAEL = 1;
@@ -47,7 +46,6 @@ void ExpoModeSetup () {
 	 ExpoModeELEEEprom = 1;
 	 Epromvar = ExpoModeELEEEprom;
 	 Address = 23;
-     EEpromwriteDirect();
   }
   if (ExpoModeELEEEprom == 2) { // Setup ELE Expo mode 
 	 ExpoModeELE = 1;
@@ -58,7 +56,6 @@ void ExpoModeSetup () {
 	 ExpoModeRUDEEprom = 1;
 	 Epromvar = ExpoModeRUDEEprom;
 	 Address = 24;
-     EEpromwriteDirect();
   }
   if (ExpoModeRUDEEprom == 2) { // Setup RUD Expo mode 
 	 ExpoModeRUD = 1;

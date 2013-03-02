@@ -68,7 +68,6 @@ void TrimSettings() {
                 if (Trim_Roll > MAX_TRIM) { Trim_Roll = MAX_TRIM; }
                 Epromvar = Trim_Roll;
                 Offset = 0;
-                EEpromwrite();
         }
         if (DI_Val[HAT_SWITCH_LEFT_NUM] == 0 && Trim_Roll > MIN_TRIM) {     // Ael trim down via thumb stick
                 buzzeractivate = 2;         // activate buzzer
@@ -76,7 +75,6 @@ void TrimSettings() {
                 if (Trim_Roll < MIN_TRIM) { Trim_Roll = MIN_TRIM; }
                 Epromvar = Trim_Roll;
                 Offset = 0;
-                EEpromwrite();
         }	
         if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0 && Trim_Pitch < MAX_TRIM) {     // Ele trim up via thumb stick
                 buzzeractivate = 2;         // activate buzzer
@@ -84,7 +82,6 @@ void TrimSettings() {
                 if (Trim_Pitch > MAX_TRIM) { Trim_Pitch = MAX_TRIM; }
                 Epromvar = Trim_Pitch;
                 Offset = 3;
-                EEpromwrite();
         }
         if (DI_Val[HAT_SWITCH_UP_NUM] == 0 && Trim_Pitch > MIN_TRIM) {     // Ele trim down via thumb stick
                 buzzeractivate = 2;         // activate buzzer
@@ -92,7 +89,6 @@ void TrimSettings() {
                 if (Trim_Pitch < MIN_TRIM) { Trim_Pitch = MIN_TRIM; }
                 Epromvar = Trim_Pitch;
                 Offset = 3;
-                EEpromwrite();
         }		
     }	
 }
