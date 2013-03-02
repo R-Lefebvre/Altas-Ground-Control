@@ -129,10 +129,7 @@ int PPM_array[9];
 byte active_model_num = 1;
 
 struct model_struct {
-    union model_name_t{
-        char c[21];
-        byte b[21];
-    } model_name;
+    byte model_name[20];
     bool channel_reverse[8];
     byte EP_high[8];
     byte EP_low[8];
@@ -141,7 +138,9 @@ struct model_struct {
     byte dual_rates[4];
     byte timer2_min;
     byte timer2_sec;    
-} active_model;    
+} active_model; 
+
+
 
 
 // *********************** Setup **************************
@@ -154,6 +153,7 @@ void setup() {
     init_PPM_array();                                               // Function to initialize the PPM Channel Array
     init_PPM_gen();                                                 // Function to initialize the PPM Generator
     ParallaxLCDSetup();
+    EEPROM_Setup();
     previousMillis = millis();
     bulb_check(0);
     digitalWrite (Flight_Mode_LED[Active_Flight_Mode], HIGH);

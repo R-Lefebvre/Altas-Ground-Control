@@ -5,6 +5,13 @@ Display
 
 void Display(){
     if ( ModeDispSet == 0 ) {
+    
+        cursorSet(0,0);
+        for (int i = 0; i < 20; i++){
+            Serial3.write(active_model.model_name[i]);
+        }
+        
+    
         cursorSet(1,1);
         Serial3.print("Timer1:"); 
         if (timer1_minutes < 10) {
