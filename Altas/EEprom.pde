@@ -15,7 +15,7 @@ void EEPROM_Setup(){
     EEPROM.setMemPool(0, 4096);
 
     //active_model_num = EEPROM.readByte(ACTIVE_MODEL_LOC);
-    unsigned int model_index = active_model_num * 256;
+    int model_index = active_model_num * 256;
     EEPROM.readBlock(model_index, active_model);
     
 }
@@ -24,5 +24,10 @@ void EEPROM_Clear(){
     for (int i = 0; i < 4096; i++){
             EEPROM.write(i, 0);            
     }
+}
+
+void EEPROM_Update(){
+    int model_index = active_model_num * 256;
+    EEPROM.updateBlock(model_index, active_model);
 }
 

@@ -67,7 +67,7 @@ void readdigital() {
 	   clearPLCD();
 	   ModeDispSet = ModeDispSet + 1;
 	   if (ModeDispSet == 3) { ModeDispSet = 0; }
-	   cursorSet(1,0);
+	   EEPROM_Update();
    }
    
 
@@ -158,11 +158,11 @@ void readanalogue() {
     Minmult = (PWM_MID - (RateMult * ((PWM_MAX - PWM_MIN) / 2)));  // Generate scaled graph depending on current RateMult
     Maxmult = (PWM_MID + (RateMult * ((PWM_MAX - PWM_MIN) / 2)));
    
-    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + Trim_Roll; }          // Aeleron
-    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + Trim_Roll; }       // Aeleron
+    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + active_model.trim[0]; }          // Aeleron
+    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + active_model.trim[0]; }       // Aeleron
     
-    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + Trim_Pitch; }          // Elevator 
-    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + Trim_Pitch; }       // Elevator 
+    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + active_model.trim[1]; }          // Elevator 
+    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + active_model.trim[1]; }       // Elevator 
   
     if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID); }          // Rudder  
     if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult); }       // Rudder  
@@ -176,14 +176,14 @@ void readanalogue() {
 void checklimitsmodessetouputs() {
  
     // Exponential Aelerons
-    if (ExpoModeAEL == 1) {
+    if  (ToDo) {
         if (AI_Val[0] < ROLL_MID ){
             AI_AelerF = AI_Aeler - PWM_MID;  // zero
             AI_AelerF = ((((AI_AelerF*-1)/10) * ((AI_AelerF*-1)/10))) * -1;  // low side calc
             AI_AelerF = AI_AelerF * .3;  // reduce gain
             AI_Aeler = AI_AelerF + PWM_MID;
         }
-    if (AI_Val[0] >= ROLL_MID ){
+        if (AI_Val[0] >= ROLL_MID ){
             AI_AelerF = AI_Aeler - PWM_MID;  // zero
             AI_AelerF = (AI_AelerF/10) * (AI_AelerF/10);  // high side calc
             AI_AelerF = AI_AelerF * .3;  // reduce gain
@@ -192,7 +192,7 @@ void checklimitsmodessetouputs() {
     }   
 
     // Exponential Elevators
-    if (ExpoModeELE == 1) {
+    if  (ToDo) {
         if (AI_Val[1] < PITCH_MID ){
             AI_ElevaF = AI_Eleva - PWM_MID;  // zero
             AI_ElevaF = ((((AI_ElevaF*-1)/10) * ((AI_ElevaF*-1)/10))) * -1;  // low side calc
@@ -209,7 +209,7 @@ void checklimitsmodessetouputs() {
 
 
     // Exponential Rudder
-    if (ExpoModeRUD == 1) {
+    if (ToDo) {
         if (AI_Val[3] < YAW_MID ){
             AI_RuddeF = AI_Rudde - PWM_MID;  // zero
             AI_RuddeF = ((((AI_RuddeF*-1)/10) * ((AI_RuddeF*-1)/10))) * -1;  // low side calc

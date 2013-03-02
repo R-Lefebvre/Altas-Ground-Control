@@ -96,19 +96,11 @@ int Flight_Mode_LED[] = {
 };
 
 // Mode vars
-int Trim_Pitch = 0;
-int Trim_Roll = 0;
-int Offset;
-int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, ModeDispSet = 0;
+int ModeDispSet = 0;
 char* MenuDisplay[]={
 "        ",                 //0
 "TRIM SETTINGS       ",     //1
 "EXPONENTIAL MODE    "};     //2
-
-// EEprom vars
-int RatesHIMIDLOEEprom = 1;
-int EpromPointer = 0;
-int Epromvar, Address;
 
 // Buzzer vars
 long previousMillis = 0;         
@@ -127,15 +119,17 @@ int timer2_seconds = 0, timer2_minutes = 8;
 int PPM_array[9];
 
 byte active_model_num = 1;
+bool ToDo = 0;
 
 struct model_struct {
     byte model_name[20];
     bool channel_reverse[8];
-    byte EP_high[8];
-    byte EP_low[8];
+    int trim[4];
     byte expo_high[4];
     byte expo_low[4];
     byte dual_rates[4];
+    byte EP_high[8];
+    byte EP_low[8];
     byte timer2_min;
     byte timer2_sec;    
 } active_model; 
