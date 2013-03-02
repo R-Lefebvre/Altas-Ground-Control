@@ -99,7 +99,7 @@ int Flight_Mode_LED[] = {
 int Trim_Pitch = 0;
 int Trim_Roll = 0;
 int Offset;
-int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, Timermode = 0, ModeDispSet = 0;
+int ExpoModeAEL = 0, ExpoModeELE = 0, ExpoModeRUD = 0, ModeDispSet = 0;
 char* MenuDisplay[]={
 "        ",                 //0
 "TRIM SETTINGS       ",     //1

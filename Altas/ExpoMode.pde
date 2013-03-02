@@ -11,7 +11,7 @@ int ExpoModeAELEEprom = 1, ExpoModeELEEEprom = 1, ExpoModeRUDEEprom = 1, InvMode
 void ExpoMode() {
 
 	// AEL Exponential Mode setting, 1=OFF, 2=ON
-    if (Timermode == 0 && ModeDispSet == 2) {
+    if (ModeDispSet == 2) {
         cursorSet(1,0);
         Serial3.print("Exponential Mode");
 	    cursorSet(2,1);

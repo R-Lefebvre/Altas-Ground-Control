@@ -8,7 +8,7 @@ AEL/ELE Trim
 // Trim Settings
 void TrimSettings() {
 
-    if (Timermode == 0 && ModeDispSet == 1 ) {    // Pitch or Roll Trim setting
+    if ( ModeDispSet == 1 ) {    // Pitch or Roll Trim setting
 	    
 	    // Write AEL, ELE or RUD to LCD
 		cursorSet(1,0);
