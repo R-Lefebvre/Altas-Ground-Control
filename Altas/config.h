@@ -3,11 +3,6 @@
 
 #include "defines.h"
 
-// Parameter Defaults
-#define WP_START_BYTE   800
-#define MODEL_NAME 1
-
-
 // Hardware Definitions
 // Outputs:
 #define PPM_OUTPUT_PIN          12

@@ -16,22 +16,9 @@ INFORMATION:
   See ReadMe.txt for lots of info including I/O allocation.  
 */
 
-#include <AP_Math.h>
-#include <AP_Common.h>
 #include "EEPROM.h"
 #include "defines.h"
 #include "config.h"
-#include "Parameters.h"
-
-// this sets up the parameter table, and sets the default values. This
-// must be the first AP_Param variable declared to ensure its
-// constructor runs before the constructors of the other AP_Param
-// variables
-
-// extern const AP_Param::Info var_info[];
-// AP_Param param_loader(var_info, WP_START_BYTE);
-
-// static Parameters g;
 
 char* Version[]={"Version", "  0.1   "};
 
@@ -144,7 +131,6 @@ int PPM_array[9];
 void setup() {
 
     Serial.begin(19200);                                            // For Serial Debugging
-    // load_parameters();
     init_input_output();                                            // Function to initialize the Input/Output
     bulb_check(1);
     init_beep();                                                    // Function to beep twice on boot-up
