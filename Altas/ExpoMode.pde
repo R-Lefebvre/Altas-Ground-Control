@@ -28,36 +28,3 @@ void ExpoMode() {
         Serial3.println(MenuExponentialMode[ExpoModeRUDEEprom]);
 	}	
 }
-
-// *********************** Setup **************************
-void ExpoModeSetup () {
-  ExpoModeAELEEprom = EEPROM.read(22);            // Read from EEprom
-  if (ExpoModeAELEEprom != 1 && ExpoModeAELEEprom != 2) {  // Set to default if out of range
-	 ExpoModeAELEEprom = 1;
-	 Epromvar = ExpoModeAELEEprom;
-	 Address = 22;
-  }
-  if (ExpoModeAELEEprom == 2) { // Setup AEL Expo mode 
-	 ExpoModeAEL = 1;
-  }
-  
-  ExpoModeELEEEprom = EEPROM.read(23);            // Read from EEprom
-  if (ExpoModeELEEEprom != 1 && ExpoModeELEEEprom != 2) {  // Set to default if out of range
-	 ExpoModeELEEEprom = 1;
-	 Epromvar = ExpoModeELEEEprom;
-	 Address = 23;
-  }
-  if (ExpoModeELEEEprom == 2) { // Setup ELE Expo mode 
-	 ExpoModeELE = 1;
-  }  
-  
-  ExpoModeRUDEEprom = EEPROM.read(24);            // Read from EEprom
-  if (ExpoModeRUDEEprom != 1 && ExpoModeRUDEEprom != 2) {  // Set to default if out of range
-	 ExpoModeRUDEEprom = 1;
-	 Epromvar = ExpoModeRUDEEprom;
-	 Address = 24;
-  }
-  if (ExpoModeRUDEEprom == 2) { // Setup RUD Expo mode 
-	 ExpoModeRUD = 1;
-  }    
-}

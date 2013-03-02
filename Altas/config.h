@@ -124,6 +124,13 @@
 #define PPM_FREQUENCY           22500           // PPM frame length total in uS
 #define PPM_CHANNEL_SPACING     300             // PPM frame padding LOW phase in uS
 
+// EEPROM Storage
+#define MODEL_MEMORY_NUM        7               // The number of model memories
+#define MODEL_MEMORY_SPACE      256             // The number of bytes reserved for each model memory
+
+#define ACTIVE_MODEL_LOC        1               // The active model memory
+
+
 
 
 

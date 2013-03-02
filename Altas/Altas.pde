@@ -126,6 +126,23 @@ int timer2_seconds = 0, timer2_minutes = 8;
 
 int PPM_array[9];
 
+byte active_model_num = 1;
+
+struct model_struct {
+    union model_name_t{
+        char c[21];
+        byte b[21];
+    } model_name;
+    bool channel_reverse[8];
+    byte EP_high[8];
+    byte EP_low[8];
+    byte expo_high[4];
+    byte expo_low[4];
+    byte dual_rates[4];
+    byte timer2_min;
+    byte timer2_sec;    
+} active_model;    
+
 
 // *********************** Setup **************************
 void setup() {
@@ -137,7 +154,6 @@ void setup() {
     init_PPM_array();                                               // Function to initialize the PPM Channel Array
     init_PPM_gen();                                                 // Function to initialize the PPM Generator
     ParallaxLCDSetup();
-    ExpoModeSetup();                                                // Pull AEL, ELE & RUD Expo Mode from EEprom
     previousMillis = millis();
     bulb_check(0);
     digitalWrite (Flight_Mode_LED[Active_Flight_Mode], HIGH);
