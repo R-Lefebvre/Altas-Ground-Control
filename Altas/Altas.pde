@@ -16,7 +16,7 @@ INFORMATION:
   See ReadMe.txt for lots of info including I/O allocation.  
 */
 
-#include "EEPROM.h"
+#include <EEPROMEx.h>
 #include "defines.h"
 #include "config.h"
 
