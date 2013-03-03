@@ -8,12 +8,6 @@ int AI_Val2[7];
 int AI_Val3[7];
 int AI_Val4[7];
 int AI_Val5[7];
-unsigned char DItemp_a = 0;
-unsigned char DItemp_b = 0;
-unsigned char DItemp_c = 0;
-unsigned char DItemp_d = 0;
-int Expo = 50;
-int AI_Aeler2 = 700;
 float AI_AelerF = 700;
 float AI_ElevaF = 700;
 float AI_RuddeF = 700;
@@ -23,64 +17,45 @@ int Maxmult;
 // Read Digital Inputs
 void readdigital() {
 
-   // Read input pins into var array
-   for(byte i=0; i<DIGITAL_INPUT_PINCOUNT; i++) {  
-	  DI_Val[i] = digitalRead(DI_Raw[i]);
-   }  
+    // Read input pins into var array
+    for(int i=1; i<=DIGITAL_INPUT_PINCOUNT; i++){
+        Button_State[i] = digitalRead(DI_Raw[i]);
+    }
+    
+    for(int i=1; i<=DIGITAL_INPUT_PINCOUNT; i++) {
+        if ((Button_State[i] == 0) && (Button_State_Old[i] == 0) && (Button_State_Falling[i] == 0)){
+            Button_State_Falling[i] = 1;
+            Button_Pulse[i] = 1;
+        } else if ((Button_State[i] == 1) && (Button_State_Old[i] == 1)) {
+            Button_State_Falling[i] = 0;
+            Button_Pulse[i] = 0;
+        }
+    } 
+    
+    for(int i=1; i<=DIGITAL_INPUT_PINCOUNT; i++){ 
+        Button_State_Old[i] = Button_State[i];
+    }
 
-   // Process the panel pushbuttons for onup functionality
+    // Function button processing
    
-   // Function Button
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] == 1) {
+        buzzeractivate = 1;          // activate buzzer
+        clearPLCD();
+        ModeDispSet = ModeDispSet + 1;
+        if (ModeDispSet == 4) { ModeDispSet = 0; }
+        EEPROM_Update();
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
+    }
    
-   if (DI_Val[MFD_BUTTON_MODE_NUM] == 0) { DItemp_a = 1; }   // Button 2 down
-   if (DI_Val[MFD_BUTTON_MODE_NUM] == 1 && DItemp_a == 1) {  // Button 2 now up
-       DI_Onup_a = 1;
-	   DItemp_a= 0;
-   }
-   
-   // Trim Adjust Panel Button
-   if (DI_Val[HAT_SWITCH_UP_NUM] == 0) { DItemp_b = 1; }   // Button 3 down
-   if (DI_Val[HAT_SWITCH_UP_NUM] == 1 && DItemp_b == 1) {  // Button 3 now up
-       DI_Onup_b = 1;
-	   DItemp_b = 0;
-   }
-   
-   // Trim Adjust Panel Button
-   if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0) { DItemp_c = 1; }   // Button 4 down
-   if (DI_Val[HAT_SWITCH_DOWN_NUM] == 1 && DItemp_c == 1) {  // Button 4 now up
-       DI_Onup_c = 1;
-	   DItemp_c = 0;
-   }
-   
-   // HI/LOW Rates Panel Button
-   if (DI_Val[MFD_BUTTON_BACK_NUM] == 0) { DItemp_d = 1; }   // Button 5 down
-   if (DI_Val[MFD_BUTTON_BACK_NUM] == 1 && DItemp_d == 1) {  // Button 5 now up
-       DI_Onup_d = 1;
-	   DItemp_d = 0;
-   }   
-
-   // Function button processing
-   
-   if (DI_Onup_a == 1) {
-	   DI_Onup_a = 0;
-	   buzzeractivate = 1;          // activate buzzer
-	   clearPLCD();
-	   ModeDispSet = ModeDispSet + 1;
-	   if (ModeDispSet == 4) { ModeDispSet = 0; }
-	   EEPROM_Update();
-   }
-   
-
-   // Lo/Hi Rates Switch
-   
-    if (DI_Val[AUX1_SWITCH_NUM] == 0) {                                                         // AUX1 switch is up
+    // Lo/Hi Rates Switch
+    if (Button_State[AUX1_SWITCH_NUM] == 0) {                                                         // AUX1 switch is up
         RateMult = HIGH_RATE_MULTIPLIER;
     } else {
         RateMult = LOW_RATE_MULTIPLIER;
     }
    
     // Ch7 Switch	
-    if (DI_Val[CH7_SWITCH_NUM] == 1) {                                                           // Ch7 switch is down
+    if (Button_State[CH7_SWITCH_NUM] == 1) {                                                           // Ch7 switch is down
         Auxsw_uS = CH7_PWM_LOW;
         digitalWrite (CH7_SWITCH_LED_PIN, LOW);
     } else {
@@ -89,7 +64,7 @@ void readdigital() {
     }
     
     // Ch8 Switch
-    if ( DI_Val[CH8_SWITCH_NUM] == 1 ){                                                         // Ch8 switch is down
+    if ( Button_State[CH8_SWITCH_NUM] == 1 ){                                                         // Ch8 switch is down
         AI_Auxpot2 = CH8_PWM_LOW;
         digitalWrite (CH8_SWITCH_LED_PIN, LOW);
         timer2_running = false;
@@ -98,7 +73,6 @@ void readdigital() {
         digitalWrite (CH8_SWITCH_LED_PIN, HIGH);
         timer2_running = true;
     }
-   
 }
 
 void control_flight_mode(){

@@ -43,7 +43,8 @@ void EEPROM_Setup(){
         active_model_num = 1;
     }
     int model_index = active_model_num * 256;
-    EEPROM.readBlock(model_index, active_model);    
+    EEPROM.readBlock(model_index, active_model); 
+    active_model.timer2_sec = 0;   
 }
 
 void EEPROM_Clear(){

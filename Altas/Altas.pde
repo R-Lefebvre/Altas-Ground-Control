@@ -49,14 +49,14 @@ int DI_Raw[DIGITAL_INPUT_PINCOUNT] = {
     CH8_SWITCH_PIN                          //10
 };    // actual digital input pins
 
-
-
-int DI_Val[DIGITAL_INPUT_PINCOUNT];                                         // digital input vars
+bool Button_State[DIGITAL_INPUT_PINCOUNT];
+bool Button_State_Old[DIGITAL_INPUT_PINCOUNT];
+bool Button_State_Falling[DIGITAL_INPUT_PINCOUNT];
+bool Button_Pulse[DIGITAL_INPUT_PINCOUNT];
 
 // Various vars
 float RateMult;
 int AI_Auxpot1, AI_Auxpot2, AI_Throt, AI_Rudde, AI_Eleva, AI_Aeler, Auxsw_uS, Auxsw2_uS;
-int DI_Onup_a = 0, DI_Onup_b = 0, DI_Onup_c = 0, DI_Onup_d = 0;
 
 bool FMB_State[7]; 
 bool FMB_State_Old[7];
@@ -128,8 +128,7 @@ struct model_struct {
     int EP_low[8];
     byte timer2_min;
     byte timer2_sec;    
-} active_model, peek_model; 
-
+} active_model, peek_model;
 
 
 
@@ -153,32 +152,32 @@ void setup() {
 // *********************** Main Loop **************************
 void loop() { // Main loop
 
-  buzzer();                      // Refresh buzzer
-  readanalogue();                // Read analogue I/O
-  control_flight_mode();
-  checklimitsmodessetouputs();
+    buzzer();                     // Refresh buzzer
+    readanalogue();               // Read analogue I/O
+    readdigital();                // Read digital I/O
+    control_flight_mode();
+    checklimitsmodessetouputs();
 
-  if (tick0 >= 25) {             // Run these subs every 124.8mS
-	  tick0 = 0;
-	  readdigital();             // Read digital I/O
-	  batterymonitor();          // Battery check
-	  Display();            // Timer
+    if (tick0 >= 25) {             // Run these subs every 124.8mS
+        tick0 = 0;
+        batterymonitor();          // Battery check
+        Display();                 // Timer
       
-  }
+    }
   
-  // Generate slow changing flag
-  if (tick1 <= 50) {
-	  slowflag = 0;
-  }
-  if (tick1 >= 50 && tick1 <=100) {
-	  slowflag = 1;
-  }
-  if (tick1 >= 100) {
-	  slowflag = 0;
-	  tick1 = 0;
-  } 
+    // Generate slow changing flag
+    if (tick1 <= 50) {
+        slowflag = 0;
+    }
+    if (tick1 >= 50 && tick1 <=100) {
+        slowflag = 1;
+    }
+    if (tick1 >= 100) {
+        slowflag = 0;
+        tick1 = 0;
+    } 
   
-// generate 1sec tick
+    // generate 1sec tick
   
     if (tick2 >= 160) {  // 1000mS
         if (timer1_running) {
@@ -197,11 +196,11 @@ void loop() { // Main loop
 	    timer1_minutes = 0;
         
     }
-    if (active_model.timer2_sec < 0) {
+    if (active_model.timer2_sec > 59 ) {
 	    active_model.timer2_sec = 59;
 	    active_model.timer2_min--;
     }  
     if (active_model.timer2_min < 0) {
-	    active_model.timer2_min = 8;
+	    active_model.timer2_min = 0;
     }
 }  

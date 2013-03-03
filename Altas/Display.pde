@@ -37,7 +37,7 @@ void Model_Choose(){
     Serial3.print(active_model_num);
     Model_Name_Display(1);
     
-    if (DI_Val[HAT_SWITCH_DOWN_NUM] == 0) {
+    if (Button_State[HAT_SWITCH_DOWN_NUM] == 0) {
         buzzeractivate = 2;
         peek_model_num++;
         if (peek_model_num > MODEL_MEMORY_NUM){
@@ -57,7 +57,7 @@ void Model_Choose(){
         Serial3.write(peek_model.model_name[i]);
     }
     
-    if (DI_Val[MFD_BUTTON_ENTER_NUM] == 0 && peek_model_num != active_model_num) {
+    if (Button_State[MFD_BUTTON_ENTER_NUM] == 0 && peek_model_num != active_model_num) {
         buzzeractivate = 2;
         active_model_num = peek_model_num;
         EEPROM_Load(active_model_num);
