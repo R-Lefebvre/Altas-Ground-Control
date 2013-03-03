@@ -57,6 +57,8 @@ void Display(){
             clearPLCD();
             ModeDispSet = MAIN_CONTROL_DISPLAY;
             EEPROM_Update();
+            active_timer2_min = active_model.timer2_min;
+            active_timer2_sec = active_model.timer2_sec; 
             Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
         }
     break;
@@ -198,6 +200,19 @@ void Aircraft_Menu(){
     Serial3.print("COPY AIRCRAFT");
     cursorSet(1,3);
     Serial3.print("DELETE AIRCRAFT");
+    
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        clearPLCD();
+        switch(Menu_Pointer_Index){
+        
+            case 0:
+                ModeDispSet = MODEL_SELECT_DISPLAY;
+            break;
+        }     
+        Menu_Pointer_Index = 0;
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
+    }
 }
     
 
@@ -211,14 +226,26 @@ void Aircraft_Choose(){
     Serial3.print(active_model_num);
     Model_Name_Display(1);
     
-    if (Button_State[HAT_SWITCH_DOWN_NUM] == 0) {
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
         buzzeractivate = 2;
         peek_model_num++;
         if (peek_model_num > MODEL_MEMORY_NUM){
             peek_model_num = 1;
         }
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
         peek = true;
     }
+    
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num--;
+        if (peek_model_num == 0){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        peek = true;
+    }
+    
     if (peek){
         EEPROM_Peek(peek_model_num);
     }
