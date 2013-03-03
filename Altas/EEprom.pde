@@ -86,7 +86,7 @@ void EEPROM_Delete_Model(byte delete_num){
         temp.expo_low[i] = 0;
         temp.dual_rate[i] = 100;
     }
-    temp.timer2_min = 10;
+    temp.timer2_min = DEFAULT_TIMER_VAL;
     temp.timer2_sec = 0;
     
     int index = delete_num * 256;

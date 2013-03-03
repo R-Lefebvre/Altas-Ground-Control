@@ -103,30 +103,30 @@ void Timer_Display(){
     
     cursorSet(1,2);
     Serial3.print("Timer2:"); 
-    if (timer2_minutes < 10) {
+    if (active_model.timer2_min < 10) {
         cursorSet(10,2);
         Serial3.print("0");
         cursorSet(11,2);
-        Serial3.print(timer2_minutes);
+        Serial3.print(active_model.timer2_min);
     }
     
-    if (timer2_minutes >= 10) {
+    if (active_model.timer2_min >= 10) {
         cursorSet(10,2);
-        Serial3.print(timer2_minutes);
+        Serial3.print(active_model.timer2_min);
     }
     
     cursorSet(12,2);
     Serial3.print(":");
-    if (timer2_seconds < 10) {
+    if (active_model.timer2_sec < 10) {
         cursorSet(13,2);
         Serial3.print("0");
         cursorSet(14,2);
-        Serial3.print(timer2_seconds);
+        Serial3.print(active_model.timer2_sec);
     }
     
-    if (timer2_seconds >= 10) {
+    if (active_model.timer2_sec >= 10) {
         cursorSet(13,2);
-        Serial3.print(timer2_seconds);
+        Serial3.print(active_model.timer2_sec);
     }
 }
 

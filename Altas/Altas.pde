@@ -111,7 +111,6 @@ unsigned char slowflag;
 bool timer1_running = true;
 bool timer2_running = false;   
 int timer1_seconds = 0, timer1_minutes = 0;
-int timer2_seconds = 0, timer2_minutes = 8;
 
 int PPM_array[9];
 
@@ -186,7 +185,7 @@ void loop() { // Main loop
             timer1_seconds++;
         }
         if (timer2_running){
-            timer2_seconds--;
+            active_model.timer2_sec--;
         }
 	    tick2 = 0;
     } 
@@ -198,11 +197,11 @@ void loop() { // Main loop
 	    timer1_minutes = 0;
         
     }
-    if (timer2_seconds < 0) {
-	    timer2_seconds = 59;
-	    timer2_minutes--;
+    if (active_model.timer2_sec < 0) {
+	    active_model.timer2_sec = 59;
+	    active_model.timer2_min--;
     }  
-    if (timer2_minutes < 0) {
-	    timer2_minutes = 8;
+    if (active_model.timer2_min < 0) {
+	    active_model.timer2_min = 8;
     }
 }  

@@ -132,6 +132,8 @@
 #define INIT_EEPROM_LOC         2               // Location to store the init state of EEPROM
 #define INIT_CHECK_VAL          42              // The value to check to see if we have initialzied the EEPROM
 
+#define DEFAULT_TIMER_VAL       5
+
 
 
 
