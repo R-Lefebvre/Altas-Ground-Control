@@ -37,8 +37,8 @@ void Display(){
     
     case MODEL_MENU:
     
-        Aircraft_Menu();
         Pointer_Display();
+        Aircraft_Menu();
         if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
             buzzeractivate = 1;          // activate buzzer
             clearPLCD();
@@ -55,10 +55,23 @@ void Display(){
         if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
             buzzeractivate = 1;          // activate buzzer
             clearPLCD();
-            ModeDispSet = MAIN_CONTROL_DISPLAY;
+            ModeDispSet = MODEL_MENU;
             EEPROM_Update();
             active_timer2_min = active_model.timer2_min;
             active_timer2_sec = active_model.timer2_sec; 
+            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+        }
+    break;
+    
+    case MODEL_NAME_CHANGE_DISPLAY:
+    
+        Aircraft_Rename();
+        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+            buzzeractivate = 1;          // activate buzzer
+            clearPLCD();
+            Menu_Cursor_Pos = 0;
+            ModeDispSet = MODEL_MENU;
+            EEPROM_Update();
             Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
         }
     break;
@@ -145,9 +158,9 @@ void Menu_Display(){
             
             case 3:
                 ModeDispSet = TIMER_ADJUST;
-                cursorSet(7+Menu_Cursor_Pos,3);
                 EEPROM_Peek(active_model_num);
                 active_model = peek_model;
+                cursorSet(7+Menu_Cursor_Pos,3);
                 Serial3.write(94);
             break;
         }     
@@ -209,6 +222,12 @@ void Aircraft_Menu(){
             case 0:
                 ModeDispSet = MODEL_SELECT_DISPLAY;
             break;
+            
+            case 1:
+                ModeDispSet = MODEL_NAME_CHANGE_DISPLAY;
+                cursorSet(0,3);
+                Serial3.write(94);
+            break;
         }     
         Menu_Pointer_Index = 0;
         Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
@@ -262,6 +281,58 @@ void Aircraft_Choose(){
         buzzeractivate = 2;
         active_model_num = peek_model_num;
         EEPROM_Load(active_model_num);
+    }    
+}
+
+void Aircraft_Rename(){
+
+    cursorSet(1,0);
+    Serial3.print("EDIT AIRCRAFT NAME");
+    
+    Model_Name_Display(2);
+  
+    if (Button_Pulse[HAT_SWITCH_RIGHT_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        deletePLCD(Menu_Cursor_Pos,3);
+        Button_Pulse[HAT_SWITCH_RIGHT_NUM] = false;
+        Menu_Cursor_Pos++;
+        if (Menu_Cursor_Pos > 19){
+            Menu_Cursor_Pos = 19;
+        }
+        cursorSet(Menu_Cursor_Pos,3);
+        Serial3.write(94);
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_LEFT_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        deletePLCD(Menu_Cursor_Pos,3);
+        Button_Pulse[HAT_SWITCH_LEFT_NUM] = false;
+        Menu_Cursor_Pos--;
+        if (Menu_Cursor_Pos > 19){
+            Menu_Cursor_Pos = 0;
+        }
+        cursorSet(Menu_Cursor_Pos,3);
+        Serial3.write(94);
+    }
+    
+    if (Button_State[HAT_SWITCH_UP_NUM] == 0) {
+        buzzeractivate = 1;          // activate buzzer
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        active_model.model_name[Menu_Cursor_Pos]++;
+        if (active_model.model_name[Menu_Cursor_Pos] == 33){active_model.model_name[Menu_Cursor_Pos] = 48;}
+        if (active_model.model_name[Menu_Cursor_Pos] == 58){active_model.model_name[Menu_Cursor_Pos] = 65;}
+        if (active_model.model_name[Menu_Cursor_Pos] == 91){active_model.model_name[Menu_Cursor_Pos] = 97;}
+        if (active_model.model_name[Menu_Cursor_Pos] == 123){active_model.model_name[Menu_Cursor_Pos] = 32;}
+    }
+    
+    if (Button_State[HAT_SWITCH_DOWN_NUM] == 0) {
+        buzzeractivate = 1;          // activate buzzer
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        active_model.model_name[Menu_Cursor_Pos]--;
+        if (active_model.model_name[Menu_Cursor_Pos] == 31){active_model.model_name[Menu_Cursor_Pos] = 122;}
+        if (active_model.model_name[Menu_Cursor_Pos] == 47){active_model.model_name[Menu_Cursor_Pos] = 32;}
+        if (active_model.model_name[Menu_Cursor_Pos] == 64){active_model.model_name[Menu_Cursor_Pos] = 57;}
+        if (active_model.model_name[Menu_Cursor_Pos] == 96){active_model.model_name[Menu_Cursor_Pos] = 90;}
     }    
 }
 
