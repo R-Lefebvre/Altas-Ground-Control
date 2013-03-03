@@ -4,26 +4,5 @@ Exponential Modes
 
 */
 
-char* MenuExponentialMode[]={"OFF", " ON"};
 
-// Exponential Modes
-void ExpoMode() {
 
-	// AEL Exponential Mode setting, 1=OFF, 2=ON
-    if (ModeDispSet == 2) {
-        cursorSet(1,0);
-        Serial3.print("Exponential Mode");
-	    cursorSet(2,1);
-        Serial3.print("Roll:");
-		cursorSet(7,1);
-        Serial3.println(MenuExponentialMode[ToDo]);
-		cursorSet(1,2);
-        Serial3.print("Pitch:");
-		cursorSet(7,2);
-        Serial3.println(MenuExponentialMode[ToDo]);
-        cursorSet(3,3);
-        Serial3.print("Yaw:");
-		cursorSet(7,3);
-        Serial3.println(MenuExponentialMode[ToDo]);
-	}	
-}

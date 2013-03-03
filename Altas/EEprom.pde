@@ -12,17 +12,44 @@ at this time.
 
 void EEPROM_Setup(){
 
-    EEPROM.setMemPool(0, 4096);
-
-    //active_model_num = EEPROM.readByte(ACTIVE_MODEL_LOC);
-    int model_index = active_model_num * 256;
-    EEPROM.readBlock(model_index, active_model);
+    EEPROM.setMemPool(0, EEPROMSizeMega);
     
+    bool initialized = false;
+    byte init_check;
+    init_check = EEPROM.readByte(INIT_EEPROM_LOC);
+    
+    
+    if ( init_check == INIT_CHECK_VAL ){ initialized = true; }
+    
+    Serial.println(init_check, DEC);
+    Serial.println(initialized, true);
+    
+    if ( !initialized ){
+        cursorSet(0,0);
+        Serial3.print("Initializing EEPROM");
+        cursorSet(0,1);
+        Serial3.print("please wait...");
+        EEPROM.setMaxAllowedWrites(10000);
+        EEPROM_Clear();
+        for (int i=1; i <= MODEL_MEMORY_NUM; i++){
+            Serial.println(i, DEC);
+            EEPROM_Delete_Model(i);
+        }
+        EEPROM.updateByte(INIT_EEPROM_LOC,INIT_CHECK_VAL);
+    }
+
+    active_model_num = EEPROM.readByte(ACTIVE_MODEL_LOC);
+    if ((active_model_num < 1) || (active_model_num>MODEL_MEMORY_NUM)){
+        active_model_num = 1;
+    }
+    int model_index = active_model_num * 256;
+    EEPROM.readBlock(model_index, active_model);    
 }
 
 void EEPROM_Clear(){
     for (int i = 0; i < 4096; i++){
-            EEPROM.write(i, 0);            
+        Serial.println(i, DEC);
+        EEPROM.updateByte(i, 0);            
     }
 }
 
@@ -30,4 +57,45 @@ void EEPROM_Update(){
     int model_index = active_model_num * 256;
     EEPROM.updateBlock(model_index, active_model);
 }
+
+void EEPROM_Peek(byte peek){
+    int model_index = peek * 256;
+    EEPROM.readBlock(model_index, peek_model);
+}
+
+void EEPROM_Load(byte load_num){
+    int model_index = load_num * 256;
+    EEPROM.readBlock(model_index, active_model);
+    EEPROM.updateByte(ACTIVE_MODEL_LOC, load_num);
+}
+
+void EEPROM_Delete_Model(byte delete_num){
+
+    model_struct temp;
+    String reset_name = "Blank Model         ";
+    
+    reset_name.getBytes(temp.model_name, 21);
+    for (int i=0; i<8; i++){
+        temp.channel_reverse[i] = false;
+        temp.EP_high[i] = PWM_MAX;
+        temp.EP_low[i] = PWM_MIN;
+    }
+    for (int i=0; i<4; i++){
+        temp.trim[i] = 0;
+        temp.expo_high[i] = 0;
+        temp.expo_low[i] = 0;
+        temp.dual_rate[i] = 100;
+    }
+    temp.timer2_min = 10;
+    temp.timer2_sec = 0;
+    
+    int index = delete_num * 256;
+    EEPROM.updateBlock(index, temp);
+    
+}
+    
+    
+  
+    
+    
 

@@ -129,6 +129,8 @@
 #define MODEL_MEMORY_SPACE      256             // The number of bytes reserved for each model memory
 
 #define ACTIVE_MODEL_LOC        1               // The active model memory
+#define INIT_EEPROM_LOC         2               // Location to store the init state of EEPROM
+#define INIT_CHECK_VAL          42              // The value to check to see if we have initialzied the EEPROM
 
 
 

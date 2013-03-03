@@ -97,10 +97,7 @@ int Flight_Mode_LED[] = {
 
 // Mode vars
 int ModeDispSet = 0;
-char* MenuDisplay[]={
-"        ",                 //0
-"TRIM SETTINGS       ",     //1
-"EXPONENTIAL MODE    "};     //2
+
 
 // Buzzer vars
 long previousMillis = 0;         
@@ -118,21 +115,21 @@ int timer2_seconds = 0, timer2_minutes = 8;
 
 int PPM_array[9];
 
-byte active_model_num = 1;
+byte active_model_num;
 bool ToDo = 0;
 
 struct model_struct {
     byte model_name[20];
     bool channel_reverse[8];
     int trim[4];
-    byte expo_high[4];
-    byte expo_low[4];
-    byte dual_rates[4];
-    byte EP_high[8];
-    byte EP_low[8];
+    int expo_high[4];
+    int expo_low[4];
+    byte dual_rate[4];
+    int EP_high[8];
+    int EP_low[8];
     byte timer2_min;
     byte timer2_sec;    
-} active_model; 
+} active_model, peek_model; 
 
 
 
@@ -165,9 +162,6 @@ void loop() { // Main loop
   if (tick0 >= 25) {             // Run these subs every 124.8mS
 	  tick0 = 0;
 	  readdigital();             // Read digital I/O
-      //fast_serial_debug();
-	  TrimSettings();            // Trims
-	  ExpoMode();                // Exponential ModeS
 	  batterymonitor();          // Battery check
 	  Display();            // Timer
       
