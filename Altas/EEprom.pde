@@ -21,9 +21,6 @@ void EEPROM_Setup(){
     
     if ( init_check == INIT_CHECK_VAL ){ initialized = true; }
     
-    Serial.println(init_check, DEC);
-    Serial.println(initialized, true);
-    
     if ( !initialized ){
         cursorSet(0,0);
         Serial3.print("Initializing EEPROM");
@@ -43,14 +40,15 @@ void EEPROM_Setup(){
         active_model_num = 1;
     }
     int model_index = active_model_num * 256;
-    EEPROM.readBlock(model_index, active_model); 
-    active_model.timer2_sec = 0;   
+    EEPROM.readBlock(model_index, active_model);
+    active_timer2_min = active_model.timer2_min;
+    active_timer2_sec = active_model.timer2_sec;  
 }
 
 void EEPROM_Clear(){
     for (int i = 0; i < 4096; i++){
         Serial.println(i, DEC);
-        EEPROM.updateByte(i, 0);            
+        EEPROM.writeByte(i, 0);            
     }
 }
 

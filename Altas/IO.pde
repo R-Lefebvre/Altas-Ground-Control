@@ -35,17 +35,7 @@ void readdigital() {
     for(int i=1; i<=DIGITAL_INPUT_PINCOUNT; i++){ 
         Button_State_Old[i] = Button_State[i];
     }
-
-    // Function button processing
    
-    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] == 1) {
-        buzzeractivate = 1;          // activate buzzer
-        clearPLCD();
-        ModeDispSet = ModeDispSet + 1;
-        if (ModeDispSet == 4) { ModeDispSet = 0; }
-        EEPROM_Update();
-        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
-    }
    
     // Lo/Hi Rates Switch
     if (Button_State[AUX1_SWITCH_NUM] == 0) {                                                         // AUX1 switch is up
@@ -71,7 +61,11 @@ void readdigital() {
     } else {                                                                                    // Ch8 switch is up
         AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, CH8_PWM_LOW, CH8_PWM_HIGH);   // Aux pot 2
         digitalWrite (CH8_SWITCH_LED_PIN, HIGH);
-        timer2_running = true;
+        if ( ModeDispSet != TIMER_ADJUST ){
+            timer2_running = true;
+        } else {
+            timer2_running = false;
+        }
     }
 }
 

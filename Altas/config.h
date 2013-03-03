@@ -35,9 +35,9 @@
 #define HAT_SWITCH_DOWN_PIN     47
 #define HAT_SWITCH_LEFT_PIN     48
 #define HAT_SWITCH_RIGHT_PIN    49
-#define MFD_BUTTON_MODE_PIN     42
+#define MFD_BUTTON_BACK_PIN     42
 #define MFD_BUTTON_ENTER_PIN    44
-#define MFD_BUTTON_BACK_PIN     46
+#define MFD_BUTTON_MODE_PIN     46
 #define CH7_SWITCH_PIN          39
 #define CH8_SWITCH_PIN          41
 #define AUX1_SWITCH_PIN         23
@@ -130,14 +130,31 @@
 
 #define ACTIVE_MODEL_LOC        1               // The active model memory
 #define INIT_EEPROM_LOC         2               // Location to store the init state of EEPROM
-#define INIT_CHECK_VAL          43              // The value to check to see if we have initialzied the EEPROM
+#define INIT_CHECK_VAL          42              // The value to check to see if we have initialzied the EEPROM
 
 #define DEFAULT_TIMER_VAL       5
 
 
-
-
-
+// Display Control
+#define MAIN_CONTROL_DISPLAY        0
+#define MENU_1_DISPLAY              1
+#define MENU_2_DISPLAY              2
+#define MENU_3_DISPLAY              3
+#define MENU_4_DISPLAY              4
+#define MENU_5_DISPLAY              5
+#define MENU_6_DISPLAY              6
+#define MENU_7_DISPLAY              7
+#define MENU_8_DISPLAY              8
+#define MENU_9_DISPLAY              9
+#define MODEL_MENU                  10
+#define MODEL_SELECT_DISPLAY        11
+#define MODEL_NAME_CHANGE_DISPLAY   12
+#define MODEL_COPY_DISPLAY          13
+#define MODEL_DELETE_DISPLAY        14
+#define TRIM_DISPLAY                20
+#define EXPO_DISPLAY                30
+#define TIMER_ADJUST                40
+#define ENDPOINT_DISPLAY            50
 
 
 

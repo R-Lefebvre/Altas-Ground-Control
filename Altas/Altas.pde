@@ -96,7 +96,10 @@ int Flight_Mode_LED[] = {
 };
 
 // Mode vars
-int ModeDispSet = 0;
+byte ModeDispSet = 0;
+byte Menu_Pointer_Index = 0;
+byte Menu_Display_Index = 1;
+byte Menu_Cursor_Pos=0;
 
 
 // Buzzer vars
@@ -129,6 +132,9 @@ struct model_struct {
     byte timer2_min;
     byte timer2_sec;    
 } active_model, peek_model;
+
+byte active_timer2_min;
+byte active_timer2_sec;
 
 
 
@@ -184,23 +190,27 @@ void loop() { // Main loop
             timer1_seconds++;
         }
         if (timer2_running){
-            active_model.timer2_sec--;
+            active_timer2_sec--;
         }
 	    tick2 = 0;
-    } 
-    if (timer1_seconds >= 60) {
-	    timer1_seconds = 0;
-	    timer1_minutes++;
-    }  
-    if (timer1_minutes >= 100) {
-	    timer1_minutes = 0;
         
-    }
-    if (active_model.timer2_sec > 59 ) {
-	    active_model.timer2_sec = 59;
-	    active_model.timer2_min--;
-    }  
-    if (active_model.timer2_min < 0) {
-	    active_model.timer2_min = 0;
-    }
+        if (timer1_seconds >= 60) {
+            timer1_seconds = 0;
+            timer1_minutes++;
+        }  
+        if (timer1_minutes >= 100) {
+            timer1_minutes = 0;
+        }
+        if ( (active_timer2_sec > 59) && (active_timer2_min > 0) ) {
+            active_timer2_sec = 59;
+            active_timer2_min--;
+        } else if(active_timer2_sec > 59){
+            active_timer2_sec = 0;
+        }
+        if (active_timer2_min > 99) {
+            active_timer2_min = 0;
+        }
+    } 
+    
+    
 }  
