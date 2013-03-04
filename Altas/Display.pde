@@ -83,7 +83,18 @@ void Display(){
             buzzeractivate = 1;          // activate buzzer
             clearPLCD();
             ModeDispSet = MODEL_MENU;
-            EEPROM_Update();
+            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+        }
+    break;
+    
+    case MODEL_DELETE_DISPLAY:
+    
+        Aircraft_Delete();
+        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+            buzzeractivate = 1;          // activate buzzer
+            clearPLCD();
+            Menu_Cursor_Pos = 0;
+            ModeDispSet = MODEL_MENU;
             Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
         }
     break;
@@ -244,6 +255,12 @@ void Aircraft_Menu(){
             case 2:
                 ModeDispSet = MODEL_COPY_DISPLAY;
             break;
+            
+            case 3:
+                ModeDispSet = MODEL_DELETE_DISPLAY;
+                cursorSet(7+Menu_Cursor_Pos,3);
+                Serial3.write(94);
+            break;
         }     
         Menu_Pointer_Index = 0;
         Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
@@ -283,6 +300,7 @@ void Aircraft_Choose(){
     
     if (peek){
         EEPROM_Peek(peek_model_num);
+        peek = false;
     }
     cursorSet(1,2);
     Serial3.print("CHANGE TO MODEL:");
@@ -295,56 +313,9 @@ void Aircraft_Choose(){
     
     if (Button_Pulse[MFD_BUTTON_ENTER_NUM] && peek_model_num != active_model_num) {
         buzzeractivate = 2;
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
         active_model_num = peek_model_num;
         EEPROM_Load(active_model_num);
-    }    
-}
-
-void Aircraft_Copy(){
-
-    static byte peek_model_num = active_model_num;
-    static bool peek = true;
-    cursorSet(1,0);
-    Serial3.print("CURRENT MODEL:");
-    cursorSet(18,0);
-    Serial3.print(active_model_num);
-    Model_Name_Display(1);
-    
-    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
-        buzzeractivate = 2;
-        peek_model_num++;
-        if (peek_model_num > MODEL_MEMORY_NUM){
-            peek_model_num = 1;
-        }
-        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
-        peek = true;
-    }
-    
-    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
-        buzzeractivate = 2;
-        peek_model_num--;
-        if (peek_model_num == 0){
-            peek_model_num = 1;
-        }
-        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
-        peek = true;
-    }
-    
-    if (peek){
-        EEPROM_Peek(peek_model_num);
-    }
-    cursorSet(1,2);
-    Serial3.print("COPY TO MODEL:");
-    cursorSet(18,2);
-    Serial3.print(peek_model_num);
-    cursorSet(0,3);
-    for (int i = 0; i < 20; i++){
-        Serial3.write(peek_model.model_name[i]);
-    }
-    
-    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] && peek_model_num != active_model_num) {
-        buzzeractivate = 2;
-        EEPROM_Copy(peek_model_num);
     }    
 }
 
@@ -398,6 +369,146 @@ void Aircraft_Rename(){
         if (active_model.model_name[Menu_Cursor_Pos] == 64){active_model.model_name[Menu_Cursor_Pos] = 57;}
         if (active_model.model_name[Menu_Cursor_Pos] == 96){active_model.model_name[Menu_Cursor_Pos] = 90;}
     }    
+}
+
+void Aircraft_Copy(){
+
+    static byte peek_model_num = active_model_num;
+    static bool peek = true;
+    cursorSet(1,0);
+    Serial3.print("CURRENT MODEL:");
+    cursorSet(18,0);
+    Serial3.print(active_model_num);
+    Model_Name_Display(1);
+    
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num++;
+        if (peek_model_num > MODEL_MEMORY_NUM){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        peek = true;
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num--;
+        if (peek_model_num == 0){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        peek = true;
+    }
+    
+    if (peek){
+        EEPROM_Peek(peek_model_num);
+        peek = false;
+    }
+    cursorSet(1,2);
+    Serial3.print("COPY TO MODEL:");
+    cursorSet(18,2);
+    Serial3.print(peek_model_num);
+    cursorSet(0,3);
+    for (int i = 0; i < 20; i++){
+        Serial3.write(peek_model.model_name[i]);
+    }
+    
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] && peek_model_num != active_model_num) {
+        buzzeractivate = 2;
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
+        EEPROM_Copy(peek_model_num);
+        peek = true;
+    }    
+}
+
+void Aircraft_Delete(){
+
+    static byte pointer_level = 0;
+    static byte peek_model_num = active_model_num;
+    static bool peek = true;
+    cursorSet(1,0);
+    Serial3.print("DELETE AIRCRAFT:");
+    cursorSet(18,0);
+    Serial3.print(peek_model_num, DEC);
+   
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num++;
+        if (peek_model_num > MODEL_MEMORY_NUM){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        peek = true;
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num--;
+        if (peek_model_num == 0){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        peek = true;
+    }
+   
+    if (peek){
+        EEPROM_Peek(peek_model_num);
+        peek = false;
+    }
+    cursorSet(0,1);
+    for (int i = 0; i < 20; i++){
+        Serial3.write(peek_model.model_name[i]);
+    }
+    cursorSet(6,2);
+    Serial3.write("NO...YES");
+    cursorSet(6,3);
+    Serial3.write(124);
+    cursorSet(12,3);
+    Serial3.write(124);
+    
+    if (Button_Pulse[HAT_SWITCH_RIGHT_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        deletePLCD(7+Menu_Cursor_Pos,3);
+        Button_Pulse[HAT_SWITCH_RIGHT_NUM] = false;
+        Menu_Cursor_Pos++;
+        if (Menu_Cursor_Pos > 4){
+            Menu_Cursor_Pos = 4;
+        }
+        cursorSet(7+Menu_Cursor_Pos,3);
+        Serial3.write(94);
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_LEFT_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        deletePLCD(7+Menu_Cursor_Pos,3);
+        Button_Pulse[HAT_SWITCH_LEFT_NUM] = false;
+        Menu_Cursor_Pos--;
+        if (Menu_Cursor_Pos > 4){
+            Menu_Cursor_Pos = 0;
+        }
+        cursorSet(7+Menu_Cursor_Pos,3);
+        Serial3.write(94);
+    }
+    
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] && Menu_Cursor_Pos == 4) {
+        buzzeractivate = 2;
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
+        EEPROM_Delete_Model(peek_model_num);
+        if (peek_model_num == active_model_num){
+            EEPROM_Load(active_model_num);
+        }
+        peek = true;
+        
+    } else if (Button_Pulse[MFD_BUTTON_ENTER_NUM]){
+        buzzeractivate = 2;
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
+        deletePLCD(7+Menu_Cursor_Pos,3);
+        Menu_Cursor_Pos = 0;
+        cursorSet(7+Menu_Cursor_Pos,3);
+        Serial3.write(94);
+    }
+    
 }
 
 void Model_Name_Display(int line){
