@@ -76,6 +76,18 @@ void Display(){
         }
     break;
     
+    case MODEL_COPY_DISPLAY:
+    
+        Aircraft_Copy();
+        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+            buzzeractivate = 1;          // activate buzzer
+            clearPLCD();
+            ModeDispSet = MODEL_MENU;
+            EEPROM_Update();
+            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+        }
+    break;
+    
     case TRIM_DISPLAY:
     
         Trim_Adjust();
@@ -228,6 +240,10 @@ void Aircraft_Menu(){
                 cursorSet(0,3);
                 Serial3.write(94);
             break;
+            
+            case 2:
+                ModeDispSet = MODEL_COPY_DISPLAY;
+            break;
         }     
         Menu_Pointer_Index = 0;
         Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
@@ -277,10 +293,58 @@ void Aircraft_Choose(){
         Serial3.write(peek_model.model_name[i]);
     }
     
-    if (Button_State[MFD_BUTTON_ENTER_NUM] == 0 && peek_model_num != active_model_num) {
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] && peek_model_num != active_model_num) {
         buzzeractivate = 2;
         active_model_num = peek_model_num;
         EEPROM_Load(active_model_num);
+    }    
+}
+
+void Aircraft_Copy(){
+
+    static byte peek_model_num = active_model_num;
+    static bool peek = true;
+    cursorSet(1,0);
+    Serial3.print("CURRENT MODEL:");
+    cursorSet(18,0);
+    Serial3.print(active_model_num);
+    Model_Name_Display(1);
+    
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num++;
+        if (peek_model_num > MODEL_MEMORY_NUM){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        peek = true;
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 2;
+        peek_model_num--;
+        if (peek_model_num == 0){
+            peek_model_num = 1;
+        }
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        peek = true;
+    }
+    
+    if (peek){
+        EEPROM_Peek(peek_model_num);
+    }
+    cursorSet(1,2);
+    Serial3.print("COPY TO MODEL:");
+    cursorSet(18,2);
+    Serial3.print(peek_model_num);
+    cursorSet(0,3);
+    for (int i = 0; i < 20; i++){
+        Serial3.write(peek_model.model_name[i]);
+    }
+    
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM] && peek_model_num != active_model_num) {
+        buzzeractivate = 2;
+        EEPROM_Copy(peek_model_num);
     }    
 }
 

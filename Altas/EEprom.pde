@@ -57,6 +57,11 @@ void EEPROM_Update(){
     EEPROM.updateBlock(model_index, active_model);
 }
 
+void EEPROM_Copy(byte copy){
+    int model_index = copy * 256;
+    EEPROM.updateBlock(model_index, active_model);
+}
+
 void EEPROM_Peek(byte peek){
     int model_index = peek * 256;
     EEPROM.readBlock(model_index, peek_model);
