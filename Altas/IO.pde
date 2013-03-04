@@ -36,6 +36,18 @@ void readdigital() {
         Button_State_Old[i] = Button_State[i];
     }
    
+    // Thr Switch Handling
+    if ( Button_State[THR_SWITCH_NUM] ){
+        digitalWrite (CH8_SWITCH_LED_PIN, LOW);
+        timer2_running = false;
+    } else {                                                                                    
+        digitalWrite (CH8_SWITCH_LED_PIN, HIGH);
+        if ( ModeDispSet != TIMER_ADJUST ){
+            timer2_running = true;
+        } else {
+            timer2_running = false;
+        }
+    }
    
     // Lo/Hi Rates Switch
     if (Button_State[AUX1_SWITCH_NUM] == 0) {                                                         // AUX1 switch is up
@@ -53,19 +65,16 @@ void readdigital() {
         digitalWrite (CH7_SWITCH_LED_PIN, HIGH);
     }
     
-    // Ch8 Switch
-    if ( Button_State[CH8_SWITCH_NUM] == 1 ){                                                         // Ch8 switch is down
-        AI_Auxpot2 = CH8_PWM_LOW;
-        digitalWrite (CH8_SWITCH_LED_PIN, LOW);
-        timer2_running = false;
-    } else {                                                                                    // Ch8 switch is up
-        AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, CH8_PWM_LOW, CH8_PWM_HIGH);   // Aux pot 2
-        digitalWrite (CH8_SWITCH_LED_PIN, HIGH);
-        if ( ModeDispSet != TIMER_ADJUST ){
-            timer2_running = true;
-        } else {
-            timer2_running = false;
+    // Ch8 Handling
+    
+    if ( active_model.thr_switch_mode == THR_ON_CH8_HOLD ){
+        if ( Button_State[THR_SWITCH_NUM] ){                                                        // Thr switch is down
+            AI_Auxpot2 = CH8_PWM_LOW;
+        } else {                                                                                    // Thr switch is up
+            AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, CH8_PWM_LOW, CH8_PWM_HIGH);               // Aux pot 2
         }
+    } else {
+        AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, CH8_PWM_LOW, CH8_PWM_HIGH);
     }
 }
 
@@ -192,27 +201,25 @@ void checklimitsmodessetouputs() {
         }
     }
    
-      // Check limits
-   if (AI_Aeler < PWM_MIN) AI_Aeler = PWM_MIN;
-   if (AI_Aeler > PWM_MAX) AI_Aeler = PWM_MAX;   
-   if (AI_Eleva < PWM_MIN) AI_Eleva = PWM_MIN;
-   if (AI_Eleva > PWM_MAX) AI_Eleva = PWM_MAX; 
-   if (AI_Throt < PWM_MIN) AI_Throt = PWM_MIN;
-   if (AI_Throt > PWM_MAX) AI_Throt = PWM_MAX; 
-   if (AI_Rudde < PWM_MIN) AI_Rudde = PWM_MIN;
-   if (AI_Rudde > PWM_MAX) AI_Rudde = PWM_MAX;   
-   if (AI_Auxpot1 < PWM_MIN) AI_Auxpot1 = PWM_MIN;
-   if (AI_Auxpot1 > PWM_MAX) AI_Auxpot1 = PWM_MAX;  
-   if (AI_Auxpot2 < PWM_MIN) AI_Auxpot2 = PWM_MIN;
-   if (AI_Auxpot2 > PWM_MAX) AI_Auxpot2 = PWM_MAX;  
-   
-   // Load PPM channel array with final channel values
-   PPM_array[0] = AI_Aeler + PPM_CHANNEL_SPACING;                   // Channel 1 Roll
-   PPM_array[1] = AI_Eleva + PPM_CHANNEL_SPACING;                   // Channel 2 Pitch
-   PPM_array[2] = AI_Throt + PPM_CHANNEL_SPACING;                   // Channel 3 Throttle
-   PPM_array[3] = AI_Rudde + PPM_CHANNEL_SPACING;                   // Channel 4 Yaw
-   PPM_array[4] = Active_Flight_Mode_PWM + PPM_CHANNEL_SPACING;     // Channel 5 Flight Mode
-   PPM_array[5] = AI_Auxpot1 + PPM_CHANNEL_SPACING;                 // Channel 6 Ch6 Tuning
-   PPM_array[6] = Auxsw_uS + PPM_CHANNEL_SPACING;                   // Channel 7 Ch7 Switch
-   PPM_array[7] = AI_Auxpot2 + PPM_CHANNEL_SPACING;                 // Channel 8 Ch8 Aux Knob
+    // Check limits
+      
+    AI_Aeler = constrain (AI_Aeler, PWM_MIN, PWM_MAX);
+    AI_Eleva = constrain (AI_Eleva, PWM_MIN, PWM_MAX);
+    AI_Throt = constrain (AI_Throt, PWM_MIN, PWM_MAX);
+    AI_Rudde = constrain (AI_Rudde, PWM_MIN, PWM_MAX);
+    AI_Auxpot1 = constrain (AI_Auxpot1, PWM_MIN, PWM_MAX);
+    AI_Auxpot2 = constrain (AI_Auxpot2, PWM_MIN, PWM_MAX);
+     
+    // Load PPM channel array with final channel values
+    PPM_buffer[0] = AI_Aeler + PPM_CHANNEL_SPACING;                   // Channel 1 Roll
+    PPM_buffer[1] = AI_Eleva + PPM_CHANNEL_SPACING;                   // Channel 2 Pitch
+    PPM_buffer[2] = AI_Throt + PPM_CHANNEL_SPACING;                   // Channel 3 Throttle
+    PPM_buffer[3] = AI_Rudde + PPM_CHANNEL_SPACING;                   // Channel 4 Yaw
+    PPM_buffer[4] = Active_Flight_Mode_PWM + PPM_CHANNEL_SPACING;     // Channel 5 Flight Mode
+    PPM_buffer[5] = AI_Auxpot1 + PPM_CHANNEL_SPACING;                 // Channel 6 Ch6 Tuning
+    PPM_buffer[6] = Auxsw_uS + PPM_CHANNEL_SPACING;                   // Channel 7 Ch7 Switch
+    PPM_buffer[7] = AI_Auxpot2 + PPM_CHANNEL_SPACING;                 // Channel 8 Ch8 Aux Knob
+    
+    memcpy( PPM_array , PPM_buffer , 8);
+    
 }

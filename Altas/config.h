@@ -39,7 +39,7 @@
 #define MFD_BUTTON_ENTER_PIN    44
 #define MFD_BUTTON_MODE_PIN     46
 #define CH7_SWITCH_PIN          39
-#define CH8_SWITCH_PIN          41
+#define THR_SWITCH_PIN          41
 #define AUX1_SWITCH_PIN         23
 #define AUX2_SWITCH_PIN         25
 
@@ -54,7 +54,7 @@
 #define AUX1_SWITCH_NUM         7
 #define AUX2_SWITCH_NUM         8
 #define CH7_SWITCH_NUM          9
-#define CH8_SWITCH_NUM          10
+#define THR_SWITCH_NUM          10
 
 // Ch5 Flight Mode Button Inputs
 #define FLIGHT_MODE_1_INPUT     27
@@ -66,6 +66,11 @@
 
 #define ANALOG_INPUT_PINCOUNT   7
 #define DIGITAL_INPUT_PINCOUNT  11
+
+// Throttle Switch Functions
+#define THR_SWITCH_NO_FUNC      0
+#define THR_STICK_HOLD          1
+#define THR_ON_CH8_HOLD         2
 
 // User adjustable settings
 #define PWM_MIN     800

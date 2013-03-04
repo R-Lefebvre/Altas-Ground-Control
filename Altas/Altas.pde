@@ -46,7 +46,7 @@ int DI_Raw[DIGITAL_INPUT_PINCOUNT] = {
     AUX1_SWITCH_PIN,                        //7
     AUX2_SWITCH_PIN,                        //8
     CH7_SWITCH_PIN,                         //9
-    CH8_SWITCH_PIN                          //10
+    THR_SWITCH_PIN                          //10
 };    // actual digital input pins
 
 bool Button_State[DIGITAL_INPUT_PINCOUNT];
@@ -115,6 +115,7 @@ bool timer1_running = true;
 bool timer2_running = false;   
 int timer1_seconds = 0, timer1_minutes = 0;
 
+int PPM_buffer[9];
 int PPM_array[9];
 
 byte active_model_num;
@@ -130,7 +131,8 @@ struct model_struct {
     int EP_high[8];
     int EP_low[8];
     byte timer2_min;
-    byte timer2_sec;    
+    byte timer2_sec;
+    bool thr_switch_mode;
 } active_model, peek_model;
 
 byte active_timer2_min;
