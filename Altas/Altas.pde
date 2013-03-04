@@ -132,7 +132,7 @@ struct model_struct {
     int EP_low[8];
     byte timer2_min;
     byte timer2_sec;
-    bool thr_switch_mode;
+    byte thr_switch_mode;
 } active_model, peek_model;
 
 byte active_timer2_min;

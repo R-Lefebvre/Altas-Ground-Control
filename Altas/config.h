@@ -19,8 +19,6 @@
 #define CH8_SWITCH_LED_PIN      40
 #define PIEZO_OUTPUT_PIN        42
 
-
-
 // Inputs:
 
 #define ROLL_GIMBAL_PIN         0
@@ -31,6 +29,28 @@
 #define CH8_POT_PIN             5
 #define V_BATT_PIN              6
 
+// RAW inputs (range is 0-1023 for 10-bit analogue inputs). If your analogue inputs don't quite start
+// at 0vdc, or don't quite hit the 5vdc max then you can tweak the ranges here for best operation.
+// You can also specify the centre positions for the AEL/ELE/RUD sticks.
+#define ROLL_MIN        0
+#define ROLL_MID        512
+#define ROLL_MAX        1023
+#define PITCH_MIN       0
+#define PITCH_MID       512
+#define PITCH_MAX       1023
+#define YAW_MIN         0
+#define YAW_MID         512
+#define YAW_MAX         1023
+#define THROTTLE_MIN    0
+#define THROTTLE_MAX    1023
+#define CH6_MIN         0
+#define CH6_MAX         1023
+#define CH8_MIN         0
+#define CH8_MAX         1023
+
+
+// Button/Switch input pins.  These are the ones to move if you want to change button functionality
+// or have a wiring problem.
 #define HAT_SWITCH_UP_PIN       45
 #define HAT_SWITCH_DOWN_PIN     47
 #define HAT_SWITCH_LEFT_PIN     48
@@ -72,63 +92,43 @@
 #define THR_STICK_HOLD          1
 #define THR_ON_CH8_HOLD         2
 
-// User adjustable settings
-#define PWM_MIN     800
-#define PWM_MID     1200
-#define PWM_MAX     1600
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  PPM SETTINGS
+//
+// PPM Stream Generation
+#define PPM_FREQUENCY           22500           // PPM frame length total in uS
+#define PPM_CHANNEL_SPACING     300             // PPM frame padding LOW phase in uS
 
-// RAW inputs (range is 0-1023 for 10-bit analogue inputs). If your analogue inputs don't quite start
-// at 0vdc, or don't quite hit the 5vdc max then you can tweak the ranges here for best operation.
-// You can also specify the centre positions for the AEL/ELE/RUD sticks.
+// Basic Endpoints.  These can be moved around with adjustable endpoints.
+#define PWM_MIN     1100
+#define PWM_MID     1500
+#define PWM_MAX     1900
 
-#define ROLL_MIN        0
-#define ROLL_MID        512
-#define ROLL_MAX        1023
-#define PITCH_MIN       0
-#define PITCH_MID       512
-#define PITCH_MAX       1023
-#define YAW_MIN         0
-#define YAW_MID         512
-#define YAW_MAX         1023
-#define THROTTLE_MIN    0
-#define THROTTLE_MAX    1023
-#define CH6_MIN         0
-#define CH6_MAX         1023
-#define CH8_MIN         0
-#define CH8_MAX         1023
+// Absolute Channel Endpoints.  Input/Output CANNOT go above or below these.
+#define PWM_HARD_MIN     800
+#define PWM_HARD_MAX     2100
 
 // Ch5 Flight Mode Selections
 // These are the PWM values that will be sent out on Ch5 when the operator requests a given flight mode
-
-#define FLIGHT_MODE_1               850
-#define FLIGHT_MODE_2               995
-#define FLIGHT_MODE_3               1125
-#define FLIGHT_MODE_4               1255
-#define FLIGHT_MODE_5               1385
-#define FLIGHT_MODE_6               1550
+#define FLIGHT_MODE_1               1150
+#define FLIGHT_MODE_2               1295
+#define FLIGHT_MODE_3               1425
+#define FLIGHT_MODE_4               1555
+#define FLIGHT_MODE_5               1685
+#define FLIGHT_MODE_6               1850
 #define DEFAULT_ACTIVE_FLIGHT_MODE  2
-
-// These are the PWM values that will be sent out when Ch7 switch is high or low
-#define CH7_PWM_LOW     800
-#define CH7_PWM_HIGH    1600
-
-// These are the PWM values that will be sent out when Ch8 switch is high or low
-#define CH8_PWM_LOW     800
-#define CH8_PWM_HIGH    1600
 
 // Min and Max allowable trim values.  In PWM.
 #define MAX_TRIM    75
 #define MIN_TRIM    -75
 
-
 // Triple Rate Multipliers
 #define LOW_RATE_MULTIPLIER        0.5
 #define HIGH_RATE_MULTIPLIER       1.0
 
-// PPM Stream Generation
-#define PPM_FREQUENCY           22500           // PPM frame length total in uS
-#define PPM_CHANNEL_SPACING     300             // PPM frame padding LOW phase in uS
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  EEPROM SETTINGS
+//
 // EEPROM Storage
 #define MODEL_MEMORY_NUM        7               // The number of model memories
 #define MODEL_MEMORY_SPACE      256             // The number of bytes reserved for each model memory
@@ -137,7 +137,7 @@
 #define INIT_EEPROM_LOC         2               // Location to store the init state of EEPROM
 #define INIT_CHECK_VAL          42              // The value to check to see if we have initialzied the EEPROM
 
-#define DEFAULT_TIMER_VAL       5
+#define DEFAULT_TIMER_VAL       5               // Minutes
 
 
 // Display Control

@@ -81,8 +81,8 @@ void EEPROM_Delete_Model(byte delete_num){
     reset_name.getBytes(temp.model_name, 21);
     for (int i=0; i<8; i++){
         temp.channel_reverse[i] = false;
-        temp.EP_high[i] = PWM_MAX;
-        temp.EP_low[i] = PWM_MIN;
+        temp.EP_high[i] = 0;
+        temp.EP_low[i] = 0;
     }
     for (int i=0; i<4; i++){
         temp.trim[i] = 0;
@@ -92,6 +92,7 @@ void EEPROM_Delete_Model(byte delete_num){
     }
     temp.timer2_min = DEFAULT_TIMER_VAL;
     temp.timer2_sec = 0;
+    temp.thr_switch_mode = 0;
     
     int index = delete_num * 256;
     EEPROM.updateBlock(index, temp);
