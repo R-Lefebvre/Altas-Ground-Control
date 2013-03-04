@@ -11,8 +11,8 @@ int AI_Val5[7];
 float AI_AelerF = 700;
 float AI_ElevaF = 700;
 float AI_RuddeF = 700;
-int Minmult;
-int Maxmult;
+int Minmult[4];
+int Maxmult[4];
 
 // Read Digital Inputs
 void readdigital() {
@@ -132,17 +132,20 @@ void readanalogue() {
     }
    
     // Incorporate Rate Multiplier then scale inputs to produce PPM values
-    Minmult = (PWM_MID - (RateMult * ((PWM_MAX - PWM_MIN) / 2)));  // Generate scaled graph depending on current RateMult
-    Maxmult = (PWM_MID + (RateMult * ((PWM_MAX - PWM_MIN) / 2)));
-   
-    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult, PWM_MID) + active_model.trim[0]; }          // Aeleron
-    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult) + active_model.trim[0]; }       // Aeleron
+    for (byte i=0; i<4; i++){
+        int range = PWM_MAX - PWM_MIN + active_model.EP_high[i] - active_model.EP_low[i];
+        Minmult[i] = (PWM_MID - (RateMult * ((range) / 2)));   // Generate scaled graph depending on current RateMult
+        Maxmult[i] = (PWM_MID + (RateMult * ((range) / 2)));
+    }   
     
-    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult, PWM_MID) + active_model.trim[1]; }          // Elevator 
-    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult) + active_model.trim[1]; }       // Elevator 
+    if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult[0], PWM_MID) + active_model.trim[0]; }          // Aeleron
+    if (AI_Val[0] >= ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MID, ROLL_MAX, PWM_MID + 1, Maxmult[0]) + active_model.trim[0]; }       // Aeleron
+    
+    if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult[1], PWM_MID) + active_model.trim[1]; }          // Elevator 
+    if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult[1]) + active_model.trim[1]; }       // Elevator 
   
-    if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult, PWM_MID); }          // Rudder  
-    if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult); }       // Rudder  
+    if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult[3], PWM_MID); }          // Rudder  
+    if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult[3]); }       // Rudder  
    
     AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX);    // Throttle
     AI_Auxpot1 = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MIN, PWM_MAX);             // Aux pot 1    
