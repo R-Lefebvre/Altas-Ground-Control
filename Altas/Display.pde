@@ -6,141 +6,174 @@ Display
 void Display(){
 
     switch (ModeDispSet){
-    
-    case MAIN_CONTROL_DISPLAY:
+        ////////////////////////////////////////////////////////////////////
+        case MAIN_CONTROL_DISPLAY:
 
-        Model_Name_Display(0);
-        Timer_Display();
-        Battery_Display(); 
-        if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MENU_1_DISPLAY;
-            Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
-        }
-    break;
-    
-    
-    case MENU_1_DISPLAY:
-    
-        Pointer_Display();
-        Menu_Display();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MAIN_CONTROL_DISPLAY;
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-            Menu_Pointer_Index = 0;
-            Menu_Display_Index = 1;
-        }
-    break;
-    
-    case MODEL_MENU:
-    
-        Pointer_Display();
-        Aircraft_Menu();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MENU_1_DISPLAY;
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-            Menu_Pointer_Index = 0;
-            Menu_Display_Index = 1;
-        }
-    break;
-
-    case MODEL_SELECT_DISPLAY:
-    
-        Aircraft_Choose();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MODEL_MENU;
-            EEPROM_Update();
-            active_timer2_min = active_model.timer2_min;
-            active_timer2_sec = active_model.timer2_sec; 
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    case MODEL_NAME_CHANGE_DISPLAY:
-    
-        Aircraft_Rename();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            Menu_Cursor_Pos = 0;
-            ModeDispSet = MODEL_MENU;
-            EEPROM_Update();
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    case MODEL_COPY_DISPLAY:
-    
-        Aircraft_Copy();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MODEL_MENU;
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    case MODEL_DELETE_DISPLAY:
-    
-        Aircraft_Delete();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            Menu_Cursor_Pos = 0;
-            ModeDispSet = MODEL_MENU;
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    case TRIM_DISPLAY:
-    
-        Trim_Adjust();
-        Trim_Display();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MENU_1_DISPLAY;
-            EEPROM_Update();
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    case TIMER_ADJUST:
-    
-        Timer_Adjust();
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            Menu_Cursor_Pos = 0;
-            ModeDispSet = MENU_1_DISPLAY;
-            EEPROM_Update();
-            active_timer2_min = active_model.timer2_min;
-            active_timer2_sec = active_model.timer2_sec; 
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    
-    case EXPO_DISPLAY:
-    
-        Expo_Display();   
-        if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
-            buzzeractivate = 1;          // activate buzzer
-            clearPLCD();
-            ModeDispSet = MENU_1_DISPLAY;
-            EEPROM_Update();
-            Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
-        }
-    break;
-    
-    } // Switch
+            Model_Name_Display(0);
+            Timer_Display();
+            Battery_Display(); 
+            if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case MENU_1_DISPLAY:
+        
+            Pointer_Display();
+            Menu_Display();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MAIN_CONTROL_DISPLAY;
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+                Menu_Pointer_Index = 0;
+                Menu_Display_Index = 1;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case MODEL_MENU:
+        
+            Pointer_Display();
+            Aircraft_Menu();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+                Menu_Pointer_Index = 0;
+                Menu_Display_Index = 1;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case MODEL_SELECT_DISPLAY:
+        
+            Aircraft_Choose();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MODEL_MENU;
+                EEPROM_Update();
+                active_timer2_min = active_model.timer2_min;
+                active_timer2_sec = active_model.timer2_sec; 
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case MODEL_NAME_CHANGE_DISPLAY:
+        
+            Aircraft_Rename();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                Menu_Cursor_Pos = 0;
+                ModeDispSet = MODEL_MENU;
+                EEPROM_Update();
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case MODEL_COPY_DISPLAY:
+        
+            Aircraft_Copy();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MODEL_MENU;
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case MODEL_DELETE_DISPLAY:
+        
+            Aircraft_Delete();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                Menu_Cursor_Pos = 0;
+                ModeDispSet = MODEL_MENU;
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case TRIM_DISPLAY:
+        
+            Trim_Adjust();
+            Trim_Display();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                EEPROM_Update();
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case EXPO_DISPLAY:
+        
+            Expo_Display();   
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                EEPROM_Update();
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case TIMER_ADJUST:
+        
+            Timer_Adjust();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                Menu_Cursor_Pos = 0;
+                ModeDispSet = MENU_1_DISPLAY;
+                EEPROM_Update();
+                active_timer2_min = active_model.timer2_min;
+                active_timer2_sec = active_model.timer2_sec; 
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case ENDPOINT_DISPLAY:
+        
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                EEPROM_Update();
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case DUAL_RATES_DISPLAY:
+        
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                EEPROM_Update();
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        case THROTTLE_SWITCH_DISPLAY:
+        
+            Throttle_Switch_Display();
+            if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
+                buzzeractivate = 1;                                             // activate buzzer
+                clearPLCD();
+                ModeDispSet = MENU_1_DISPLAY;
+                EEPROM_Update();
+                Button_Pulse[MFD_BUTTON_BACK_NUM] = 0;
+            }
+        break;
+        ////////////////////////////////////////////////////////////////////
+        
+    }   // Switch
 }
 
 void Menu_Display(){
@@ -160,35 +193,69 @@ void Menu_Display(){
             
         break;
         
+        case MENU_2_DISPLAY:
+
+            cursorSet(1,0);
+            Serial3.print("ENDPOINT ADJUST");
+            cursorSet(1,1);
+            Serial3.print("DUAL RATES ADJUST");
+            cursorSet(1,2);
+            Serial3.print("THROTTLE SWITCH");
+            
+        break;
+        
     }
     
     if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
-        buzzeractivate = 1;          // activate buzzer
+        buzzeractivate = 1;                                 // activate buzzer
         clearPLCD();
-        switch(Menu_Pointer_Index){
-        
+        switch(Menu_Display_Index){
             case 0:
-                ModeDispSet = MODEL_MENU;
+                switch(Menu_Pointer_Index){
+                    //////////////////////////////////
+                    case 0:
+                        ModeDispSet = MODEL_MENU;
+                    break;
+                    //////////////////////////////////
+                    case 1:
+                        ModeDispSet = TRIM_DISPLAY;
+                    break;
+                    //////////////////////////////////
+                    case 2:
+                        ModeDispSet = EXPO_DISPLAY;
+                    break;
+                    //////////////////////////////////
+                    case 3:
+                        ModeDispSet = TIMER_ADJUST;
+                        EEPROM_Peek(active_model_num);
+                        active_model = peek_model;
+                        cursorSet(7+Menu_Cursor_Pos,3);
+                        Serial3.write(94);
+                    break;
+                    //////////////////////////////////
+                } 
             break;
             
             case 1:
-                ModeDispSet = TRIM_DISPLAY;
+                switch(Menu_Pointer_Index){
+                    //////////////////////////////////
+                    case 0:
+                        ModeDispSet = MODEL_MENU;
+                    break;
+                    //////////////////////////////////
+                    case 1:
+                        ModeDispSet = TRIM_DISPLAY;
+                    break;
+                    //////////////////////////////////
+                    case 2:
+                        ModeDispSet = THROTTLE_SWITCH_DISPLAY;
+                    break;
+                    //////////////////////////////////
+                }
             break;
-            
-            case 2:
-                ModeDispSet = EXPO_DISPLAY;
-            break;
-            
-            case 3:
-                ModeDispSet = TIMER_ADJUST;
-                EEPROM_Peek(active_model_num);
-                active_model = peek_model;
-                cursorSet(7+Menu_Cursor_Pos,3);
-                Serial3.write(94);
-            break;
-        }     
+        }
         Menu_Pointer_Index = 0;
-        Menu_Display_Index = 1;
+        // Menu_Display_Index = 1;                          // Let's try not doing this...
         Button_Pulse[MFD_BUTTON_ENTER_NUM] = 0;
     }
 }
@@ -203,27 +270,32 @@ void Pointer_Display(){
     Serial3.write(126);
     
     if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
-        buzzeractivate = 1;          // activate buzzer
+        buzzeractivate = 1;                         // activate buzzer
         Button_Pulse[HAT_SWITCH_UP_NUM] = false;
         Menu_Pointer_Index--;
-        if (Menu_Pointer_Index > 3){
-            Menu_Pointer_Index = 0;
+        if (Menu_Pointer_Index > 3){                // If the pointer index has wrapped to 255, and...
+            if (Menu_Display_Index == 0){           // If we're on the top level already, 
+                Menu_Pointer_Index = 0;             // hold the pointer at zero.
+            } else if (Menu_Display_Index > 0){     // Otherwise
+                Menu_Display_Index--;               // Move up one menu level and set the pointer at the bottom row.
+                Menu_Pointer_Index = 3;
+            }
         }
     }
     
     if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
-        buzzeractivate = 1;          // activate buzzer
+        buzzeractivate = 1;                         // activate buzzer
         Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
         Menu_Pointer_Index++;
-        if (Menu_Pointer_Index > 3 ){
-            Menu_Pointer_Index = 3;
-            Menu_Display_Index++;
-        }
-        if (Menu_Display_Index > 0){
-            Menu_Display_Index = 0;
-        }
+        if (Menu_Pointer_Index > 3 ){               // If the pointer has gone down to line 4...
+            if (Menu_Display_Index < 1){            // And if we are not already on the bottom level...
+                Menu_Display_Index++;               // Move down one menu level.
+                Menu_Pointer_Index = 0;             // And set the pointer on the top row.
+            } else if (Menu_Display_Index == 1){    // Otherwise we have reached the end of the menus
+                Menu_Pointer_Index = 3;             // Hold the pointer at the bottom row.
+            }
+        }    
     }
-
 }
 
 void Aircraft_Menu(){
@@ -791,5 +863,35 @@ char* MenuExponentialMode[]={"OFF", " ON"};
     Serial3.print("Yaw:");
     cursorSet(7,3);
     Serial3.print(MenuExponentialMode[ToDo]);
-	
 }
+
+void Throttle_Switch_Display(){
+
+char* ThrottleSwitchMode[]={"No Function", "Throttle", "Ch8 Knob"};
+
+    cursorSet(2,0);
+    Serial3.print("Throttle Switch");
+    cursorSet(0,1);
+    Serial3.print("Setting:");          // 8 chars
+    cursorSet(9,1);
+    Serial3.print(ThrottleSwitchMode[active_model.thr_switch_mode]);
+    
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 1;                         // activate buzzer
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        active_model.thr_switch_mode--;
+        if (active_model.thr_switch_mode > 2){      // If the byte has wrapped to 255
+            active_model.thr_switch_mode = 0;       // Hold it at 0
+        }
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
+        buzzeractivate = 1;                         // activate buzzer
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        Menu_Pointer_Index++;
+        if (active_model.thr_switch_mode > 2 ){     // If the pointer has gone further than 2
+            active_model.thr_switch_mode = 2;       // Hold it at 2
+        }    
+    }
+}
+    

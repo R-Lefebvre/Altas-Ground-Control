@@ -71,7 +71,7 @@ void readdigital() {
         if ( Button_State[THR_SWITCH_NUM] ){                                                        // Thr switch is down
             AI_Auxpot2 = PWM_MIN;
         } else {                                                                                    // Thr switch is up
-            AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, PWM_MIN, PWM_MAX);               // Aux pot 2
+            AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, PWM_MIN, PWM_MAX);                        // Aux pot 2
         }
     } else {
         AI_Auxpot2 = map(AI_Val[5], CH8_MIN, CH8_MAX, PWM_MIN, PWM_MAX);
@@ -147,8 +147,16 @@ void readanalogue() {
     if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult[3], PWM_MID); }          // Rudder  
     if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult[3]); }       // Rudder  
    
-    AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX);    // Throttle
-    AI_Auxpot1 = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MIN, PWM_MAX);             // Aux pot 1    
+    AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX);        // Throttle
+    if ( active_model.thr_switch_mode == THR_STICK_HOLD){                           // If throttle switch mode is on Throttle Stick Hold
+        if ( Button_State[THR_SWITCH_NUM] ){                                        // and if throttle switch is down
+            AI_Throt = PWM_MIN;                                                     // hold throttle down so that throttle is inactive
+        } else {                                                                    // If throttle switch is up
+            AI_Throt = constrain (AI_Throt, PWM_MIN+THR_SAFETY_OFFSET, PWM_MAX);    // Hold throttle up from bottom so that cannot "Arm" the APM
+        }                                                                           // Nor can you shut down the throttle mid-flight accidentally
+    }
+            
+    AI_Auxpot1 = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MIN, PWM_MAX);                // Map Aux Pot 1    
 }
 
 

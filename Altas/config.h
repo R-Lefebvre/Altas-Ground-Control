@@ -91,6 +91,7 @@
 #define THR_SWITCH_NO_FUNC      0
 #define THR_STICK_HOLD          1
 #define THR_ON_CH8_HOLD         2
+#define THR_SAFETY_OFFSET       10
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PPM SETTINGS
@@ -160,6 +161,8 @@
 #define EXPO_DISPLAY                30
 #define TIMER_ADJUST                40
 #define ENDPOINT_DISPLAY            50
+#define DUAL_RATES_DISPLAY          60
+#define THROTTLE_SWITCH_DISPLAY     70
 
 
 
