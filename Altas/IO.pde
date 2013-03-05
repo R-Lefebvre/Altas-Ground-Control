@@ -214,6 +214,17 @@ void checklimitsmodessetouputs() {
     PPM_buffer[6] = constrain (Auxsw_uS, PWM_HARD_MIN, PWM_HARD_MAX);                   // Channel 7 Ch7 Switch
     PPM_buffer[7] = constrain (AI_Auxpot2, PWM_HARD_MIN, PWM_HARD_MAX);                 // Channel 8 Ch8 Aux Knob
     
-    memcpy( PPM_array , PPM_buffer , 8);
+    
+    cli();
+    PPM_array[ 0 ] = PPM_buffer[ 0 ];
+    PPM_array[ 1 ] = PPM_buffer[ 1 ];
+    PPM_array[ 2 ] = PPM_buffer[ 2 ];
+    PPM_array[ 3 ] = PPM_buffer[ 3 ];
+    PPM_array[ 4 ] = PPM_buffer[ 4 ];
+    PPM_array[ 5 ] = PPM_buffer[ 5 ];
+    PPM_array[ 6 ] = PPM_buffer[ 6 ];
+    PPM_array[ 7 ] = PPM_buffer[ 7 ];
+    sei();
+    
     
 }
