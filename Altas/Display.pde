@@ -206,11 +206,41 @@ void Menu_Display(){
         
     }
     
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 1;                                     // activate buzzer
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        Menu_Pointer_Index--;
+        if (Menu_Pointer_Index > 3){                            // If the pointer index has wrapped to 255, and...
+            if (Menu_Display_Index == MENU_1_DISPLAY){          // If we're on the top level already, 
+                Menu_Pointer_Index = 0;                         // hold the pointer at zero.
+            } else if (Menu_Display_Index > MENU_1_DISPLAY){    // Otherwise
+                clearPLCD();
+                Menu_Display_Index--;                           // Move up one menu level and set the pointer at the bottom row.
+                Menu_Pointer_Index = 3;
+            }
+        }
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
+        buzzeractivate = 1;                                     // activate buzzer
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        Menu_Pointer_Index++;
+        if (Menu_Pointer_Index > 3 ){                           // If the pointer has gone down to line 4...
+            if (Menu_Display_Index < MENU_2_DISPLAY){           // And if we are not already on the bottom level...
+                clearPLCD();
+                Menu_Display_Index++;                           // Move down one menu level.
+                Menu_Pointer_Index = 0;                         // And set the pointer on the top row.
+            } else if (Menu_Display_Index == MENU_2_DISPLAY){   // Otherwise we have reached the end of the menus
+                Menu_Pointer_Index = 3;                         // Hold the pointer at the bottom row.
+            }
+        }    
+    }
+    
     if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
         buzzeractivate = 1;                                 // activate buzzer
         clearPLCD();
         switch(Menu_Display_Index){
-            case 0:
+            case MENU_1_DISPLAY:
                 switch(Menu_Pointer_Index){
                     //////////////////////////////////
                     case 0:
@@ -236,7 +266,7 @@ void Menu_Display(){
                 } 
             break;
             
-            case 1:
+            case MENU_2_DISPLAY:
                 switch(Menu_Pointer_Index){
                     //////////////////////////////////
                     case 0:
@@ -269,33 +299,6 @@ void Pointer_Display(){
     cursorSet(0,Menu_Pointer_Index);
     Serial3.write(126);
     
-    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
-        buzzeractivate = 1;                         // activate buzzer
-        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
-        Menu_Pointer_Index--;
-        if (Menu_Pointer_Index > 3){                // If the pointer index has wrapped to 255, and...
-            if (Menu_Display_Index == 0){           // If we're on the top level already, 
-                Menu_Pointer_Index = 0;             // hold the pointer at zero.
-            } else if (Menu_Display_Index > 0){     // Otherwise
-                Menu_Display_Index--;               // Move up one menu level and set the pointer at the bottom row.
-                Menu_Pointer_Index = 3;
-            }
-        }
-    }
-    
-    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
-        buzzeractivate = 1;                         // activate buzzer
-        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
-        Menu_Pointer_Index++;
-        if (Menu_Pointer_Index > 3 ){               // If the pointer has gone down to line 4...
-            if (Menu_Display_Index < 1){            // And if we are not already on the bottom level...
-                Menu_Display_Index++;               // Move down one menu level.
-                Menu_Pointer_Index = 0;             // And set the pointer on the top row.
-            } else if (Menu_Display_Index == 1){    // Otherwise we have reached the end of the menus
-                Menu_Pointer_Index = 3;             // Hold the pointer at the bottom row.
-            }
-        }    
-    }
 }
 
 void Aircraft_Menu(){
@@ -308,6 +311,24 @@ void Aircraft_Menu(){
     Serial3.print("COPY AIRCRAFT");
     cursorSet(1,3);
     Serial3.print("DELETE AIRCRAFT");
+    
+    if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
+        buzzeractivate = 1;                                 // activate buzzer
+        Button_Pulse[HAT_SWITCH_UP_NUM] = false;
+        Menu_Pointer_Index--;
+        if (Menu_Pointer_Index > 3){                        // If the pointer index has wrapped to 255, and...
+            Menu_Pointer_Index = 0;                         // hold the pointer at zero.
+        }
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
+        buzzeractivate = 1;                                 // activate buzzer
+        Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
+        Menu_Pointer_Index++;
+        if (Menu_Pointer_Index > 3 ){                       // If the pointer has gone down to line 4...
+            Menu_Pointer_Index = 3;                         // Hold the pointer at the bottom row.
+        }    
+    }
     
     if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
         buzzeractivate = 1;          // activate buzzer
@@ -867,7 +888,7 @@ char* MenuExponentialMode[]={"OFF", " ON"};
 
 void Throttle_Switch_Display(){
 
-char* ThrottleSwitchMode[]={"No Function", "Throttle", "Ch8 Knob"};
+    char* ThrottleSwitchMode[]={"No Function", "Throttle   ", "Ch8 Knob   "};
 
     cursorSet(2,0);
     Serial3.print("Throttle Switch");
@@ -875,7 +896,6 @@ char* ThrottleSwitchMode[]={"No Function", "Throttle", "Ch8 Knob"};
     Serial3.print("Setting:");          // 8 chars
     cursorSet(9,1);
     Serial3.print(ThrottleSwitchMode[active_model.thr_switch_mode]);
-    
     if (Button_Pulse[HAT_SWITCH_UP_NUM]) {
         buzzeractivate = 1;                         // activate buzzer
         Button_Pulse[HAT_SWITCH_UP_NUM] = false;
@@ -888,7 +908,7 @@ char* ThrottleSwitchMode[]={"No Function", "Throttle", "Ch8 Knob"};
     if (Button_Pulse[HAT_SWITCH_DOWN_NUM]) {
         buzzeractivate = 1;                         // activate buzzer
         Button_Pulse[HAT_SWITCH_DOWN_NUM] = false;
-        Menu_Pointer_Index++;
+        active_model.thr_switch_mode--;
         if (active_model.thr_switch_mode > 2 ){     // If the pointer has gone further than 2
             active_model.thr_switch_mode = 2;       // Hold it at 2
         }    

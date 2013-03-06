@@ -29,7 +29,6 @@ void EEPROM_Setup(){
         EEPROM.setMaxAllowedWrites(10000);
         EEPROM_Clear();
         for (int i=1; i <= MODEL_MEMORY_NUM; i++){
-            Serial.println(i, DEC);
             EEPROM_Delete_Model(i);
         }
         EEPROM.updateByte(INIT_EEPROM_LOC,INIT_CHECK_VAL);
@@ -47,8 +46,7 @@ void EEPROM_Setup(){
 
 void EEPROM_Clear(){
     for (int i = 0; i < 4096; i++){
-        Serial.println(i, DEC);
-        EEPROM.writeByte(i, 0);            
+        Serial.println(i, DEC);            
     }
 }
 

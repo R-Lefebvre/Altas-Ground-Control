@@ -91,7 +91,7 @@
 #define THR_SWITCH_NO_FUNC      0
 #define THR_STICK_HOLD          1
 #define THR_ON_CH8_HOLD         2
-#define THR_SAFETY_OFFSET       10
+#define THR_SAFETY_OFFSET       40
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PPM SETTINGS

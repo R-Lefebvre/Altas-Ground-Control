@@ -83,7 +83,6 @@ void control_flight_mode(){
     for(int i=1; i<=6; i++){
         FMB_State[i] = digitalRead(Flight_Mode_Inputs[i]);
     }
-    
     for(int i=1; i<=6; i++) {
         if ((FMB_State[i] == 0) && (FMB_State_Old[i] == 0) && (FMB_State_Falling[i] == 0)){
             FMB_State_Falling[i] = 1;
@@ -99,7 +98,6 @@ void control_flight_mode(){
             FMB_State_Falling[i] = 0;
         }
     }
-    
     for(int i=1; i<=6; i++){ 
         FMB_State_Old[i] = FMB_State[i];
     }
@@ -159,7 +157,6 @@ void readanalogue() {
     AI_Auxpot1 = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MIN, PWM_MAX);                // Map Aux Pot 1    
 }
 
-
 // Check limits & set outputs
 void checklimitsmodessetouputs() {
  
@@ -195,7 +192,6 @@ void checklimitsmodessetouputs() {
         }
     }
 
-
     // Exponential Rudder
     if (ToDo) {
         if (AI_Val[3] < YAW_MID ){
@@ -221,8 +217,7 @@ void checklimitsmodessetouputs() {
     PPM_buffer[5] = constrain (AI_Auxpot1, PWM_HARD_MIN, PWM_HARD_MAX);                 // Channel 6 Ch6 Tuning
     PPM_buffer[6] = constrain (Auxsw_uS, PWM_HARD_MIN, PWM_HARD_MAX);                   // Channel 7 Ch7 Switch
     PPM_buffer[7] = constrain (AI_Auxpot2, PWM_HARD_MIN, PWM_HARD_MAX);                 // Channel 8 Ch8 Aux Knob
-    
-    
+
     cli();
     PPM_array[ 0 ] = PPM_buffer[ 0 ];
     PPM_array[ 1 ] = PPM_buffer[ 1 ];
@@ -233,6 +228,4 @@ void checklimitsmodessetouputs() {
     PPM_array[ 6 ] = PPM_buffer[ 6 ];
     PPM_array[ 7 ] = PPM_buffer[ 7 ];
     sei();
-    
-    
 }
