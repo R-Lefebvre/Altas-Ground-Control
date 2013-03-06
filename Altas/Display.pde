@@ -139,7 +139,8 @@ void Display(){
         break;
         ////////////////////////////////////////////////////////////////////
         case ENDPOINT_DISPLAY:
-        
+            
+            Endpoint_Display();
             if (Button_Pulse[MFD_BUTTON_BACK_NUM]) {
                 buzzeractivate = 1;                                             // activate buzzer
                 clearPLCD();
@@ -270,7 +271,7 @@ void Menu_Display(){
                 switch(Menu_Pointer_Index){
                     //////////////////////////////////
                     case 0:
-                        ModeDispSet = MODEL_MENU;
+                        ModeDispSet = ENDPOINT_DISPLAY;
                     break;
                     //////////////////////////////////
                     case 1:
@@ -914,4 +915,120 @@ void Throttle_Switch_Display(){
         }    
     }
 }
+
+void Endpoint_Display(){
+
+    static int channel=0;
+    static bool pointer=0;
+    char* Endpoint_Channel[]={"      ROLL:", "     PITCH:", "  THROTTLE:", "       YAW:", "  CH6 KNOB", "CH7 SWITCH:", "  CH8 KNOB"};
+
+    cursorSet(1,0);
+    Serial3.print("Endpoint Settings");
+    cursorSet(12,1);
+    Serial3.print("MIN  MAX");
+    cursorSet(0,2);
+    Serial3.print(Endpoint_Channel[channel]);
+    cursorSet(13+5*pointer,3);
+    Serial3.write(94);
+    
+    // Right justify pos numbers
+    if (active_model.EP_low[channel] >= 0 && active_model.EP_low[channel] <= 9 ) {
+    deletePLCD(11,2); deletePLCD(12,2); deletePLCD(13,2);
+    cursorSet(14,2); Serial3.print(active_model.EP_low[channel]);
+    }
+    if (active_model.EP_low[channel] >= 10 && active_model.EP_low[channel] <= 99 ) {
+    deletePLCD(11,2); deletePLCD(12,2);
+    cursorSet(13,2); Serial3.print(active_model.EP_low[channel]);
+    }
+    if (active_model.EP_low[channel] >= 100 && active_model.EP_low[channel] <= 999 ) {
+    deletePLCD(11,2);
+    cursorSet(12,2); Serial3.print(active_model.EP_low[channel]);
+    }			
+    // Right justify neg numbers
+    if (active_model.EP_low[channel] >= -9 && active_model.EP_low[channel] <= -1 ) {
+    deletePLCD(11,2); deletePLCD(12,2);
+    cursorSet(13,2); Serial3.print(active_model.EP_low[channel]);
+    }
+    if (active_model.EP_low[channel] >= -99 && active_model.EP_low[channel] <= -10 ) {
+    deletePLCD(11,2);
+    cursorSet(12,2); Serial3.print(active_model.EP_low[channel]);
+    }
+    if (active_model.EP_low[channel] >= -999 && active_model.EP_low[channel] <= -100 ) {
+    cursorSet(11,2); Serial3.print(active_model.EP_low[channel]);
+    }
+    
+    // Right justify pos numbers
+    if (active_model.EP_high[channel] >= 0 && active_model.EP_high[channel] <= 9 ) {
+    deletePLCD(16,2); deletePLCD(17,2); deletePLCD(18,2);
+    cursorSet(19,2); Serial3.print(active_model.EP_high[channel]);
+    }
+    if (active_model.EP_high[channel] >= 10 && active_model.EP_high[channel] <= 99 ) {
+    deletePLCD(16,2); deletePLCD(17,2);
+    cursorSet(18,2); Serial3.print(active_model.EP_high[channel]);
+    }
+    if (active_model.EP_high[channel] >= 100 && active_model.EP_high[channel] <= 999 ) {
+    deletePLCD(16,2);
+    cursorSet(17,2); Serial3.print(active_model.EP_high[channel]);
+    }			
+    // Right justify neg numbers
+    if (active_model.EP_high[channel] >= -9 && active_model.EP_high[channel] <= -1 ) {
+    deletePLCD(16,2); deletePLCD(17,2);
+    cursorSet(18,2); Serial3.print(active_model.EP_high[channel]);
+    }
+    if (active_model.EP_high[channel] >= -99 && active_model.EP_high[channel] <= -10 ) {
+    deletePLCD(16,2);
+    cursorSet(17,2); Serial3.print(active_model.EP_high[channel]);
+    }
+    if (active_model.EP_high[channel] >= -999 && active_model.EP_high[channel] <= -100 ) {
+    cursorSet(16,2); Serial3.print(active_model.EP_high[channel]);
+    }
+    
+    
+    if (Button_Pulse[HAT_SWITCH_RIGHT_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        Button_Pulse[HAT_SWITCH_RIGHT_NUM] = false;
+        if (!pointer){
+            deletePLCD(13+5*pointer,3);
+            pointer = true;
+        }      
+    }
+    
+    if (Button_Pulse[HAT_SWITCH_LEFT_NUM]) {
+        buzzeractivate = 1;          // activate buzzer
+        Button_Pulse[HAT_SWITCH_LEFT_NUM] = false;
+        if (pointer){
+            deletePLCD(13+5*pointer,3);
+            pointer = false;
+        }  
+    }
+    
+    if (Button_Pulse[MFD_BUTTON_ENTER_NUM]) {
+        buzzeractivate = 1;
+        Button_Pulse[MFD_BUTTON_ENTER_NUM] = false;
+        channel++;
+        if (channel > 6 ){                                      // If the pointer has gone past 6...
+            channel = 0;                                        // wrap back to 6.
+        }
+    }
+    
+    if (Button_State[HAT_SWITCH_UP_NUM] == 0) {
+        buzzeractivate = 1;                                     // activate buzzer
+        if (pointer){
+            active_model.EP_high[channel] += 10;
+        } else {
+            active_model.EP_low[channel] += 10;
+        }
+    }
+    
+    if (Button_State[HAT_SWITCH_DOWN_NUM] == 0) {
+        buzzeractivate = 1;                                     // activate buzzer
+        if (pointer){
+            active_model.EP_high[channel] -= 10;
+        } else {
+            active_model.EP_low[channel] -= 10;
+        }
+        
+    }
+}
+    
     
