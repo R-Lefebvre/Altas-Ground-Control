@@ -42,6 +42,7 @@
 #define YAW_MID         512
 #define YAW_MAX         1023
 #define THROTTLE_MIN    0
+#define THROTTLE_MID    512
 #define THROTTLE_MAX    1023
 #define CH6_MIN         0
 #define CH6_MAX         1023

@@ -131,9 +131,8 @@ void readanalogue() {
    
     // Incorporate Rate Multiplier then scale inputs to produce PPM values
     for (byte i=0; i<4; i++){
-        int range = PWM_MAX - PWM_MIN + active_model.EP_high[i] - active_model.EP_low[i];
-        Minmult[i] = (PWM_MID - (RateMult * ((range) / 2)));   // Generate scaled graph depending on current RateMult
-        Maxmult[i] = (PWM_MID + (RateMult * ((range) / 2)));
+        Minmult[i] = (PWM_MID - (RateMult * (PWM_MID - PWM_MIN - active_model.EP_low[i]))); // Generate scaled graph depending on current RateMult
+        Maxmult[i] = (PWM_MID + (RateMult * (PWM_MAX - PWM_MID + active_model.EP_high[i])));
     }   
     
     if (AI_Val[0] < ROLL_MID) { AI_Aeler = map(AI_Val[0], ROLL_MIN, ROLL_MID-1, Minmult[0], PWM_MID) + active_model.trim[0]; }          // Aeleron
@@ -142,16 +141,18 @@ void readanalogue() {
     if (AI_Val[1] < PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MIN, PITCH_MID-1, Minmult[1], PWM_MID) + active_model.trim[1]; }          // Elevator 
     if (AI_Val[1] >= PITCH_MID) { AI_Eleva = map(AI_Val[1], PITCH_MID, PITCH_MAX, PWM_MID + 1, Maxmult[1]) + active_model.trim[1]; }       // Elevator 
   
+    if (AI_Val[2] < THROTTLE_MID) { AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MID-1, Minmult[2], PWM_MID) + active_model.trim[2]; }          // Elevator 
+    if (AI_Val[2] >= THROTTLE_MID) { AI_Throt = map(AI_Val[2], THROTTLE_MID, THROTTLE_MAX, PWM_MID + 1, Maxmult[2]) + active_model.trim[2]; }       // Elevator 
+  
     if (AI_Val[3] < YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MIN, YAW_MID-1, Minmult[3], PWM_MID); }          // Rudder  
     if (AI_Val[3] >= YAW_MID) { AI_Rudde = map(AI_Val[3], YAW_MID, YAW_MAX, PWM_MID + 1, Maxmult[3]); }       // Rudder  
    
-    AI_Throt = map(AI_Val[2], THROTTLE_MIN, THROTTLE_MAX, PWM_MIN, PWM_MAX);        // Throttle
-    if ( active_model.thr_switch_mode == THR_STICK_HOLD){                           // If throttle switch mode is on Throttle Stick Hold
-        if ( Button_State[THR_SWITCH_NUM] ){                                        // and if throttle switch is down
-            AI_Throt = PWM_MIN;                                                     // hold throttle down so that throttle is inactive
-        } else {                                                                    // If throttle switch is up
-            AI_Throt = constrain (AI_Throt, PWM_MIN+THR_SAFETY_OFFSET, PWM_MAX);    // Hold throttle up from bottom so that cannot "Arm" the APM
-        }                                                                           // Nor can you shut down the throttle mid-flight accidentally
+    if ( active_model.thr_switch_mode == THR_STICK_HOLD){                                   // If throttle switch mode is on Throttle Stick Hold
+        if ( Button_State[THR_SWITCH_NUM] ){                                                // and if throttle switch is down
+            AI_Throt = PWM_MIN + active_model.EP_low[2];                                    // hold throttle down so that throttle is inactive
+        } else {                                                                            // If throttle switch is up
+            AI_Throt = constrain (AI_Throt, Minmult[2] + THR_SAFETY_OFFSET, Maxmult[2]);    // Hold throttle up from bottom so that cannot "Arm" the APM
+        }                                                                                   // Nor can you shut down the throttle mid-flight accidentally
     }
             
     AI_Auxpot1 = map(AI_Val[4], CH6_MIN, CH6_MAX, PWM_MIN, PWM_MAX);                // Map Aux Pot 1    
