@@ -106,6 +106,9 @@
 #define PWM_MID     1500
 #define PWM_MAX     1900
 
+// Maximum adjustment of variable endpoints. 
+#define EP_MAX      200
+
 // Absolute Channel Endpoints.  Input/Output CANNOT go above or below these.
 #define PWM_HARD_MIN     800
 #define PWM_HARD_MAX     2100
@@ -121,8 +124,8 @@
 #define DEFAULT_ACTIVE_FLIGHT_MODE  2
 
 // Min and Max allowable trim values.  In PWM.
-#define MAX_TRIM    75
-#define MIN_TRIM    -75
+#define MAX_TRIM    200
+#define MIN_TRIM    -200
 
 // Triple Rate Multipliers
 #define LOW_RATE_MULTIPLIER        0.5

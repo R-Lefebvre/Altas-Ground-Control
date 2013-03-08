@@ -92,7 +92,9 @@ void slow_serial_debug(void){
     for(byte i=0; i<8; i++) {
       Serial.print(i+1);
       Serial.print("  PWM:");
-      Serial.println(PPM_array[i]);
+      Serial.print(PPM_array[i]);
+      Serial.print(" Analog:");
+      Serial.println(AI_Val[i]);
     }
     Serial.println(" ");
     

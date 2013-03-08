@@ -1006,26 +1006,34 @@ void Endpoint_Display(){
         buzzeractivate = 1;
         Button_Pulse[MFD_BUTTON_ENTER_NUM] = false;
         channel++;
-        if (channel > 6 ){                                      // If the pointer has gone past 6...
-            channel = 0;                                        // wrap back to 6.
+        if (channel > 6 ){                                          // If the pointer has gone past 6...
+            channel = 0;                                            // wrap back to 6.
         }
     }
     
     if (Button_State[HAT_SWITCH_UP_NUM] == 0) {
-        buzzeractivate = 1;                                     // activate buzzer
+        buzzeractivate = 1;                                         // activate buzzer
         if (pointer){
-            active_model.EP_high[channel] += 10;
+            if (active_model.EP_high[channel] <= (EP_MAX - 10)){
+                active_model.EP_high[channel] += 10;
+            }
         } else {
-            active_model.EP_low[channel] += 10;
+            if (active_model.EP_low[channel] <= (EP_MAX - 10)){
+                active_model.EP_low[channel] += 10;
+            }
         }
     }
     
     if (Button_State[HAT_SWITCH_DOWN_NUM] == 0) {
-        buzzeractivate = 1;                                     // activate buzzer
+        buzzeractivate = 1;                                         // activate buzzer
         if (pointer){
-            active_model.EP_high[channel] -= 10;
+            if (active_model.EP_high[channel] >= (10 - EP_MAX)){
+                active_model.EP_high[channel] -= 10;
+            }
         } else {
-            active_model.EP_low[channel] -= 10;
+            if (active_model.EP_low[channel] >= (10 - EP_MAX)){
+                active_model.EP_low[channel] -= 10;
+            }
         }
         
     }

@@ -34,6 +34,10 @@ int AI_Pin[7] = {                       // actual analog input pins
 };                
 
 int AI_Val[7];                          // analogue input vars
+int AI_Val2[7];
+int AI_Val3[7];
+int AI_Val4[7];
+int AI_Val5[7];
 
 int DI_Raw[DIGITAL_INPUT_PINCOUNT] = { 
     MFD_BUTTON_MODE_PIN,                    //0
@@ -115,10 +119,10 @@ bool timer1_running = true;
 bool timer2_running = false;   
 int timer1_seconds = 0, timer1_minutes = 0;
 
+int Min_Limit[4];
+int Max_Limit[4];
 int PPM_buffer[9];
 int PPM_array[9];
-
-
 
 byte active_model_num;
 bool ToDo = 0;
@@ -197,6 +201,8 @@ void loop() { // Main loop
             active_timer2_sec--;
         }
 	    tick2 = 0;
+        
+        slow_serial_debug();
         
         if (timer1_seconds >= 60) {
             timer1_seconds = 0;
