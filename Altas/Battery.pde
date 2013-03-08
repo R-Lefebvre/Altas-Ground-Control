@@ -5,27 +5,27 @@ Battery Monitor
 */
 
 int AI_Batte_percent = 0;
-int AI_Battefloat = 0;
+int AI_Battery_2fp = 0;
 float AI_Batte;
-float LipoMin = 10.8;      // Minimum battery voltage (alarm)
-float BatteryMult = 35.7;  // Scale the analogue input down to battery voltage. Value depends on voltage divider resistors used.
-						   // 5.6k & 1k resistors should give 2.2v at the input for 12.6v battery voltage.
+float BatteryMult = 78.3;   // Scale the analogue input down to battery voltage. Value depends on voltage divider resistors used.
+                            // Remember AI_Val[6] is an int between 0 and 1023 which represents 0 to 5V on the pin.
+                            // BatteryMult should equal: (5V * VoltDiv)/1023
 
 void batterymonitor() {
 
-    AI_Batte = AI_Val[5] / BatteryMult;
+    AI_Batte = AI_Val[6] / BatteryMult;
 
-	if (AI_Batte > LipoMin) {            // Compare battery with Lipo alarm setting
+	if (AI_Batte > NiMH_MIN_VOLT) {            // Compare battery with Lipo alarm setting
         digitalWrite(PIEZO_OUTPUT_PIN, LOW);   // Turn off buzzer
     }
-    if (AI_Batte < LipoMin && slowflag == 1) {
+    if (AI_Batte < NiMH_MIN_VOLT && slowflag == 1) {
 	    digitalWrite(PIEZO_OUTPUT_PIN, HIGH);  // Turn on buzzer
     } else {
 	    digitalWrite(PIEZO_OUTPUT_PIN, LOW);   // Turn off buzzer
 	}
 	
-	AI_Battefloat = AI_Batte * 100;      // map doesn't work with float, so mult x100 gains 2 dp's to get around this
-	AI_Batte_percent = map(AI_Battefloat, 1080, 1260, 0, 100) + 0;  // map battery voltage to percentage 10.8v to 12.6v
+	AI_Battery_2fp = AI_Batte * 100;      // map doesn't work with float, so mult x100 gains 2 dp's to get around this
+	AI_Batte_percent = map(AI_Battery_2fp, 880, 1000, 0, 100) + 0;  // map battery voltage to percentage 10.8v to 12.6v
 	if (AI_Batte_percent < 0) {
 	   AI_Batte_percent = 0;
 	}
