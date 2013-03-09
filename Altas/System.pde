@@ -41,7 +41,7 @@ void init_input_output(){
 
 void init_PPM_array(){
     char i=0;
-    for(i=0; i<8; i++) { PPM_array[i] = PWM_MIN; }
+    for(i=0; i<8; i++) { PPM_array[i] = PWM_MID; }
     PPM_array[i] = -1;   // Mark end
     
     Active_Flight_Mode_PWM = Flight_Mode_PWM[DEFAULT_ACTIVE_FLIGHT_MODE];

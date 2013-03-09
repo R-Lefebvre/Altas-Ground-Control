@@ -6,9 +6,7 @@ void ParallaxLCDSetup(){
   clearPLCD();
   Serial3.print("Altas Ground Control");
   Serial3.print("By: Robert Lefebvre");
-  delay(1000);
   initTuneLCD();
-  delay(1500);
   clearPLCD();
 }
 
