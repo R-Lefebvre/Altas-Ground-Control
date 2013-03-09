@@ -676,7 +676,7 @@ void Battery_Display(){
         cursorSet(1,3); Serial3.print("  ");
         cursorSet(3,3); Serial3.print(AI_Batte_percent);
         cursorSet(4,3); Serial3.print("% ");
-        cursorSet(6,3); Serial3.print(AI_Batte);
+        cursorSet(6,3); Serial3.print(AI_Batte_Ave);
         cursorSet(11,3); Serial3.print("V");
     }
     
@@ -684,14 +684,14 @@ void Battery_Display(){
         cursorSet(1,3); Serial3.print(" ");
         cursorSet(2,3); Serial3.print(AI_Batte_percent);
         cursorSet(4,3); Serial3.print("% ");
-        cursorSet(6,3); Serial3.print(AI_Batte);
+        cursorSet(6,3); Serial3.print(AI_Batte_Ave);
         cursorSet(11,3); Serial3.print("V");
     }
     
     if (AI_Batte_percent >= 100) {
         cursorSet(1,3); Serial3.print(AI_Batte_percent);
         cursorSet(4,3); Serial3.print("% ");
-        cursorSet(6,3); Serial3.print(AI_Batte);
+        cursorSet(6,3); Serial3.print(AI_Batte_Ave);
         cursorSet(11,3); Serial3.print("V");
     }    
 }        

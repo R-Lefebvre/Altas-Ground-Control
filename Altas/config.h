@@ -94,7 +94,7 @@
 #define THR_ON_CH8_HOLD         2
 #define THR_SAFETY_OFFSET       40
 
-#define NiMH_MAX_VOLT           10.0
+#define NiMH_MAX_VOLT           11.0
 #define NiMH_MIN_VOLT           8.8
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
